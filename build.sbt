@@ -1,5 +1,5 @@
 name := "scala-glm"
-
+organization := "darrenjw"
 version := "0.1-SNAPSHOT"
 
 scalacOptions ++= Seq(
@@ -21,4 +21,6 @@ resolvers ++= Seq(
 )
 
 scalaVersion := "2.12.1"
+
+publishTo := Some(Resolver.sftp("Personal mvn repo", "unix.ncl.ac.uk", "/home/ucs/100/ndjw1/public_html/mvn"))
 
