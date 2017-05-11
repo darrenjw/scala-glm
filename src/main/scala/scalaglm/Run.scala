@@ -1,7 +1,9 @@
 /*
-Stub.scala
-Stub for Scala Breeze code
+Run.scala
+
 */
+
+package scalaglm
 
 object Stub {
 
