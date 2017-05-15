@@ -8,6 +8,24 @@ This library is simplest to use with SBT.
 
 If building from source, running `sbt console` should give a Scala REPL with a dependence on the library. Documentation can be generated with `sbt doc`.
 
+To use the pre-built binary, add the following lines to your `build.sbt`:
+```scala
+libraryDependencies += "darrenjw" %% "scala-glm" % "0.1-SNAPSHOT"
+resolvers += "Newcastle mvn repo" at "https://www.staff.ncl.ac.uk/d.j.wilkinson/mvn/"
+```
+It's currently only published to my own personal repo. I'll figure out how to push it to Sonatype once it's properly tested.
+
+If you just want to try it out without setting up a project, you can do so with a session like:
+```
+$ sbt
+> set scalaVersion := "2.12.1"
+> set libraryDependencies += "darrenjw" %% "scala-glm" % "0.1-SNAPSHOT"
+> set resolvers += "Newcastle mvn repo" at "https://www.staff.ncl.ac.uk/d.j.wilkinson/mvn/"
+> console
+scala> import scalaglm._
+```
+See below for usage info.
+
 This library has a dependence on Breeze, so if you have a dependence on `scala-glm` you don't need to add an additional dependence on Breeze.
 
 
