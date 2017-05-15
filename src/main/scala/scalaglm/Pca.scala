@@ -16,6 +16,21 @@ package scalaglm
 import breeze.linalg._
 import breeze.stats._
 
+
+/**
+  * Principal components analysis
+  * 
+  * Computed using SVD of the centred data matrix rather than from the
+  * spectral decomposition of the covariance matrix. eg. More like the
+  * R function "prcomp" than the R function "princomp".
+  * 
+  * @param mat Data matrix with rows corresponding to observations and 
+  * columns corresponding to variables
+  * 
+  * @return An object of type Pca with methods such as .loadings, .scores, and .sdev
+  * 
+  * NOTE: .loadings are transposed relative to the PCA function in Breeze
+  */
 case class Pca(mat: DenseMatrix[Double]) {
   // via SVD of the centred data matrix
   val xBar = mean(mat(::, *)).t
@@ -28,7 +43,8 @@ case class Pca(mat: DenseMatrix[Double]) {
 
 object PcaUtils {
 
-  // Main runner method
+
+  // Example main runner method
   def main(args: Array[String]): Unit = {
 
     val url = "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"

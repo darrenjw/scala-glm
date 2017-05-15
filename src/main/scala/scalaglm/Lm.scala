@@ -14,17 +14,23 @@ import com.github.fommil.netlib.BLAS.{ getInstance => blas }
  * Linear regression modelling
  *
  * @param y Vector of responses
- * @param X Covariate matrix (including an intercept column, if required)
- * @param names List of covariate names
+ * @param Xmat Covariate matrix
+ * @param colNames List of covariate names
+ * @param addIntercept Add an intercept term to the covariate matrix?
  *
  * @return An object of type Lm with many useful methods
  * providing information about the regression fit
  */
 case class Lm(y: DenseVector[Double],
-  X: DenseMatrix[Double], names: List[String]) {
-  require(y.size == X.rows)
-  require(names.length == X.cols)
-  require(X.rows >= X.cols)
+  Xmat: DenseMatrix[Double], colNames: Seq[String], addIntercept: Boolean = true) {
+  require(y.size == Xmat.rows)
+  require(colNames.length == Xmat.cols)
+  require(Xmat.rows >= Xmat.cols)
+  val X = if (addIntercept) DenseMatrix.horzcat(
+    DenseVector.ones[Double](Xmat.rows).toDenseMatrix.t, Xmat)
+  else Xmat
+  val names = if (addIntercept) "(Intercept)" :: colNames.toList
+  else colNames.toList
   import Utils._
   val QR = qr.reduced(X)
   val q = QR.q
@@ -102,7 +108,24 @@ object Utils {
     yc
   }
 
-  // Main runner method
+
+  def time[A](f: => A) = {
+    val s = System.nanoTime
+    val ret = f
+    println("time: "+(System.nanoTime-s)/1e6+"ms")
+    ret
+  }
+
+
+
+
+
+
+
+
+
+
+  // Example main runner method
   def main(args: Array[String]): Unit = {
 
     val url = "http://archive.ics.uci.edu/ml/machine-learning-databases/00291/airfoil_self_noise.dat"
@@ -121,10 +144,8 @@ object Utils {
     val mat = csvread(new java.io.File(fileName))
     println("Dim: " + mat.rows + " " + mat.cols)
     val y = mat(::, 5) // response is the final column
-    val x = mat(::, 0 to 4)
-    val X = DenseMatrix.horzcat(
-      DenseVector.ones[Double](x.rows).toDenseMatrix.t, x)
-    val mod = Lm(y, X, List("(Intercept)", "Freq", "Angle", "Chord", "Velo", "Thick"))
+    val X = mat(::, 0 to 4)
+    val mod = Lm(y, X, List("Freq", "Angle", "Chord", "Velo", "Thick"))
     mod.summary
 
   } // main
