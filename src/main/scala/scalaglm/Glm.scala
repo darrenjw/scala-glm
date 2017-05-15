@@ -1,8 +1,7 @@
 /*
-irls.scala
+Glm.scala
 
-Increasingly fast, memory efficient, and numerically stable
-solutions of the IRLS problem for one-parameter GLMs
+One-parameter exponential GLMs, including logistic and Poisson regression
 
  */
 
@@ -28,6 +27,7 @@ object IRLS {
     ret
   }
 
+  // obsolete
   @annotation.tailrec
   def IRLS1(
     bp: Double => Double,
@@ -47,6 +47,7 @@ object IRLS {
     if (norm(bhat - bhat0) < tol) bhat else IRLS1(bp, bpp, y, X, bhat, its - 1, tol)
   }
 
+  // obsolete
   @annotation.tailrec
   def IRLS2(
     bp: Double => Double,
@@ -67,7 +68,7 @@ object IRLS {
   }
 
   @annotation.tailrec
-  def IRLS3(
+  def IRLS(
     bp: Double => Double,
     bpp: Double => Double,
     y: DenseVector[Double],
@@ -84,7 +85,7 @@ object IRLS {
     val Xs = X(::,*) * sW
     val QR = qr.reduced(Xs)
     val bhat = bhat0 + backSolve(QR.r, QR.q.t * zs)
-    if (norm(bhat - bhat0) < tol) bhat else IRLS3(bp, bpp, y, X, bhat, its - 1, tol)
+    if (norm(bhat - bhat0) < tol) bhat else IRLS(bp, bpp, y, X, bhat, its - 1, tol)
   }
   // TODO: compute approx SEs, etc.
 
@@ -99,7 +100,7 @@ object IRLS {
       val e = math.exp(-x)
       e / ((1.0 + e) * (1.0 + e))
     }
-    IRLS3(bp, bpp, y, X, DenseVector.zeros[Double](X.cols), its)
+    IRLS(bp, bpp, y, X, DenseVector.zeros[Double](X.cols), its)
   }
 
   def logRegR(
