@@ -83,6 +83,7 @@ val y = DenseVector(1.0,0.0,1.0,0.0)
 val X = DenseMatrix((1.0,1.5),(1.5,2.0),(2.0,1.5),(2.0,1.0))
 val glm = Glm(y,X,List("V1","V2"),LogisticGlm)
 glm.coefficients
+glm.summary
 ```
 
 ### Poisson regression
@@ -94,6 +95,7 @@ val y = DenseVector(1.0,3.0,4.0,2.0)
 val X = DenseMatrix((1.0,1.5),(1.5,2.0),(2.0,1.5),(2.0,1.0))
 val glm = Glm(y,X,List("V1","V2"),PoissonGlm)
 glm.coefficients
+glm.summary
 ```
 
 

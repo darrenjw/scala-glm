@@ -13,8 +13,8 @@ import breeze.numerics._
 import com.github.fommil.netlib.BLAS.{ getInstance => blas }
 
 sealed trait GlmFamily {
-  val bp: Double => Double
-  val bpp: Double => Double
+  val bp: Double => Double // derivative of b()
+  val bpp: Double => Double // 2nd derivative of b()
 }
 
 // List of supported observation models
@@ -56,8 +56,31 @@ case class Glm(y: DenseVector[Double],
   else Xmat
   val names = if (addIntercept) "(Intercept)" :: colNames.toList
   else colNames.toList
-  //import Utils._
-  val coefficients = Irls.IRLS(fam.bp, fam.bpp, y, X, DenseVector.zeros[Double](X.cols), its)
+  val irls = Irls.IRLS(fam.bp, fam.bpp, y, X, DenseVector.zeros[Double](X.cols), its)
+  val coefficients = irls._1
+  val q = irls._2
+  val r = irls._3
+  lazy val n = X.rows
+  lazy val pp = X.cols
+  lazy val df = n - pp
+  lazy val ri = inv(r)
+  lazy val xtxi = ri * (ri.t)
+  lazy val se = breeze.numerics.sqrt(diag(xtxi))
+  lazy val z = coefficients / se
+  lazy val p = z.map (zi =>
+    1.0 - Gaussian(0.0,1.0).cdf(math.abs(zi)) ).
+    map (_ * 2)
+  def summary: Unit = {
+    println(
+      "Estimate\t S.E.\t z-stat\tp-value\t\tVariable")
+    println(
+      "---------------------------------------------------------")
+    (0 until pp).foreach(i => printf(
+      "%8.4f\t%6.3f\t%6.3f\t%6.4f %s\t%s\n",
+      coefficients(i), se(i), z(i), p(i),
+      if (p(i) < 0.05) "*" else " ",
+      names(i)))
+  }
 }
 
 object Irls {
@@ -72,17 +95,19 @@ object Irls {
     X: DenseMatrix[Double],
     bhat0: DenseVector[Double],
     its: Int,
-    tol: Double = 0.0000001): DenseVector[Double] = if (its == 0) {
-    println("WARNING: IRLS did not converge")
-    bhat0
-  } else {
+    tol: Double = 0.0000001
+  ): (DenseVector[Double],DenseMatrix[Double],DenseMatrix[Double]) = {
     val eta = X * bhat0
     val sW = eta map bpp map math.sqrt
     val zs = (y - (eta map bp)) / sW
     val Xs = X(::, *) * sW
     val QR = qr.reduced(Xs)
     val bhat = bhat0 + backSolve(QR.r, QR.q.t * zs)
-    if (norm(bhat - bhat0) < tol) bhat else IRLS(bp, bpp, y, X, bhat, its - 1, tol)
+    if (its <= 1) println("WARNING: IRLS did not converge")
+    if ((norm(bhat - bhat0) < tol)|(its <= 1))
+      (bhat, QR.q, QR.r)
+    else
+      IRLS(bp, bpp, y, X, bhat, its - 1, tol)
   }
   // TODO: compute approx SEs, etc.
 

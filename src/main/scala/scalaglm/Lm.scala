@@ -38,15 +38,6 @@ case class Lm(y: DenseVector[Double],
   val qty = q.t * y
   val coefficients = backSolve(r, qty)
   import breeze.stats._
-  import org.apache.commons.math3.special.Beta
-  def tCDF(t: Double, df: Double): Double = {
-    val xt = df / (t * t + df)
-    1.0 - 0.5 * Beta.regularizedBeta(xt, 0.5 * df, 0.5)
-  }
-  def fCDF(x: Double, d1: Double, d2: Double) = {
-    val xt = x * d1 / (x * d1 + d2)
-    Beta.regularizedBeta(xt, 0.5 * d1, 0.5 * d2)
-  }
   lazy val fitted = q * qty
   lazy val residuals = y - fitted
   lazy val n = X.rows
@@ -108,6 +99,17 @@ object Utils {
     yc
   }
 
+  import org.apache.commons.math3.special.Beta
+
+  def tCDF(t: Double, df: Double): Double = {
+    val xt = df / (t * t + df)
+    1.0 - 0.5 * Beta.regularizedBeta(xt, 0.5 * df, 0.5)
+  }
+
+  def fCDF(x: Double, d1: Double, d2: Double) = {
+    val xt = x * d1 / (x * d1 + d2)
+    Beta.regularizedBeta(xt, 0.5 * d1, 0.5 * d2)
+  }
 
   def time[A](f: => A) = {
     val s = System.nanoTime

@@ -39,12 +39,19 @@ class GlmSpec extends FlatSpec {
     val y = DenseVector(1.0,2.0,3.0,2.0)
     val x = DenseMatrix((2.0),(4.0),(5.0),(2.5))
     val mod = Glm(y,x,List("Covariate"),PoissonGlm,its=1000)
+    //mod.summary
     val R = org.ddahl.rscala.RClient()
     R.y = y.toArray
     R.x = x(::,0).toDenseVector.toArray
     R.eval("mod = glm(y~x,family=poisson())")
     val rCoef = DenseVector[Double](R.evalD1("mod$coefficients"))
     assert(norm(mod.coefficients - rCoef) <= 0.000001)
+    val rSe = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,2]"))
+    assert(norm(mod.se - rSe) <= 0.000001)
+    val rZ = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,3]"))
+    assert(norm(mod.z - rZ) <= 0.000001)
+    val rP = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,4]"))
+    assert(norm(mod.p - rP) <= 0.000001)
   }
 
 
