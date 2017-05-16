@@ -12,7 +12,7 @@ import breeze.linalg._
 import breeze.numerics._
 
 
-class RegSpec extends FlatSpec {
+class LmSpec extends FlatSpec {
 
   "1+1" should "be 2" in {
     assert(1+1 === 2)
@@ -87,6 +87,31 @@ class RegSpec extends FlatSpec {
     assert(norm(mod.coefficients - beta) < 0.00001)
     assert(abs(mod.rSquared - 1.0) < 0.00001)
   }
+
+  it should "fit a simple linear regression model and get the same as R" in {
+    val y = DenseVector(1.0,2.5,0.5,3.0)
+    val x = DenseMatrix((1.0),(2.5),(3.0),(2.0))
+    val mod = Lm(y,x,List("Covariate"))
+    //mod.summary
+    val R = org.ddahl.rscala.RClient()
+    R.y = y.toArray
+    R.x = x(::,0).toDenseVector.toArray
+    R.eval("mod = lm(y~x)")
+    val rCoef = DenseVector[Double](R.evalD1("mod$coefficients"))
+    assert(norm(mod.coefficients - rCoef) <= 0.00001)
+    val rSe = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,2]"))
+    assert(norm(mod.se - rSe) <= 0.00001)
+    val rT = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,3]"))
+    assert(norm(mod.t - rT) <= 0.00001)
+    val rP = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,4]"))
+    assert(norm(mod.p - rP) <= 0.00001)
+  }
+
+
+
+
+
+
 
 
 }
