@@ -11,30 +11,9 @@ import org.scalatest.FlatSpec
 import breeze.linalg._
 import breeze.numerics._
 
-
 class LmSpec extends FlatSpec {
 
-  "1+1" should "be 2" in {
-    assert(1+1 === 2)
-  }
-
   import Utils._
-
-  "backSolve" should "invert correctly (1)" in {
-    val A = DenseMatrix((4,1),(0,2)) map (_.toDouble)
-    val x = DenseVector(3.0,-2.0)
-    val y = A * x
-    val xx = backSolve(A,y)
-    assert (norm(x-xx) < 0.00001)
-  }
-
-  it should "invert correctly (2)" in {
-    val A = DenseMatrix((42,11),(0,8)) map (_.toDouble)
-    val x = DenseVector(7.0,-3.0)
-    val y = A * x
-    val xx = backSolve(A,y)
-    assert (norm(x-xx) < 0.00001)
-  }
 
   "Lm" should "handle 2 points on a horizontal line (manual intercept)" in {
     val y = DenseVector(5.0,5.0)
