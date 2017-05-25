@@ -87,6 +87,42 @@ class GlmSpec extends FlatSpec {
     assert(norm(mod.p - rP) <= 0.00001)
   }
 
+  it should "fit a simple logistic regression model with 2 covariates and get the same as R" in {
+    val y = DenseVector(1.0,1.0,0.0,0.0)
+    val x = DenseMatrix((1.0,2.0),(2.5,4.0),(3.0,2.0),(2.0,3.5))
+    val mod = Glm(y,x,List("V1","V2"),LogisticGlm,its=1000)
+    val R = org.ddahl.rscala.RClient()
+    R.y = y.toArray
+    R.x = Utils.bdm2aa(x)
+    R.eval("mod = glm(y~x,family=binomial())")
+    val rCoef = DenseVector[Double](R.evalD1("mod$coefficients"))
+    assert(norm(mod.coefficients - rCoef) <= 0.00001)
+    val rSe = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,2]"))
+    assert(norm(mod.se - rSe) <= 0.001)
+    val rZ = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,3]"))
+    assert(norm(mod.z - rZ) <= 0.001)
+    val rP = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,4]"))
+    assert(norm(mod.p - rP) <= 0.0001)
+  }
+
+  it should "fit a simple Poisson regression model with 2 covariates and get the same as R" in {
+    val y = DenseVector(1.0,4.0,0.0,3.0)
+    val x = DenseMatrix((1.0,2.0),(2.5,4.0),(3.0,2.0),(2.0,3.5))
+    val mod = Glm(y,x,List("V1","V2"),PoissonGlm,its=1000)
+    val R = org.ddahl.rscala.RClient()
+    R.y = y.toArray
+    R.x = Utils.bdm2aa(x)
+    R.eval("mod = glm(y~x,family=poisson())")
+    val rCoef = DenseVector[Double](R.evalD1("mod$coefficients"))
+    assert(norm(mod.coefficients - rCoef) <= 0.00001)
+    val rSe = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,2]"))
+    assert(norm(mod.se - rSe) <= 0.0001)
+    val rZ = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,3]"))
+    assert(norm(mod.z - rZ) <= 0.0001)
+    val rP = DenseVector[Double](R.evalD1("summary(mod)$coefficients[,4]"))
+    assert(norm(mod.p - rP) <= 0.0001)
+  }
+
 
 }
 
