@@ -65,6 +65,16 @@ case class Pca(mat: DenseMatrix[Double], colNames: Seq[String]) {
   }
 }
 
+object Pca {
+
+  def apply(mat: DenseMatrix[Double]): Pca = {
+    val p = mat.cols
+    val names = (1 to p) map ("V%02d".format(_))
+    Pca(mat,names)
+  }
+
+}
+
 object PcaUtils {
 
 
@@ -111,6 +121,8 @@ object PcaUtils {
     println("Scores:")
     println(myPca.scores(0 to 5, ::))
 
+
+
     // scatter plot first 2 principal components
     import breeze.plot._
     val fig = Figure("PCA")
@@ -124,6 +136,11 @@ object PcaUtils {
     val ind2 = (0 until x.rows) filter (i => clas(i) == 2)
     p += plot(myPca.scores(ind2, 0).toDenseVector,
       myPca.scores(ind2, 1).toDenseVector, '.', colorcode = "green")
+
+    // Test without variable names
+    Pca(x).summary
+
+
   }
 
 }

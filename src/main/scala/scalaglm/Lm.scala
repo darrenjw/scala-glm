@@ -78,7 +78,25 @@ case class Lm(y: DenseVector[Double],
       "F-statistic: %6.4f on %d and %d DF, p-value: %6.5f\n\n",
       f, k, df, pf)
   }
-}
+
+} // case class Lm
+
+  object Lm {
+
+    def apply(y: DenseVector[Double],
+  Xmat: DenseMatrix[Double], addIntercept: Boolean): Lm = {
+      val p = Xmat.cols
+      val names = (1 to p) map ("V%02d".format(_))
+      Lm(y,Xmat,names,addIntercept)
+    }
+
+    def apply(y: DenseVector[Double],
+      Xmat: DenseMatrix[Double]): Lm =
+      Lm(y,Xmat,true)
+
+  } // object Lm
+
+
 
 object Utils {
 
@@ -149,6 +167,10 @@ object Utils {
     val X = mat(::, 0 to 4)
     val mod = Lm(y, X, List("Freq", "Angle", "Chord", "Velo", "Thick"))
     mod.summary
+
+    // test without name list
+    Lm(y,X,false).summary
+    Lm(y,X).summary
 
   } // main
 

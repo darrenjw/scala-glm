@@ -83,6 +83,32 @@ case class Glm(y: DenseVector[Double],
   }
 }
 
+object Glm {
+
+    def apply(y: DenseVector[Double],
+      Xmat: DenseMatrix[Double], fam: GlmFamily,
+      addIntercept: Boolean, its: Int): Glm = {
+      val p = Xmat.cols
+      val names = (1 to p) map ("V%02d".format(_))
+      Glm(y,Xmat,names,fam,addIntercept,its)
+    }
+
+    def apply(y: DenseVector[Double],
+      Xmat: DenseMatrix[Double], fam: GlmFamily,its: Int): Glm =
+      Glm(y,Xmat,fam,true,its)
+
+    def apply(y: DenseVector[Double],
+      Xmat: DenseMatrix[Double], fam: GlmFamily,
+    addIntercept: Boolean): Glm =
+      Glm(y,Xmat,fam,addIntercept,50)
+
+    def apply(y: DenseVector[Double],
+      Xmat: DenseMatrix[Double], fam: GlmFamily): Glm =
+      Glm(y,Xmat,fam,true,50)
+
+  } // object Glm
+
+
 object Irls {
 
   import Utils._
@@ -109,7 +135,6 @@ object Irls {
     else
       IRLS(bp, bpp, y, X, bhat, its - 1, tol)
   }
-  // TODO: compute approx SEs, etc.
 
 }
 

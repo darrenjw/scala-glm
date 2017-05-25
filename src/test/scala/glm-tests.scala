@@ -21,10 +21,24 @@ class GlmSpec extends FlatSpec {
     assert(mod.coefficients.length == 2)
   }
 
+  it should "fit a simple logistic regression model (without intercept or names)" in {
+    val y = DenseVector(1.0,1.0,0.0,0.0,1.0)
+    val x = DenseMatrix((1.0,2.0),(1.5,4.0),(1.0,2.0),(3.0,2.5),(2.5,3.0))
+    val mod = Glm(y,x,LogisticGlm,false,its=1000)
+    assert(mod.coefficients.length == 2)
+  }
+
   it should "fit a simple logistic regression model (with intercept)" in {
     val y = DenseVector(1.0,1.0,0.0,0.0)
     val x = DenseMatrix((1.0,2.0),(2.5,4.0),(3.0,2.0),(2.0,3.5))
     val mod = Glm(y,x,List("V1","V2"),LogisticGlm,its=1000)
+    assert(mod.coefficients.length == 3)
+  }
+
+  it should "fit a simple logistic regression model (with intercept and without names)" in {
+    val y = DenseVector(1.0,1.0,0.0,0.0)
+    val x = DenseMatrix((1.0,2.0),(2.5,4.0),(3.0,2.0),(2.0,3.5))
+    val mod = Glm(y,x,LogisticGlm,its=1000)
     assert(mod.coefficients.length == 3)
   }
 
