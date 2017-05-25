@@ -1,13 +1,5 @@
 /*
-pca.scala
-
-PCA for the dataset:
-
-http://archive.ics.uci.edu/ml/datasets/Iris
-
-from the Machine learning repository: 
-
-http://archive.ics.uci.edu/ml/datasets.html
+Pca.scala
 
 */
 
@@ -16,7 +8,6 @@ package scalaglm
 import breeze.linalg._
 import breeze.stats._
 
-
 /**
   * Principal components analysis
   * 
@@ -24,28 +15,90 @@ import breeze.stats._
   * spectral decomposition of the covariance matrix. eg. More like the
   * R function "prcomp" than the R function "princomp".
   * 
+  * NOTE: .loadings are transposed relative to the PCA function in Breeze
+  * 
   * @param mat Data matrix with rows corresponding to observations and 
   * columns corresponding to variables
+  * @param colNames Sequence of column names of mat
   * 
-  * @return An object of type Pca with methods such as .loadings, .scores, and .sdev
-  * 
-  * NOTE: .loadings are transposed relative to the PCA function in Breeze
+  * @return An object of type Pca with methods such as .loadings, .scores, .sdev
+  * and .summary
   */
 case class Pca(mat: DenseMatrix[Double], colNames: Seq[String]) {
+
   require(mat.cols == colNames.length)
+
+  /**
+    * Number of observations
+    */
   val n = mat.rows
+
+  /**
+    * Number of variables
+    */
   val p = mat.cols
+
+  /**
+    * Column names (as a List)
+    */
   val names = colNames.toList
+
+  /**
+    * Column means (for centring)
+    */
   val xBar = mean(mat(::, *)).t
+
+  /**
+    * Centred data matrix
+    */
   val x = mat(*, ::) - xBar
+
+  /**
+    * Breeze SVD object for the centred data matrix
+    */
   val SVD = svd.reduced(x)
+
+  /**
+    * Loadings/rotation matrix.
+    * Note that this is the TRANSPOSE of the corresponding Breeze method.
+    * But this is the usual way the rotations are reported.
+    * See how the .summary method labels the rows and columns if you are confused.
+    */
   val loadings = SVD.Vt.t
+
+  /**
+    * Standard deviations of the principal components
+    */
   val sdev = SVD.S / math.sqrt(x.rows - 1)
+
+  /**
+    * n x p matrix of scores - the rotated data
+    */
   lazy val scores = x * loadings
+
+  /** 
+    * Variances of the principal components
+    */
   lazy val variance = sdev map (x => x*x)
+
+  /**
+    * The total variance of the principal components
+    */
   lazy val totVar = sum(variance)
+
+  /** 
+    * Proportion of variance explained by each principal component
+    */
   lazy val propvar = variance / totVar
+
+  /** 
+    * Cumulative variance of the principal components
+    */
   lazy val cumuvar = DenseVector(propvar.toArray.scanLeft(0.0)(_+_) drop (1))
+
+  /** 
+    * Prints a summary of the PCA to console
+    */
   def summary: Unit = {
     println("Standard deviations:") 
     println(names.mkString("\t"))
@@ -63,20 +116,27 @@ case class Pca(mat: DenseMatrix[Double], colNames: Seq[String]) {
         println(names(i))
     }
   }
-}
+
+} // case class Pca
 
 object Pca {
 
+  /**
+    * Constructor without a list of variable names
+    */
   def apply(mat: DenseMatrix[Double]): Pca = {
     val p = mat.cols
     val names = (1 to p) map ("V%02d".format(_))
     Pca(mat,names)
   }
 
-}
+} // object Pca
 
+/**
+  * Test code only - nothing of general interest.
+  * Will probably get removed in due course
+  */
 object PcaUtils {
-
 
   // Example main runner method
   def main(args: Array[String]): Unit = {

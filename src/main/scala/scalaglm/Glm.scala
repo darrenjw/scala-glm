@@ -12,12 +12,25 @@ import breeze.stats.distributions.{ Gaussian, Binomial, Poisson }
 import breeze.numerics._
 import com.github.fommil.netlib.BLAS.{ getInstance => blas }
 
+/** 
+  * Trait for simple one-parameter exponential family observation models.
+  */
 sealed trait GlmFamily {
-  val bp: Double => Double // derivative of b()
-  val bpp: Double => Double // 2nd derivative of b()
+  /** 
+    * First derivative of the b(.) function
+    */
+  val bp: Double => Double
+  /** 
+    * Second derivative of the b(.) function
+    */
+  val bpp: Double => Double
 }
 
 // List of supported observation models
+
+/**
+  * GlmFamily object for logistic regression
+  */
 case object LogisticGlm extends GlmFamily {
   val bp = (x: Double) => sigmoid(x)
   val bpp = (x: Double) => {
@@ -26,6 +39,9 @@ case object LogisticGlm extends GlmFamily {
   }
 }
 
+/** 
+  * GlmFamily object for Poisson regression
+  */
 case object PoissonGlm extends GlmFamily {
   val bp = math.exp _
   val bpp = math.exp _
@@ -41,9 +57,9 @@ case object PoissonGlm extends GlmFamily {
  * @param addIntercept Add an intercept term to the covariate matrix?
  * @param its Max iterations for the IRLS algorithm (default 50)
  *
- * @return An object of type Glm with useful methods
+ * @return An object of type Glm with many useful methods
  * providing information about the regression fit,
- * with .coefficients currently being the most useful
+ * including .coefficients, .p and .summary
  */
 case class Glm(y: DenseVector[Double],
   Xmat: DenseMatrix[Double], colNames: Seq[String], fam: GlmFamily,
@@ -51,25 +67,85 @@ case class Glm(y: DenseVector[Double],
   require(y.size == Xmat.rows)
   require(colNames.length == Xmat.cols)
   require(Xmat.rows >= Xmat.cols)
+
+  /** 
+    * Design matrix (including the intercept column, if required)
+    */
   val X = if (addIntercept) DenseMatrix.horzcat(
     DenseVector.ones[Double](Xmat.rows).toDenseMatrix.t, Xmat)
   else Xmat
+
+  /** 
+    * Sequence of variable names (including the intercept)
+    */
   val names = if (addIntercept) "(Intercept)" :: colNames.toList
   else colNames.toList
+
+  /** 
+    * Tuple containing results of running the IRLS algorithm - not for general use
+    */
   val irls = Irls.IRLS(fam.bp, fam.bpp, y, X, DenseVector.zeros[Double](X.cols), its)
+
+  /** 
+    * Fitted regression coefficients
+    */
   val coefficients = irls._1
+
+  /** 
+    * Final Q-matrix from the IRLS algorithm
+    */
   val q = irls._2
+
+  /** 
+    * Final R-matrix from the IRLS algorithm
+    */
   val r = irls._3
+
+  /** 
+    * Number of observations
+    */
   lazy val n = X.rows
+
+  /** 
+    * Number of variables (including the intercept)
+    */
   lazy val pp = X.cols
+
+  /** 
+    * Degrees of freedom
+    */
   lazy val df = n - pp
+
+  /** 
+    * Inverse of the final R-matrix
+    */
   lazy val ri = inv(r)
-  lazy val xtxi = ri * (ri.t)
-  lazy val se = breeze.numerics.sqrt(diag(xtxi))
+
+  /** 
+    * Inverse of the final X'WX matrix
+    */
+  lazy val xtwxi = ri * (ri.t)
+
+  /** 
+    * Standard errors for the regression coefficients
+    */
+  lazy val se = breeze.numerics.sqrt(diag(xtwxi))
+
+  /** 
+    * z-statistics for the regression coefficients
+    */
   lazy val z = coefficients / se
+
+  /** 
+    * p-values for the regression coefficients
+    */
   lazy val p = z.map (zi =>
     1.0 - Gaussian(0.0,1.0).cdf(math.abs(zi)) ).
     map (_ * 2)
+
+  /** 
+    * Prints a human-readable regression summary to the console
+    */
   def summary: Unit = {
     println(
       "Estimate\t S.E.\t z-stat\tp-value\t\tVariable")
@@ -81,10 +157,14 @@ case class Glm(y: DenseVector[Double],
       if (p(i) < 0.05) "*" else " ",
       names(i)))
   }
-}
+
+} // case class Glm
 
 object Glm {
 
+  /** 
+    * Constructor without a name list
+    */
     def apply(y: DenseVector[Double],
       Xmat: DenseMatrix[Double], fam: GlmFamily,
       addIntercept: Boolean, its: Int): Glm = {
@@ -93,15 +173,24 @@ object Glm {
       Glm(y,Xmat,names,fam,addIntercept,its)
     }
 
+  /** 
+    * Constructor without a name list or addIntercept option
+    */
     def apply(y: DenseVector[Double],
       Xmat: DenseMatrix[Double], fam: GlmFamily,its: Int): Glm =
       Glm(y,Xmat,fam,true,its)
 
+  /** 
+    * Constructor without a name list or its option
+    */
     def apply(y: DenseVector[Double],
       Xmat: DenseMatrix[Double], fam: GlmFamily,
     addIntercept: Boolean): Glm =
       Glm(y,Xmat,fam,addIntercept,50)
 
+  /** 
+    * Constructor without a name list, addIntercept or its option
+    */
     def apply(y: DenseVector[Double],
       Xmat: DenseMatrix[Double], fam: GlmFamily): Glm =
       Glm(y,Xmat,fam,true,50)
@@ -113,6 +202,9 @@ object Irls {
 
   import Utils._
 
+  /** 
+    * IRLS algorithm, called by Glm
+    */
   @annotation.tailrec
   def IRLS(
     bp: Double => Double,

@@ -26,38 +26,152 @@ case class Lm(y: DenseVector[Double],
   require(y.size == Xmat.rows)
   require(colNames.length == Xmat.cols)
   require(Xmat.rows >= Xmat.cols)
+
+  /** 
+    * Design matrix (including intercept, if required)
+    */
   val X = if (addIntercept) DenseMatrix.horzcat(
     DenseVector.ones[Double](Xmat.rows).toDenseMatrix.t, Xmat)
   else Xmat
+
+  /** 
+    * Column names (including intercept)
+    */
   val names = if (addIntercept) "(Intercept)" :: colNames.toList
   else colNames.toList
+
   import Utils._
+
+  /** 
+    * Breeze QR object for the design matrix
+    */
   val QR = qr.reduced(X)
+
+  /** 
+    * n x p Q-matrix
+    */
   val q = QR.q
+
+  /** 
+    * p x p upper-triangular R-matrix
+    */
   val r = QR.r
+
+  /**  
+    * Q'y
+    */
   val qty = q.t * y
+
+  /** 
+    * Fitted regression coefficients
+    */
   val coefficients = backSolve(r, qty)
+
   import breeze.stats._
+
+  /** 
+    * Fitted values
+    */
   lazy val fitted = q * qty
+
+  /** 
+    * Residuals
+    */
   lazy val residuals = y - fitted
+
+  /** 
+    * Number of observations
+    */
   lazy val n = X.rows
+
+  /** 
+    * Number of variables (including any intercept)
+    */
   lazy val pp = X.cols
+
+  /** 
+    * Degrees of freedom
+    */
   lazy val df = n - pp
+
+  /** 
+    * Residual sum of squares
+    */
   lazy val rss = sum(residuals ^:^ 2.0)
+
+  /** 
+    * Residual squared error
+    */
   lazy val rse = math.sqrt(rss / df)
+
+  /** 
+    * The inverse of the R-matrix
+    */
   lazy val ri = inv(r)
+
+  /** 
+    * The inverse of X'X (but calculated efficiently)
+    */
   lazy val xtxi = ri * (ri.t)
+
+  /**  
+    * Standard errors for the regression coefficients
+    */
   lazy val se = breeze.numerics.sqrt(diag(xtxi)) * rse
+
+  /** 
+    * t-statistics for the regression coefficients
+    */
   lazy val t = coefficients / se
+
+  /** 
+    * p-values for the regression coefficients
+    */
   lazy val p = t.map { 1.0 - tCDF(_, df) }.map { _ * 2 }
+
+  /** 
+    * The mean of the observations
+    */
   lazy val ybar = mean(y)
+
+  /** 
+    The centred observations
+    */
   lazy val ymyb = y - ybar
+
+  /** 
+    The sum-of-squares of the centred observations
+    */
   lazy val ssy = sum(ymyb ^:^ 2.0)
+
+  /** 
+    The R^2 value for the regression analysis
+    */
   lazy val rSquared = (ssy - rss) / ssy
+
+  /** 
+    * The adjusted R^2 value for the regression
+    */
   lazy val adjRs = 1.0 - ((n - 1.0) / (n - pp)) * (1 - rSquared)
+
+  /** 
+    * Degrees of freedom for the F-statistic 
+    */
   lazy val k = pp - 1
+
+  /** 
+    * The f-statistic for the regression analysis
+    */
   lazy val f = (ssy - rss) / k / (rss / df)
+
+  /** 
+    * The p-value associated with the f-statistic
+    */
   lazy val pf = 1.0 - fCDF(f, k, df)
+
+  /** 
+    * Prints a human-readable regression summary to the console
+    */
   def summary: Unit = {
     println(
       "Estimate\t S.E.\t t-stat\tp-value\t\tVariable")
@@ -83,6 +197,9 @@ case class Lm(y: DenseVector[Double],
 
   object Lm {
 
+    /** 
+      * Constructor without a name list
+      */
     def apply(y: DenseVector[Double],
   Xmat: DenseMatrix[Double], addIntercept: Boolean): Lm = {
       val p = Xmat.cols
@@ -90,6 +207,9 @@ case class Lm(y: DenseVector[Double],
       Lm(y,Xmat,names,addIntercept)
     }
 
+    /** 
+      * Constructor without a name list or addIntercept option
+      */
     def apply(y: DenseVector[Double],
       Xmat: DenseMatrix[Double]): Lm =
       Lm(y,Xmat,true)
@@ -119,16 +239,25 @@ object Utils {
 
   import org.apache.commons.math3.special.Beta
 
+  /** 
+    * The CDF of the t-distribution
+    */
   def tCDF(t: Double, df: Double): Double = {
     val xt = df / (t * t + df)
     1.0 - 0.5 * Beta.regularizedBeta(xt, 0.5 * df, 0.5)
   }
 
+  /** 
+    * The CDF of the f-distribution
+    */
   def fCDF(x: Double, d1: Double, d2: Double) = {
     val xt = x * d1 / (x * d1 + d2)
     Beta.regularizedBeta(xt, 0.5 * d1, 0.5 * d2)
   }
 
+  /** 
+    * A very simple function for timing computations - not for general use
+    */
   def time[A](f: => A) = {
     val s = System.nanoTime
     val ret = f
@@ -137,15 +266,10 @@ object Utils {
   }
 
 
-
-
-
-
-
-
-
-
-  // Example main runner method
+  /** 
+    * Example of a main runner method - not for general use - will probably get removed
+    * in due course
+    */
   def main(args: Array[String]): Unit = {
 
     val url = "http://archive.ics.uci.edu/ml/machine-learning-databases/00291/airfoil_self_noise.dat"
