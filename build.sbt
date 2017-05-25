@@ -1,6 +1,6 @@
 name := "scala-glm"
 organization := "darrenjw"
-version := "0.1"
+version := "0.2-SNAPSHOT"
 
 scalacOptions ++= Seq(
   "-unchecked", "-deprecation", "-feature"

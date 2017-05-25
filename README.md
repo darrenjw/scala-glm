@@ -13,6 +13,8 @@ To use the pre-built binary, add the following lines to your `build.sbt`:
 libraryDependencies += "darrenjw" %% "scala-glm" % "0.1"
 resolvers += "Newcastle mvn repo" at "https://www.staff.ncl.ac.uk/d.j.wilkinson/mvn/"
 ```
+The current stable release is "0.1". The latest unstable release is "0.2-SNAPSHOT".
+
 It's currently only published to my own personal repo. I'll figure out how to push it to Sonatype once it's properly tested.
 
 If you just want to try it out without setting up a project, you can do so with a session like:
