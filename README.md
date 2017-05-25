@@ -10,7 +10,7 @@ If building from source, running `sbt console` should give a Scala REPL with a d
 
 To use the pre-built binary, add the following lines to your `build.sbt`:
 ```scala
-libraryDependencies += "darrenjw" %% "scala-glm" % "0.1-SNAPSHOT"
+libraryDependencies += "darrenjw" %% "scala-glm" % "0.1"
 resolvers += "Newcastle mvn repo" at "https://www.staff.ncl.ac.uk/d.j.wilkinson/mvn/"
 ```
 It's currently only published to my own personal repo. I'll figure out how to push it to Sonatype once it's properly tested.
@@ -19,7 +19,7 @@ If you just want to try it out without setting up a project, you can do so with 
 ```
 $ sbt
 > set scalaVersion := "2.12.1"
-> set libraryDependencies += "darrenjw" %% "scala-glm" % "0.1-SNAPSHOT"
+> set libraryDependencies += "darrenjw" %% "scala-glm" % "0.1"
 > set resolvers += "Newcastle mvn repo" at "https://www.staff.ncl.ac.uk/d.j.wilkinson/mvn/"
 > console
 scala> import scalaglm._
