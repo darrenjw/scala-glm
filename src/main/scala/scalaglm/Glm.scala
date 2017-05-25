@@ -19,16 +19,16 @@ sealed trait GlmFamily {
 
 // List of supported observation models
 case object LogisticGlm extends GlmFamily {
-  val bp = x => sigmoid(x)
-  val bpp = x => {
+  val bp = (x: Double) => sigmoid(x)
+  val bpp = (x: Double) => {
     val e = math.exp(-x)
     e / ((1.0 + e) * (1.0 + e))
   }
 }
 
 case object PoissonGlm extends GlmFamily {
-  val bp = math.exp
-  val bpp = math.exp
+  val bp = math.exp _
+  val bpp = math.exp _
 }
 
 /**

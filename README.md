@@ -37,11 +37,13 @@ This library contains code for principal components analysis based on a thin SVD
 import scalaglm.Pca
 import breeze.linalg._
 val X = DenseMatrix((1.0,1.5),(1.5,2.0),(2.0,1.5))
-val pca = Pca(X)
+val pca = Pca(X, List("V1","V2"))
 pca.sdev
 pca.loadings
 pca.scores
+pca.summary
 ```
+The final line prints a readable summary of the PCA to the console.
 
 ## Linear regression
 

@@ -31,14 +31,38 @@ import breeze.stats._
   * 
   * NOTE: .loadings are transposed relative to the PCA function in Breeze
   */
-case class Pca(mat: DenseMatrix[Double]) {
-  // via SVD of the centred data matrix
+case class Pca(mat: DenseMatrix[Double], colNames: Seq[String]) {
+  require(mat.cols == colNames.length)
+  val n = mat.rows
+  val p = mat.cols
+  val names = colNames.toList
   val xBar = mean(mat(::, *)).t
   val x = mat(*, ::) - xBar
   val SVD = svd.reduced(x)
   val loadings = SVD.Vt.t
   val sdev = SVD.S / math.sqrt(x.rows - 1)
   lazy val scores = x * loadings
+  lazy val variance = sdev map (x => x*x)
+  lazy val totVar = sum(variance)
+  lazy val propvar = variance / totVar
+  lazy val cumuvar = DenseVector(propvar.toArray.scanLeft(0.0)(_+_) drop (1))
+  def summary: Unit = {
+    println("Standard deviations:") 
+    println(names.mkString("\t"))
+    println((sdev.toArray map ("%6.3f".format(_))).mkString("\t"))
+    println("Cumulative proportion of variance explained:")
+    println(names.mkString("\t"))
+    println((cumuvar.toArray map ("%6.3f".format(_))).mkString("\t"))
+    println("Loadings:")
+      ((1 to p) map ("PC%02d\t".format(_))).foreach(print)
+    println("")
+    (0 until p) foreach { i =>
+      (0 until p) foreach { j =>
+        print("%6.3f\t".format(loadings(i,j)))
+        }
+        println(names(i))
+    }
+  }
 }
 
 object PcaUtils {
@@ -80,9 +104,11 @@ object PcaUtils {
     println(pca.scores(0 to 5, ::))
 
     println("Now my version (like R prcomp):")
-    val myPca = Pca(x)
+    val myPca = Pca(x, List("S-L","S-W","P-L","P-W"))
     println(myPca.loadings) // loadings transposed
     println(myPca.sdev)
+    myPca.summary
+    println("Scores:")
     println(myPca.scores(0 to 5, ::))
 
     // scatter plot first 2 principal components
