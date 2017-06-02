@@ -63,7 +63,7 @@ case object PoissonGlm extends GlmFamily {
  */
 case class Glm(y: DenseVector[Double],
   Xmat: DenseMatrix[Double], colNames: Seq[String], fam: GlmFamily,
-  addIntercept: Boolean = true, its: Int = 50) {
+  addIntercept: Boolean = true, its: Int = 50) extends Model {
   require(y.size == Xmat.rows)
   require(colNames.length == Xmat.cols)
   require(Xmat.rows >= Xmat.cols)
@@ -166,7 +166,9 @@ case class Glm(y: DenseVector[Double],
     * 
     * @return Prediction object
     */
-  def predict(newX: DenseMatrix[Double] = Xmat, response: Boolean = false): PredictGlm = PredictGlm(this, newX, response)
+  def predict(newX: DenseMatrix[Double] = Xmat,
+    response: Boolean = false): PredictGlm =
+    PredictGlm(this, newX, response)
 
   lazy val fitted = predict(response = true).fitted
 
@@ -241,17 +243,6 @@ object Irls {
   }
 
 } // object Irls
-
-
-case class PredictGlm(mod: Glm, newX: DenseMatrix[Double], response: Boolean) extends Predict {
-  require(newX.cols == mod.Xmat.cols)
-  val nX = if (mod.addIntercept) DenseMatrix.horzcat(
-    DenseVector.ones[Double](newX.rows).toDenseMatrix.t, newX)
-  else newX
-  val lp = nX * mod.coefficients
-  val fitted = if (response) (lp map mod.fam.bp) else lp
-  val se = fitted
-} // case class PredictGlm
 
 
 

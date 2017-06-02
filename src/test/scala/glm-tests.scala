@@ -133,6 +133,10 @@ class GlmSpec extends FlatSpec {
     assert(norm(mod.predict().fitted - rPred) <= 0.0001)
     val rPredResp = DenseVector[Double](R.evalD1("predict(mod,type=\"response\")"))
     assert(norm(mod.predict(response=true).fitted - rPredResp) <= 0.0001)
+    val rPredSe = DenseVector[Double](R.evalD1("predict(mod,se.fit=TRUE)$se.fit"))
+    assert(norm(mod.predict().se - rPredSe) <= 0.001)
+    val rPredRespSe = DenseVector[Double](R.evalD1("predict(mod,type=\"response\",se.fit=TRUE)$se.fit"))
+    assert(norm(mod.predict(response=true).se - rPredRespSe) <= 0.001)
   }
 
 

@@ -86,6 +86,10 @@ class LmSpec extends FlatSpec {
     assert(norm(mod.p - rP) <= 0.00001)
     val rF = DenseVector[Double](R.evalD1("mod$fitted.values"))
     assert(norm(mod.fitted - rF) <= 0.0001)
+    val rPred = DenseVector[Double](R.evalD1("predict(mod)"))
+    assert(norm(mod.predict().fitted - rPred) <= 0.0001)
+    val rPredSe = DenseVector[Double](R.evalD1("predict(mod,se.fit=TRUE)$se.fit"))
+    assert(norm(mod.predict().se - rPredSe) <= 0.0001)
   }
 
 

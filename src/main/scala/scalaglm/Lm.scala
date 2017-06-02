@@ -9,6 +9,13 @@ package scalaglm
 
 import breeze.linalg._
 
+trait Model {
+  val X: DenseMatrix[Double]
+  val names: Seq[String]
+  val coefficients: DenseVector[Double]
+}
+
+
 /**
  * Linear regression modelling
  *
@@ -17,11 +24,11 @@ import breeze.linalg._
  * @param colNames List of covariate names
  * @param addIntercept Add an intercept term to the covariate matrix?
  *
- * @return An object of type Lm with many useful methods
+ * @return An object of type Lm with many useful attributes
  * providing information about the regression fit
  */
 case class Lm(y: DenseVector[Double],
-  Xmat: DenseMatrix[Double], colNames: Seq[String], addIntercept: Boolean = true) {
+  Xmat: DenseMatrix[Double], colNames: Seq[String], addIntercept: Boolean = true) extends Model {
   require(y.size == Xmat.rows)
   require(colNames.length == Xmat.cols)
   require(Xmat.rows >= Xmat.cols)
@@ -224,22 +231,6 @@ case class Lm(y: DenseVector[Double],
       Lm(y,Xmat,true)
 
   } // object Lm
-
-
-trait Predict {
-  val fitted: DenseVector[Double]
-  val se: DenseVector[Double]
-} // trait Predict
-
-
-case class PredictLm(mod: Lm, newX: DenseMatrix[Double]) extends Predict {
-  require(newX.cols == mod.Xmat.cols)
-  val nX = if (mod.addIntercept) DenseMatrix.horzcat(
-    DenseVector.ones[Double](newX.rows).toDenseMatrix.t, newX)
-  else newX
-  val fitted = nX * mod.coefficients
-  val se = fitted
-} // case class PredictLm
 
 
 
