@@ -106,9 +106,9 @@ class GlmSpec extends FlatSpec {
     val rF = DenseVector[Double](R.evalD1("mod$fitted.values"))
     assert(norm(mod.fitted - rF) <= 0.0001)
     val rPred = DenseVector[Double](R.evalD1("predict(mod)"))
-    assert(norm(mod.predict() - rPred) <= 0.0001)
+    assert(norm(mod.predict().fitted - rPred) <= 0.0001)
     val rPredResp = DenseVector[Double](R.evalD1("predict(mod,type=\"response\")"))
-    assert(norm(mod.predict(response=true) - rPredResp) <= 0.0001)
+    assert(norm(mod.predict(response=true).fitted - rPredResp) <= 0.0001)
   }
 
   it should "fit a simple Poisson regression model with 2 covariates and get the same as R" in {
@@ -130,9 +130,9 @@ class GlmSpec extends FlatSpec {
     val rF = DenseVector[Double](R.evalD1("mod$fitted.values"))
     assert(norm(mod.fitted - rF) <= 0.0001)
     val rPred = DenseVector[Double](R.evalD1("predict(mod)"))
-    assert(norm(mod.predict() - rPred) <= 0.0001)
+    assert(norm(mod.predict().fitted - rPred) <= 0.0001)
     val rPredResp = DenseVector[Double](R.evalD1("predict(mod,type=\"response\")"))
-    assert(norm(mod.predict(response=true) - rPredResp) <= 0.0001)
+    assert(norm(mod.predict(response=true).fitted - rPredResp) <= 0.0001)
   }
 
 

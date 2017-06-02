@@ -197,15 +197,10 @@ case class Lm(y: DenseVector[Double],
     * 
     * @param newX New matrix of covariates
     * 
-    * @return Vector of point predictions
+    * @return Prediction object
     */
-  def predict(newX: DenseMatrix[Double] = Xmat): DenseVector[Double] = {
-    require(newX.cols == Xmat.cols)
-    val nX = if (addIntercept) DenseMatrix.horzcat(
-      DenseVector.ones[Double](newX.rows).toDenseMatrix.t, newX)
-    else newX
-    nX * coefficients
-  }
+  def predict(newX: DenseMatrix[Double] = Xmat): PredictLm =
+    PredictLm(this, newX)
 
 } // case class Lm
 
@@ -229,6 +224,22 @@ case class Lm(y: DenseVector[Double],
       Lm(y,Xmat,true)
 
   } // object Lm
+
+
+trait Predict {
+  val fitted: DenseVector[Double]
+  val se: DenseVector[Double]
+} // trait Predict
+
+
+case class PredictLm(mod: Lm, newX: DenseMatrix[Double]) extends Predict {
+  require(newX.cols == mod.Xmat.cols)
+  val nX = if (mod.addIntercept) DenseMatrix.horzcat(
+    DenseVector.ones[Double](newX.rows).toDenseMatrix.t, newX)
+  else newX
+  val fitted = nX * mod.coefficients
+  val se = fitted
+} // case class PredictLm
 
 
 

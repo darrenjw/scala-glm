@@ -164,18 +164,11 @@ case class Glm(y: DenseVector[Double],
     * @param newX New matrix of covariates
     * @param response Fitted values on the scale of the response?
     * 
-    * @return Vector of point predictions
+    * @return Prediction object
     */
-  def predict(newX: DenseMatrix[Double] = Xmat, response: Boolean = false): DenseVector[Double] = {
-    require(newX.cols == Xmat.cols)
-    val nX = if (addIntercept) DenseMatrix.horzcat(
-      DenseVector.ones[Double](newX.rows).toDenseMatrix.t, newX)
-    else newX
-    val lp = nX * coefficients
-    if (response) (lp map fam.bp) else lp
-  }
+  def predict(newX: DenseMatrix[Double] = Xmat, response: Boolean = false): PredictGlm = PredictGlm(this, newX, response)
 
-  lazy val fitted = predict(response = true)
+  lazy val fitted = predict(response = true).fitted
 
 } // case class Glm
 
@@ -247,7 +240,21 @@ object Irls {
       IRLS(bp, bpp, y, X, bhat, its - 1, tol)
   }
 
-}
+} // object Irls
+
+
+case class PredictGlm(mod: Glm, newX: DenseMatrix[Double], response: Boolean) extends Predict {
+  require(newX.cols == mod.Xmat.cols)
+  val nX = if (mod.addIntercept) DenseMatrix.horzcat(
+    DenseVector.ones[Double](newX.rows).toDenseMatrix.t, newX)
+  else newX
+  val lp = nX * mod.coefficients
+  val fitted = if (response) (lp map mod.fam.bp) else lp
+  val se = fitted
+} // case class PredictGlm
+
+
+
 
 // eof
 
