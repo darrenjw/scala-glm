@@ -6,8 +6,8 @@ FORCE:
 
 docs: FORCE
 	sbt doc
-	cp -r target/scala-2.12/api/* docs/
-	git add docs
+	cp -r target/scala-2.12/api/* docs/api/
+	git add docs/api
 
 edit:
 	emacs src/main/scala/scalaglm/*.scala src/test/scala/*.scala &
