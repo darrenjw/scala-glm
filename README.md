@@ -32,7 +32,7 @@ This library has a dependence on Breeze, so if you have a dependence on `scala-g
 
 ### ScalaDoc
 
-Documentation can be generated with `sbt doc`. For a recent build of the docs for the latest snapshot, see here: [API documentation](https://darrenjw.github.io/scala-glm/scalaglm/api/)
+Documentation can be generated with `sbt doc`. For a recent build of the docs for the latest snapshot, see here: [API documentation](https://darrenjw.github.io/scala-glm/api/scalaglm/)
 
 But to get started, see some simple example usages, below.
 
