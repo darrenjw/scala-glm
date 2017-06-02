@@ -117,6 +117,37 @@ case class Pca(mat: DenseMatrix[Double], colNames: Seq[String]) {
     }
   }
 
+  import breeze.plot._
+  /** 
+    * Diagnostic plots for the PCA
+    */
+  def plots: Figure = {
+    val fig = Figure("PCA Diagnostics")
+    val p0 = fig.subplot(2,2,0)
+    p0 += plot(linspace(0,p-1,p),sdev)
+    p0.title = "Standard deviations of the principal components"
+    p0.xlabel = "Component"
+    p0.ylabel = "Standard deviation"
+    val p1 = fig.subplot(2,2,1)
+    p1 += plot(linspace(1,p,p),propvar)
+    p1.title = "Proportion of variance explained by each component"
+    p1.xlabel = "Component"
+    p1.ylabel = "Proportion of variance"
+    val p2 = fig.subplot(2,2,2)
+    p2 += plot(linspace(1,p,p),cumuvar)
+    p2.title = "Cumulative variance explained"
+    p2.xlabel = "Component"
+    p2.ylabel = "Proportion of variance"
+    val p3 = fig.subplot(2,2,3)
+    p3 += plot(scores(::,0),scores(::,1),'.')
+    p3.title = "Scores for first two components"
+    p3.xlabel = "First principal component"
+    p3.ylabel = "Second principal component"
+    fig.refresh
+    fig
+  }
+
+
 } // case class Pca
 
 object Pca {
@@ -180,8 +211,7 @@ object PcaUtils {
     myPca.summary
     println("Scores:")
     println(myPca.scores(0 to 5, ::))
-
-
+    myPca.plots
 
     // scatter plot first 2 principal components
     import breeze.plot._
