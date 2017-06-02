@@ -6,7 +6,7 @@
 
 This library is simplest to use with SBT.
 
-If building from source, running `sbt console` should give a Scala REPL with a dependence on the library. Documentation can be generated with `sbt doc`.
+If building from source, running `sbt console` should give a Scala REPL with a dependence on the library. 
 
 To use the pre-built binary, add the following lines to your `build.sbt`:
 ```scala
@@ -30,6 +30,11 @@ See below for usage info.
 
 This library has a dependence on Breeze, so if you have a dependence on `scala-glm` you don't need to add an additional dependence on Breeze.
 
+### ScalaDoc
+
+Documentation can be generated with `sbt doc`. For a recent build of the docs for the latest snapshot, see here: [API documentation](https://darrenjw.github.io/scala-glm/scalaglm/index.html)
+
+But to get started, see some simple example usages, below.
 
 ## PCA
 
