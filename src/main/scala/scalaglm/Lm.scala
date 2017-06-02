@@ -209,6 +209,14 @@ case class Lm(y: DenseVector[Double],
   def predict(newX: DenseMatrix[Double] = Xmat): PredictLm =
     PredictLm(this, newX)
 
+  import breeze.plot._
+  def plots: Figure = {
+    val fig = Figure("Linear regression diagnostics")
+
+    fig
+  }
+
+
 } // case class Lm
 
   object Lm {
