@@ -119,6 +119,49 @@ object Utils {
   }
 
 
+  import breeze.plot._
+  /** 
+    * pairs plot
+    * 
+    * @param mat a matrix with variables in columns and observations in rows
+    * @param names a sequence of variable names
+    * 
+    * @return The breeze-viz Figure object
+    */
+  def pairs(mat: DenseMatrix[Double], names: Seq[String]): Figure = {
+    require(mat.cols == names.length)
+    val fig = Figure("Scatterplot matrix")
+    val p = mat.cols
+      (0 until p).foreach{i =>
+        (0 until p).foreach {j =>
+          val pij = fig.subplot(p,p,i*p+j)
+          if (i == j) {
+            pij += hist(mat(::,i))
+            pij.title = names(i)
+            pij.xlabel = i.toString
+          } else {
+            pij += plot(mat(::,j),mat(::,i),'.')
+            pij.xlabel = j.toString
+            pij.ylabel = i.toString
+          }
+        }
+      }
+    fig
+  }
+
+  /** 
+    * pairs plot (for unlabeled variables)
+    * 
+    * @param mat a matrix with variables in columns and observations in rows
+    * 
+    * @return The breeze-viz Figure object
+    */
+  def pairs(mat: DenseMatrix[Double]): Figure = {
+    val names = (1 to mat.cols) map ("V%02d".format(_))
+    pairs(mat, names)
+  }
+
+
   /** 
     * Example of a main runner method - not for general use - will probably get removed
     * in due course

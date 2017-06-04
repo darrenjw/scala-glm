@@ -212,7 +212,22 @@ case class Lm(y: DenseVector[Double],
   import breeze.plot._
   def plots: Figure = {
     val fig = Figure("Linear regression diagnostics")
-
+    val p0 = fig.subplot(2,2,0)
+    p0 += plot(fitted,y,'+')
+    p0 += plot(fitted,fitted)
+    p0.title = "Observations against fitted values"
+    p0.xlabel = "Fitted value"
+    p0.ylabel = "Observation"
+    val p1 = fig.subplot(2,2,1)
+    p1 += plot(fitted,residuals,'+')
+    p1.title = "Residuals against fitted values"
+    p1.xlabel = "Fitted value"
+    p1.ylabel = "Residual"
+    val p2 = fig.subplot(2,2,2)
+    p2 += breeze.plot.hist(residuals)
+    p2.title = "Histogram of residuals"
+    p2.xlabel = "Residual"
+    // TODO: Add a Q-Q plot..
     fig
   }
 

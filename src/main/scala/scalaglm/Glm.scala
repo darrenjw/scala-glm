@@ -172,6 +172,19 @@ case class Glm(y: DenseVector[Double],
 
   lazy val fitted = predict(response = true).fitted
 
+  import breeze.plot._
+  def plots: Figure = {
+    val fig = Figure("Linear regression diagnostics")
+    val p0 = fig.subplot(1,1,0)
+    p0 += plot(fitted,y,'+')
+    p0 += plot(fitted,fitted)
+    p0.title = "Observations against fitted values"
+    p0.xlabel = "Fitted value"
+    p0.ylabel = "Observation"
+    fig
+  }
+
+
 } // case class Glm
 
 object Glm {
