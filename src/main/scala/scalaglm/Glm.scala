@@ -122,14 +122,9 @@ case class Glm(y: DenseVector[Double],
   lazy val ri = inv(r)
 
   /** 
-    * Inverse of the final X'WX matrix
-    */
-  lazy val xtwxi = ri * (ri.t)
-
-  /** 
     * Standard errors for the regression coefficients
     */
-  lazy val se = breeze.numerics.sqrt(diag(xtwxi))
+  lazy val se = norm(ri(*, ::))
 
   /** 
     * z-statistics for the regression coefficients

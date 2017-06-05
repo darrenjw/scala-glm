@@ -138,11 +138,11 @@ object Utils {
           if (i == j) {
             pij += hist(mat(::,i))
             pij.title = names(i)
-            pij.xlabel = i.toString
+            pij.xlabel = names(i)
           } else {
             pij += plot(mat(::,j),mat(::,i),'.')
-            pij.xlabel = j.toString
-            pij.ylabel = i.toString
+            pij.xlabel = names(j)
+            pij.ylabel = names(i)
           }
         }
       }
@@ -183,10 +183,12 @@ object Utils {
     // read the file from disk
     val mat = csvread(new java.io.File(fileName))
     println("Dim: " + mat.rows + " " + mat.cols)
+    Utils.pairs(mat, List("Freq", "Angle", "Chord", "Velo", "Thick", "Sound"))
     val y = mat(::, 5) // response is the final column
     val X = mat(::, 0 to 4)
     val mod = Lm(y, X, List("Freq", "Angle", "Chord", "Velo", "Thick"))
     mod.summary
+    mod.plots
 
     // test without name list
     Lm(y,X,false).summary

@@ -45,12 +45,12 @@ case class PredictLm(mod: Lm, newX: DenseMatrix[Double]) extends Predict {
   /** 
     * for internal use (probably should be marked private)
     */
-  lazy val rtix = nX * mod.ri
+  lazy val xrti = nX * mod.ri
 
   /** 
     * standard errors for the predictions
     */
-  lazy val se = norm(rtix(*, ::)) * mod.rse
+  lazy val se = norm(xrti(*, ::)) * mod.rse
 } // case class PredictLm
 
 

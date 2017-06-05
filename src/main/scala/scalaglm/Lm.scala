@@ -115,15 +115,10 @@ case class Lm(y: DenseVector[Double],
     */
   lazy val ri = inv(r)
 
-  /** 
-    * The inverse of X'X (but calculated efficiently)
-    */
-  lazy val xtxi = ri * (ri.t)
-
   /**  
     * Standard errors for the regression coefficients
     */
-  lazy val se = breeze.numerics.sqrt(diag(xtxi)) * rse
+  lazy val se = norm(ri(*,::)) * rse
 
   /** 
     * t-statistics for the regression coefficients
@@ -212,25 +207,48 @@ case class Lm(y: DenseVector[Double],
   import breeze.plot._
   def plots: Figure = {
     val fig = Figure("Linear regression diagnostics")
-    val p0 = fig.subplot(2,2,0)
+    val p0 = fig.subplot(2,2,0) // Obs against fitted
     p0 += plot(fitted,y,'+')
     p0 += plot(fitted,fitted)
     p0.title = "Observations against fitted values"
     p0.xlabel = "Fitted value"
     p0.ylabel = "Observation"
-    val p1 = fig.subplot(2,2,1)
-    p1 += plot(fitted,residuals,'+')
-    p1.title = "Residuals against fitted values"
+    val p1 = fig.subplot(2,2,1) // Studentised against fitted
+    p1 += plot(fitted,studentised,'+')
+    p1 += plot(fitted,DenseVector.fill(n)(0.0))
+    p1.title = "Studentised residuals against fitted values"
     p1.xlabel = "Fitted value"
-    p1.ylabel = "Residual"
-    val p2 = fig.subplot(2,2,2)
-    p2 += breeze.plot.hist(residuals)
-    p2.title = "Histogram of residuals"
-    p2.xlabel = "Residual"
-    // TODO: Add a Q-Q plot..
+    p1.ylabel = "Studentised residual"
+    val p2 = fig.subplot(2,2,2) // Histogram of studentised
+    p2 += breeze.plot.hist(studentised)
+    p2.title = "Histogram of studentised residuals"
+    p2.xlabel = "Studentised residual"
+    p2.ylabel = "Frequency"
+    val p3 = fig.subplot(2,2,3) // Residual Q-Q plot
+    val sorted = studentised.toArray.sorted
+    val grid = linspace(1.0/n,1.0-1.0/n,n)
+    import breeze.stats.distributions.Gaussian
+    val quantiles = grid map {Gaussian(0.0,1.0).inverseCdf(_)}
+    p3 += plot(quantiles, sorted)
+    p3 += plot(quantiles, quantiles)
+    p3.title = "Residual Q-Q plot"
+    p3.xlabel = "Standard normal quantiles"
+    p3.ylabel = "Studentised residuals"
     fig
   }
 
+  /** 
+    * Square root of the leverage vector
+    */
+  lazy val sh = norm(q(*,::))
+
+  /** 
+    * Vector containing the leverages (diagonal of the hat matrix)
+    */
+  lazy val h = sh * sh
+
+  import breeze.numerics.sqrt
+  lazy val studentised = residuals / sqrt(1.0 - h) / rse
 
 } // case class Lm
 
