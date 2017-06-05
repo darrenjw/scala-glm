@@ -1,6 +1,6 @@
 name := "scala-glm"
 organization := "darrenjw"
-version := "0.2-SNAPSHOT"
+version := "0.2"
 
 scalacOptions ++= Seq(
   "-unchecked", "-deprecation", "-feature"
@@ -21,7 +21,7 @@ resolvers ++= Seq(
     "https://oss.sonatype.org/content/repositories/releases/"
 )
 
-//scalaVersion := "2.11.8"
+// scalaVersion := "2.11.8"
 scalaVersion := "2.12.1"
 
 publishTo := Some(Resolver.sftp("Personal mvn repo", "unix.ncl.ac.uk", "/home/ucs/100/ndjw1/public_html/mvn"))
