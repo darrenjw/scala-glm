@@ -50,7 +50,9 @@ pca.scores
 pca.plots
 pca.summary
 ```
-The final line prints a readable summary of the PCA to the console. Note that there is also a utility function `pairs` for producing a "scatterplot matrix":
+The final line prints a readable summary of the PCA to the console. `plots` produces some diagnostic plots, including a "scree plot".
+
+Note that there is also a utility function `pairs` for producing a "scatterplot matrix":
 ```scala
 import scalaglm.Utils.pairs
 pairs(X, List("V1", "V2"))
