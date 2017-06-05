@@ -169,7 +169,7 @@ case class Glm(y: DenseVector[Double],
 
   import breeze.plot._
   def plots: Figure = {
-    val fig = Figure("Linear regression diagnostics")
+    val fig = Figure("GLM regression diagnostics")
     val p0 = fig.subplot(1,1,0)
     p0 += plot(fitted,y,'+')
     p0 += plot(fitted,fitted)

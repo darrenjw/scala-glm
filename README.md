@@ -10,18 +10,18 @@ If building from source, running `sbt console` should give a Scala REPL with a d
 
 To use the pre-built binary, add the following lines to your `build.sbt`:
 ```scala
-libraryDependencies += "darrenjw" %% "scala-glm" % "0.1"
+libraryDependencies += "darrenjw" %% "scala-glm" % "0.2"
 resolvers += "Newcastle mvn repo" at "https://www.staff.ncl.ac.uk/d.j.wilkinson/mvn/"
 ```
-The current stable release is "0.1". The latest unstable release is "0.2-SNAPSHOT".
+The current stable release is "0.2". The latest unstable release is "0.3-SNAPSHOT".
 
-It's currently only published to my own personal repo. I'll figure out how to push it to Sonatype once it's properly tested.
+It's currently only published to my own personal repo. I'll figure out how to push it to Sonatype soon.
 
 If you just want to try it out without setting up a project, you can do so with a session like:
 ```
 $ sbt
 > set scalaVersion := "2.12.1"
-> set libraryDependencies += "darrenjw" %% "scala-glm" % "0.1"
+> set libraryDependencies += "darrenjw" %% "scala-glm" % "0.2"
 > set resolvers += "Newcastle mvn repo" at "https://www.staff.ncl.ac.uk/d.j.wilkinson/mvn/"
 > console
 scala> import scalaglm._
@@ -48,9 +48,15 @@ val pca = Pca(X, List("V1","V2"))
 pca.sdev
 pca.loadings
 pca.scores
+pca.plots
 pca.summary
 ```
-The final line prints a readable summary of the PCA to the console.
+The final line prints a readable summary of the PCA to the console. Note that there is also a utility function for producing a "scatterplot matrix":
+
+```scala
+import scalaglm.Utils.pairs
+pairs(X, List("V1", "V2"))
+```
 
 ## Linear regression
 
@@ -63,6 +69,7 @@ val y = DenseVector(1.0,2.0,1.0,1.5)
 val X = DenseMatrix((1.0,1.5),(1.5,2.0),(2.0,1.5),(2.0,1.0))
 val lm = Lm(y,X,List("V1","V2"))
 lm.coefficients
+lm.plots
 lm.summary
 ```
 The final line produces the following output to the console:
@@ -78,6 +85,7 @@ Residual standard error:   0.7071 on 1 degrees of freedom
 Multiple R-squared: 0.2727, Adjusted R-squared: -1.1818
 F-statistic: 0.1875 on 2 and 1 DF, p-value: 0.85280
 ```
+The plots include a plot of studentised residuals against fitted values and a normal Q-Q plot for the studentised residuals.
 
 ## Generalised linear models
 
@@ -93,6 +101,7 @@ val X = DenseMatrix((1.0,1.5),(1.5,2.0),(2.0,1.5),(2.0,1.0))
 val glm = Glm(y,X,List("V1","V2"),LogisticGlm)
 glm.coefficients
 glm.summary
+glm.plots
 ```
 
 ### Poisson regression
@@ -105,6 +114,7 @@ val X = DenseMatrix((1.0,1.5),(1.5,2.0),(2.0,1.5),(2.0,1.0))
 val glm = Glm(y,X,List("V1","V2"),PoissonGlm)
 glm.coefficients
 glm.summary
+glm.plots
 ```
 
 
