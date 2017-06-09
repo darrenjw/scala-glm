@@ -10,10 +10,6 @@ import breeze.linalg._
 
 object LinearRegression {
 
-  /** 
-    * Example of a main runner method - not for general use - will probably get removed
-    * in due course
-    */
   def main(args: Array[String]): Unit = {
 
     val url = "http://archive.ics.uci.edu/ml/machine-learning-databases/00291/airfoil_self_noise.dat"

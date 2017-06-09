@@ -10,7 +10,6 @@ import scalaglm._
 
 object IrisPca {
 
-  // Example main runner method
   def main(args: Array[String]): Unit = {
 
     val url = "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
