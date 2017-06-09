@@ -30,11 +30,14 @@ See below for usage info.
 
 This library has a dependence on Breeze, so if you have a dependence on `scala-glm` you don't need to add an additional dependence on Breeze.
 
-### ScalaDoc
+### Documentation
 
-Documentation can be generated with `sbt doc`. For a recent build of the docs for the latest snapshot, see here: [API documentation](https://darrenjw.github.io/scala-glm/api/scalaglm/)
+ScalaDoc documentation can be generated with `sbt doc`. For a recent build of the docs for the latest snapshot, see here: [API documentation](https://darrenjw.github.io/scala-glm/api/scalaglm/)
 
-But to get started, see some simple example usages, below.
+To get started, see some very simple example usages, below.
+
+More interesting runnable examples can be found in the [examples subdirectory](examples/) of this repo.
+
 
 ## PCA
 
