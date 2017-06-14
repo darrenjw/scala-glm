@@ -1,5 +1,5 @@
 name := "scala-glm"
-organization := "org.github.darrenjw"
+organization := "com.github.darrenjw"
 version := "0.3-SNAPSHOT"
 
 scalacOptions ++= Seq(
