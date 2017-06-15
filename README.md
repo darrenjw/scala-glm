@@ -24,6 +24,15 @@ See below for documentation links.
 
 This library has a dependence on [Breeze](https://github.com/scalanlp/breeze), so if you have a dependence on `scala-glm` you don't need to add an additional dependence on Breeze. Some familiarity with Breeze is assumed for effective use of this library.
 
+### Latest snapshot
+
+If you want to use the latest snapshot, add the following to your `build.sbt`:
+
+```scala
+libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.4-SNAPSHOT"
+resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
+```
+
 ### Building from source
 
 If building from source, running `sbt console` from this directory should give a Scala REPL with a dependence on the library. Running `sbt test` will run all tests (but note that an [**R**](https://www.r-project.org/) installation is required for many of the tests, which cross-check results against **R**). Running `sbt doc` will generate ScalaDoc API documentation.
