@@ -17,6 +17,7 @@
 * `sbt +sonatypeRelease`
 * Check it seems OK: https://oss.sonatype.org/content/repositories/releases/com/github/darrenjw/
 * Check/edit ReadMe version numbers
+* Bump version numbers for examples and example scripts and re-run to check
 * Commit and push
 * Check GitHub OK
 * Do a GitHub release
