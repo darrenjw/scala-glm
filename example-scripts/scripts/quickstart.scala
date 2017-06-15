@@ -1,5 +1,5 @@
-// readme.scala
-// script for Readme.md
+// quickstart.scala
+// script for the QuickStart guide
 
 // PCA
 import scalaglm.Pca
