@@ -9,7 +9,6 @@ This library is simplest to use with [SBT](http://www.scala-sbt.org/). You shoul
 To use the pre-built binary, add the following lines to your `build.sbt`:
 ```scala
 libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.3"
-resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
 ```
 The current stable release is "0.3". The latest unstable release is "0.4-SNAPSHOT". All releases are cross-built for both Scala 2.11 and 2.12.
 
@@ -18,7 +17,6 @@ If you just want to try it out without setting up a project, you can do so with 
 $ sbt
 > set scalaVersion := "2.12.1"
 > set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.3"
-> set resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
 > console
 scala> import scalaglm._
 ```
