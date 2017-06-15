@@ -11,9 +11,9 @@ To use the pre-built binary, add the following lines to your `build.sbt`:
 libraryDependencies += "darrenjw" %% "scala-glm" % "0.2"
 resolvers += "Newcastle mvn repo" at "https://www.staff.ncl.ac.uk/d.j.wilkinson/mvn/"
 ```
-The current stable release is "0.2". The latest unstable release is "0.3-SNAPSHOT".
+The current stable release is "0.2". The latest unstable release is "0.3-SNAPSHOT". The stable releases are cross-built for both Scala 2.11 and 2.12. The snapshots are Scala 2.12 only.
 
-It's currently only published to my own personal repo. I'll figure out how to push it to Sonatype soon.
+The binaries are only published to my own personal repo. I'm currently in the process of figuring out how to push them to [Sonatype](http://central.sonatype.org/) to get them on the central repository.
 
 If you just want to try it out without setting up a project, you can do so with a session like:
 ```
