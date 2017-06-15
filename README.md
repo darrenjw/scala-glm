@@ -17,7 +17,7 @@ If you just want to try it out without setting up a project, you can do so with 
 ```
 $ sbt
 > set scalaVersion := "2.12.1"
-> set libraryDependencies += "darrenjw" %% "scala-glm" % "0.3"
+> set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.3"
 > set resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
 > console
 scala> import scalaglm._
