@@ -8,19 +8,17 @@ This library is simplest to use with [SBT](http://www.scala-sbt.org/). You shoul
 
 To use the pre-built binary, add the following lines to your `build.sbt`:
 ```scala
-libraryDependencies += "darrenjw" %% "scala-glm" % "0.2"
-resolvers += "Newcastle mvn repo" at "https://www.staff.ncl.ac.uk/d.j.wilkinson/mvn/"
+libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.3"
+resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
 ```
-The current stable release is "0.2". The latest unstable release is "0.3-SNAPSHOT". The stable releases are cross-built for both Scala 2.11 and 2.12. The snapshots are Scala 2.12 only.
-
-The binaries are only published to my own personal repo. I'm currently in the process of figuring out how to push them to [Sonatype](http://central.sonatype.org/) to get them on the central repository.
+The current stable release is "0.3". The latest unstable release is "0.4-SNAPSHOT". All releases are cross-built for both Scala 2.11 and 2.12.
 
 If you just want to try it out without setting up a project, you can do so with a session like:
 ```
 $ sbt
 > set scalaVersion := "2.12.1"
-> set libraryDependencies += "darrenjw" %% "scala-glm" % "0.2"
-> set resolvers += "Newcastle mvn repo" at "https://www.staff.ncl.ac.uk/d.j.wilkinson/mvn/"
+> set libraryDependencies += "darrenjw" %% "scala-glm" % "0.3"
+> set resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
 > console
 scala> import scalaglm._
 ```
