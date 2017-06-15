@@ -24,7 +24,7 @@ $ sbt
 > console
 scala> import scalaglm._
 ```
-See below for usage info.
+See below for documentation links.
 
 This library has a dependence on Breeze, so if you have a dependence on `scala-glm` you don't need to add an additional dependence on Breeze.
 
