@@ -26,7 +26,7 @@ scala> import scalaglm._
 ```
 See below for documentation links.
 
-This library has a dependence on Breeze, so if you have a dependence on `scala-glm` you don't need to add an additional dependence on Breeze.
+This library has a dependence on [Breeze](https://github.com/scalanlp/breeze), so if you have a dependence on `scala-glm` you don't need to add an additional dependence on Breeze. Some familiarity with Breeze is assumed for effective use of this library.
 
 ### Building from source
 
@@ -37,6 +37,10 @@ If building from source, running `sbt console` from this directory should give a
 * [QuickStart Guide](https://darrenjw.github.io/scala-glm/QuickStart.html) - start with this to get a feeling for what the library can do
 * The [examples subdirectory](examples/src/main/scala/) of this repo contains more interesting, self-contained runnable examples
 * [API documentation](https://darrenjw.github.io/scala-glm/api/scalaglm/) - ScalaDoc (for the most recent snapshot)
+* For anyone not very familiar with Scala or Breeze, it may be worth working through my [Scala for Statistical Computing short course](https://github.com/darrenjw/scala-course). This library originated from example code prepared for that course.
 
+## Author
+
+This library is Copyright (C) 2017 Darren J Wilkinson, but released as open source software under an Apache 2.0 license.
 
 
