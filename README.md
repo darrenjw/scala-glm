@@ -10,7 +10,7 @@ To use the pre-built binary, add the following lines to your `build.sbt`:
 ```scala
 libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.3"
 ```
-The current stable release is "0.3". The latest unstable release is "0.4-SNAPSHOT". All releases are cross-built for both Scala 2.11 and 2.12.
+The current [stable release](ReleaseNotes.md) is "0.3". The latest unstable release is "0.4-SNAPSHOT". All releases are cross-built for both Scala 2.11 and 2.12.
 
 If you just want to try it out without setting up a project, you can do so with a session like:
 ```
