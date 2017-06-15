@@ -1,4 +1,4 @@
-# Quickstart Guide
+# scala-glm - Quickstart Guide
 
 ## PCA
 
