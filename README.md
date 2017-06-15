@@ -30,7 +30,7 @@ This library has a dependence on [Breeze](https://github.com/scalanlp/breeze), s
 
 ### Building from source
 
-If building from source, running `sbt console` from this directory should give a Scala REPL with a dependence on the library. Running `sbt test` will run all tests (but note that an [**R**](https://www.r-project.org/) installation is required for many of the tests). Running `sbt doc` will generate ScalaDoc API documentation.
+If building from source, running `sbt console` from this directory should give a Scala REPL with a dependence on the library. Running `sbt test` will run all tests (but note that an [**R**](https://www.r-project.org/) installation is required for many of the tests, which cross-check results against **R**). Running `sbt doc` will generate ScalaDoc API documentation.
 
 ## Documentation
 
