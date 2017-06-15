@@ -28,7 +28,7 @@ scalaVersion := "2.12.1"
 
 crossScalaVersions := Seq("2.11.11","2.12.1")
 
-publishTo := Some(Resolver.sftp("Personal mvn repo", "unix.ncl.ac.uk", "/home/ucs/100/ndjw1/public_html/mvn"))
+// publishTo := Some(Resolver.sftp("Personal mvn repo", "unix.ncl.ac.uk", "/home/ucs/100/ndjw1/public_html/mvn"))
 
 
 // eof
