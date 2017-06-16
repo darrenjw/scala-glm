@@ -1,6 +1,7 @@
 import scalaglm._
 import breeze.linalg._
 
+// https://archive.ics.uci.edu/ml/datasets/banknote+authentication
 val url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00267/data_banknote_authentication.txt"
 val fileName = "banknote.csv"
 
