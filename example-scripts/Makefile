@@ -1,7 +1,7 @@
 # Makefile
 # Stuff for turning simple scala scripts into worksheet sessions for including into latex or markdown documents...
 
-FILES=quickstart.ws LinearRegression.ws
+FILES=quickstart.ws LinearRegression.ws LogisticRegression.ws
 
 SCRIPTDIR=./scripts
 
