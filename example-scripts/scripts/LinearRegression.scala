@@ -18,14 +18,15 @@ if (!file.exists) {
 // read the file from disk
 val mat = csvread(new java.io.File(fileName))
 println("Dim: " + mat.rows + " " + mat.cols)
-Utils.pairs(mat, List("Freq", "Angle", "Chord", "Velo", "Thick", "Sound"))
+val figp = Utils.pairs(mat, List("Freq", "Angle", "Chord", "Velo", "Thick", "Sound"))
 
 // regression analysis
 val y = mat(::, 5) // response is the final column
 val X = mat(::, 0 to 4)
 val mod = Lm(y, X, List("Freq", "Angle", "Chord", "Velo", "Thick"))
 mod.summary
-mod.plots
+val fig = mod.plots
+fig.saveas("LmDiag.png")
 
 // eof
 
