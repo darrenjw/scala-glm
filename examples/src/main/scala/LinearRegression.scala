@@ -32,7 +32,7 @@ object LinearRegression {
     val X = mat(::, 0 to 4)
     val mod = Lm(y, X, List("Freq", "Angle", "Chord", "Velo", "Thick"))
     mod.summary
-    mod.plots
+    mod.plots.saveas("LinearRegression.png")
 
     // test without name list
     Lm(y,X,false).summary

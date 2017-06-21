@@ -51,7 +51,7 @@ object IrisPca {
     myPca.summary
     println("Scores:")
     println(myPca.scores(0 to 5, ::))
-    myPca.plots
+    myPca.plots.saveas("IrisPcaDiag.png")
 
     // scatter plot first 2 principal components
     import breeze.plot._
@@ -66,6 +66,7 @@ object IrisPca {
     val ind2 = (0 until x.rows) filter (i => clas(i) == 2)
     p += plot(myPca.scores(ind2, 0).toDenseVector,
       myPca.scores(ind2, 1).toDenseVector, '.', colorcode = "green")
+    fig.saveas("IrisPca.png")
 
     // Test without variable names
     Pca(x).summary
