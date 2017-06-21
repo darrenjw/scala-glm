@@ -27,7 +27,7 @@ object LinearRegression {
     // read the file from disk
     val mat = csvread(new java.io.File(fileName))
     println("Dim: " + mat.rows + " " + mat.cols)
-    Utils.pairs(mat, List("Freq", "Angle", "Chord", "Velo", "Thick", "Sound"))
+    val fig = Utils.pairs(mat, List("Freq", "Angle", "Chord", "Velo", "Thick", "Sound"))
     val y = mat(::, 5) // response is the final column
     val X = mat(::, 0 to 4)
     val mod = Lm(y, X, List("Freq", "Angle", "Chord", "Velo", "Thick"))
