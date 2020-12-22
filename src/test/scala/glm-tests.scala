@@ -55,8 +55,8 @@ class GlmSpec extends FlatSpec {
     val mod = Glm(y,x,List("Covariate"),PoissonGlm,its=1000)
     //mod.summary
     val R = org.ddahl.rscala.RClient()
-    R.y = y.toArray
-    R.x = x(::,0).toDenseVector.toArray
+    R.eval("y = %-", y.toArray)
+    R.eval("x = %-", x(::,0).toDenseVector.toArray)
     R.eval("mod = glm(y~x,family=poisson())")
     val rCoef = DenseVector[Double](R.evalD1("mod$coefficients"))
     assert(norm(mod.coefficients - rCoef) <= 0.000001)
@@ -74,8 +74,8 @@ class GlmSpec extends FlatSpec {
     val mod = Glm(y,x,List("Covariate"),LogisticGlm,its=1000)
     //mod.summary
     val R = org.ddahl.rscala.RClient()
-    R.y = y.toArray
-    R.x = x(::,0).toDenseVector.toArray
+    R.eval("y = %-", y.toArray)
+    R.eval("x = %-", x(::,0).toDenseVector.toArray)
     R.eval("mod = glm(y~x,family=binomial())")
     val rCoef = DenseVector[Double](R.evalD1("mod$coefficients"))
     assert(norm(mod.coefficients - rCoef) <= 0.00001)
@@ -92,8 +92,8 @@ class GlmSpec extends FlatSpec {
     val x = DenseMatrix((1.0,2.0),(2.5,4.0),(3.0,2.0),(2.0,3.5))
     val mod = Glm(y,x,List("V1","V2"),LogisticGlm,its=1000)
     val R = org.ddahl.rscala.RClient()
-    R.y = y.toArray
-    R.x = Utils.bdm2aa(x)
+    R.eval("y = %-", y.toArray)
+    R.eval("x = %-", Utils.bdm2aa(x))
     R.eval("mod = glm(y~x,family=binomial())")
     val rCoef = DenseVector[Double](R.evalD1("mod$coefficients"))
     assert(norm(mod.coefficients - rCoef) <= 0.00001)
@@ -116,8 +116,8 @@ class GlmSpec extends FlatSpec {
     val x = DenseMatrix((1.0,2.0),(2.5,4.0),(3.0,2.0),(2.0,3.5))
     val mod = Glm(y,x,List("V1","V2"),PoissonGlm,its=1000)
     val R = org.ddahl.rscala.RClient()
-    R.y = y.toArray
-    R.x = Utils.bdm2aa(x)
+    R.eval("y = %-", y.toArray)
+    R.eval("x = %-", Utils.bdm2aa(x))
     R.eval("mod = glm(y~x,family=poisson())")
     val rCoef = DenseVector[Double](R.evalD1("mod$coefficients"))
     assert(norm(mod.coefficients - rCoef) <= 0.00001)

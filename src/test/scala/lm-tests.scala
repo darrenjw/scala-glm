@@ -73,8 +73,8 @@ class LmSpec extends FlatSpec {
     val mod = Lm(y,x,List("Covariate"))
     //mod.summary
     val R = org.ddahl.rscala.RClient()
-    R.y = y.toArray
-    R.x = x(::,0).toDenseVector.toArray
+    R.eval("y = %-", y.toArray)
+    R.eval("x = %-", x(::,0).toDenseVector.toArray)
     R.eval("mod = lm(y~x)")
     val rCoef = DenseVector[Double](R.evalD1("mod$coefficients"))
     assert(norm(mod.coefficients - rCoef) <= 0.00001)
