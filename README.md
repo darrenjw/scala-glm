@@ -4,13 +4,13 @@
 
 ## Installation/Getting started
 
-This library is simplest to use with [SBT](http://www.scala-sbt.org/). You should install SBT before attempting to use this library.
+This library is simplest to use with [`sbt`](http://www.scala-sbt.org/). You should install `sbt` before attempting to use this library.
 
 To use the pre-built binary, add the following lines to your `build.sbt`:
 ```scala
-libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.3"
+libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.4"
 ```
-The current [stable release](ReleaseNotes.md) is "0.3". Releases are cross-built for both Scala 2.11 and 2.12 and published to the [central repository](http://central.sonatype.org/).
+The current [stable release](ReleaseNotes.md) is "0.4". It is cross-built for both Scala 2.12 and 2.13 and published to the [central repository](http://central.sonatype.org/). Version 0.3 was the final release for Scala 2.11.
 
 There is a [giter8](http://www.foundweekends.org/giter8/) template for `scala-glm`, so using recent versions of SBT you can create a minimal `scala-glm` project template with:
 ```bash
@@ -20,8 +20,8 @@ sbt new darrenjw/scala-glm.g8
 If you just want to try out the library without setting up any kind of project, you can do so with a session like:
 ```
 $ sbt
-> set scalaVersion := "2.12.1"
-> set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.3"
+> set scalaVersion := "2.13.4"
+> set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.4"
 > console
 scala> import scalaglm._
 ```
@@ -34,7 +34,7 @@ This library has a dependence on [Breeze](https://github.com/scalanlp/breeze), s
 If you want to use the latest snapshot, add the following to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.4-SNAPSHOT"
+libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.5-SNAPSHOT"
 resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 ```
 
@@ -52,6 +52,6 @@ If building from source, running `sbt console` from this directory should give a
 
 ## Author
 
-This library is Copyright (C) 2017 [Darren J Wilkinson](https://github.com/darrenjw), but released as open source software under an Apache 2.0 license.
+This library is Copyright (C) 2017-2020 [Darren J Wilkinson](https://github.com/darrenjw), but released as open source software under an Apache 2.0 license.
 
 
