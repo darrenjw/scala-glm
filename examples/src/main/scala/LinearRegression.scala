@@ -19,7 +19,7 @@ object LinearRegression {
     val file = new java.io.File(fileName)
     if (!file.exists) {
       val s = new java.io.PrintWriter(file)
-      val data = scala.io.Source.fromURL(url).getLines
+      val data = scala.io.Source.fromURL(url).getLines()
       data.foreach(l => s.write(l.trim.split('\t').filter(_ != "").mkString("", ",", "\n")))
       s.close
     }

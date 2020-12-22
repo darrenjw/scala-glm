@@ -1,15 +1,15 @@
 name := "scala-glm-examples"
 
-version := "0.1-SNAPSHOT"
+version := "0.2"
 
 scalacOptions ++= Seq(
   "-unchecked", "-deprecation", "-feature"
 )
 
 libraryDependencies  ++= Seq(
-  "org.scalatest" %% "scalatest" % "3.0.1" % "test",
-  "com.github.darrenjw" %% "scala-glm" % "0.3",
-  "org.ddahl" %% "rscala" % "2.0.1"
+  "org.scalatest" %% "scalatest" % "3.2.2" % "test",
+  "com.github.darrenjw" %% "scala-glm" % "0.4-SNAPSHOT",
+  "org.ddahl" %% "rscala" % "3.2.19"
 )
 
 resolvers ++= Seq(
@@ -19,6 +19,6 @@ resolvers ++= Seq(
     "https://oss.sonatype.org/content/repositories/releases/"
 )
 
-scalaVersion := "2.12.1"
+scalaVersion := "2.13.4"
 
 
