@@ -26,7 +26,7 @@ pairs(X, List("V1", "V2"))
 
 This code computes regression coefficients and associated diagnostics via the QR decomposition of the covariate matrix. The diagnostics are analogous to those produced by the R function `lm`.
 
-```scala
+```scala mdoc:reset
 import scalaglm.Lm
 import breeze.linalg._
 val y = DenseVector(1.0,2.0,1.0,1.5)

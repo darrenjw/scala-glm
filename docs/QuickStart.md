@@ -27,7 +27,7 @@ pca.scores
 // 0.0   -0.33333333333333326  
 // 0.5   0.16666666666666674   
 pca.plots
-// res3: breeze.plot.Figure = breeze.plot.Figure@3b38417e
+// res3: breeze.plot.Figure = breeze.plot.Figure@1987b6d7
 pca.summary
 // Standard deviations:
 // V1	V2
@@ -46,7 +46,7 @@ Note that there is also a utility function `pairs` for producing a "scatterplot 
 ```scala
 import scalaglm.Utils.pairs
 pairs(X, List("V1", "V2"))
-// res5: breeze.plot.Figure = breeze.plot.Figure@4eee4118
+// res5: breeze.plot.Figure = breeze.plot.Figure@661f043b
 ```
 
 ## Linear regression
@@ -57,21 +57,84 @@ This code computes regression coefficients and associated diagnostics via the QR
 import scalaglm.Lm
 import breeze.linalg._
 val y = DenseVector(1.0,2.0,1.0,1.5)
+// y: DenseVector[Double] = DenseVector(1.0, 2.0, 1.0, 1.5)
 val X = DenseMatrix((1.0,1.5),(1.5,2.0),(2.0,1.5),(2.0,1.0))
+// X: DenseMatrix[Double] = 1.0  1.5  
+// 1.5  2.0  
+// 2.0  1.5  
+// 2.0  1.0  
 val lm = Lm(y,X,List("V1","V2"))
+// lm: Lm = Lm(
+//   y = DenseVector(1.0, 2.0, 1.0, 1.5),
+//   Xmat = 1.0  1.5  
+// 1.5  2.0  
+// 2.0  1.5  
+// 2.0  1.0  ,
+//   colNames = List("V1", "V2"),
+//   addIntercept = true
+// )
 lm.coefficients
+// res7: DenseVector[Double] = DenseVector(-0.16666666666666619, 0.33333333333333337, 0.6666666666666663)
 lm.se
+// res8: DenseVector[Double] = DenseVector(2.718251071716681, 0.942809041582063, 1.1055415967851332)
 lm.fitted
+// res9: DenseVector[Double] = DenseVector(1.1666666666666665, 1.6666666666666665, 1.5, 1.1666666666666667)
 lm.residuals
+// res10: DenseVector[Double] = DenseVector(-0.16666666666666652, 0.3333333333333335, -0.5, 0.33333333333333326)
 lm.studentised
+// res11: DenseVector[Double] = DenseVector(-0.9999999999999969, 1.0000000000000009, -0.9999999999999999, 1.0000000000000002)
 val pred = lm.predict()
+// pred: scalaglm.PredictLm = PredictLm(
+//   mod = Lm(
+//     y = DenseVector(1.0, 2.0, 1.0, 1.5),
+//     Xmat = 1.0  1.5  
+// 1.5  2.0  
+// 2.0  1.5  
+// 2.0  1.0  ,
+//     colNames = List("V1", "V2"),
+//     addIntercept = true
+//   ),
+//   newX = 1.0  1.5  
+// 1.5  2.0  
+// 2.0  1.5  
+// 2.0  1.0  
+// )
 pred.fitted
+// res12: DenseVector[Double] = DenseVector(1.1666666666666665, 1.6666666666666665, 1.5, 1.166666666666667)
 pred.se
+// res13: DenseVector[Double] = DenseVector(0.6871842709362767, 0.6236095644623235, 0.4999999999999999, 0.6236095644623237)
 val predNew = lm.predict(DenseMatrix((1.1,1.6),(1.4,2.2),(1.6,2.1)))
+// predNew: scalaglm.PredictLm = PredictLm(
+//   mod = Lm(
+//     y = DenseVector(1.0, 2.0, 1.0, 1.5),
+//     Xmat = 1.0  1.5  
+// 1.5  2.0  
+// 2.0  1.5  
+// 2.0  1.0  ,
+//     colNames = List("V1", "V2"),
+//     addIntercept = true
+//   ),
+//   newX = 1.1  1.6  
+// 1.4  2.2  
+// 1.6  2.1  
+// )
 predNew.fitted
+// res14: DenseVector[Double] = DenseVector(1.2666666666666668, 1.7666666666666664, 1.7666666666666666)
 predNew.se
+// res15: DenseVector[Double] = DenseVector(0.5792715732327586, 0.793025150224688, 0.7431165603202654)
 lm.plots
+// res16: breeze.plot.Figure = breeze.plot.Figure@79a819c8
 lm.summary
+// Estimate	 S.E.	 t-stat	p-value		Variable
+// ---------------------------------------------------------
+//  -0.1667	 2.718	-0.061	0.9610  	(Intercept)
+//   0.3333	 0.943	 0.354	0.7837  	V1
+//   0.6667	 1.106	 0.603	0.6545  	V2
+// 
+// Residual standard error:   0.7071 on 1 degrees of freedom
+// Multiple R-squared: 0.2727, Adjusted R-squared: -1.1818
+// F-statistic: 0.1875 on 2 and 1 DF, p-value: 0.85280
+//
 ```
 The plots include a plot of studentised residuals against fitted values and a normal Q-Q plot for the studentised residuals.
 
@@ -104,11 +167,11 @@ val glm = Glm(y,X,List("V1","V2"),LogisticGlm)
 //   its = 50
 // )
 glm.coefficients
-// res7: DenseVector[Double] = DenseVector(4.664616774081783, -1.9523937551164303, -0.976196877558214)
+// res19: DenseVector[Double] = DenseVector(4.664616774081783, -1.9523937551164303, -0.976196877558214)
 glm.fitted
-// res8: DenseVector[Double] = DenseVector(0.776940930449239, 0.4461181391015221, 0.3308227913477176, 0.44611813910152176)
+// res20: DenseVector[Double] = DenseVector(0.776940930449239, 0.4461181391015221, 0.3308227913477176, 0.44611813910152176)
 glm.predict(response=true).fitted
-// res9: DenseVector[Double] = DenseVector(0.776940930449239, 0.4461181391015221, 0.3308227913477176, 0.44611813910152176)
+// res21: DenseVector[Double] = DenseVector(0.776940930449239, 0.4461181391015221, 0.3308227913477176, 0.44611813910152176)
 glm.summary
 // Estimate	 S.E.	 z-stat	p-value		Variable
 // ---------------------------------------------------------
@@ -116,7 +179,7 @@ glm.summary
 //  -1.9524	 3.085	-0.633	0.5269  	V1
 //  -0.9762	 3.236	-0.302	0.7629  	V2
 glm.plots
-// res11: breeze.plot.Figure = breeze.plot.Figure@539cfa58
+// res23: breeze.plot.Figure = breeze.plot.Figure@7436994d
 ```
 
 ### Poisson regression
@@ -144,7 +207,7 @@ val glm = Glm(y,X,List("V1","V2"),PoissonGlm)
 //   its = 50
 // )
 glm.coefficients
-// res13: DenseVector[Double] = DenseVector(-3.126281977933656, 1.4099402205461318, 1.0832924624611127)
+// res25: DenseVector[Double] = DenseVector(-3.126281977933656, 1.4099402205461318, 1.0832924624611127)
 glm.summary
 // Estimate	 S.E.	 z-stat	p-value		Variable
 // ---------------------------------------------------------
@@ -152,7 +215,7 @@ glm.summary
 //   1.4099	 1.162	 1.213	0.2250  	V1
 //   1.0833	 1.055	 1.027	0.3044  	V2
 glm.plots
-// res15: breeze.plot.Figure = breeze.plot.Figure@2230b808
+// res27: breeze.plot.Figure = breeze.plot.Figure@7ed6d390
 ```
 
 
