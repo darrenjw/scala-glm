@@ -16,6 +16,12 @@ libraryDependencies  ++= Seq(
   "org.ddahl" %% "rscala" % "3.2.19"
 )
 
+mdocIn := file("mdoc/")
+
+mdocOut := file("docs/")
+
+enablePlugins(MdocPlugin)
+
 resolvers ++= Seq(
   "Sonatype Snapshots" at
     "https://oss.sonatype.org/content/repositories/snapshots/",
