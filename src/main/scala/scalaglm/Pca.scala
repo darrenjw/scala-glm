@@ -143,7 +143,7 @@ case class Pca(mat: DenseMatrix[Double], colNames: Seq[String]) {
     p3.title = "Scores for first two components"
     p3.xlabel = "First principal component"
     p3.ylabel = "Second principal component"
-    fig.refresh
+    fig.refresh()
     fig
   }
 

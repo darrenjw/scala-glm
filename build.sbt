@@ -23,7 +23,8 @@ resolvers ++= Seq(
     "https://oss.sonatype.org/content/repositories/releases/"
 )
 
-scalaVersion := "2.12.12"
+// scalaVersion := "2.12.12"
+scalaVersion := "2.13.4"
 
 crossScalaVersions := Seq("2.12.12", "2.13.4")
 
