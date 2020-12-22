@@ -9,7 +9,7 @@ scalacOptions ++= Seq(
 )
 
 libraryDependencies  ++= Seq(
-  "org.scalatest" %% "scalatest" % "3.0.1" % "test",
+  "org.scalatest" %% "scalatest" % "3.2.2" % "test",
   "org.scalanlp" %% "breeze" % "1.1",
   "org.scalanlp" %% "breeze-viz" % "1.1",
   "org.scalanlp" %% "breeze-natives" % "1.1",

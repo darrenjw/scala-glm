@@ -7,11 +7,14 @@ Test code for utils
 
 package scalaglm
 
-import org.scalatest.FlatSpec
 import breeze.linalg._
 import breeze.numerics._
 
-class UtilsSpec extends FlatSpec {
+import org.scalatest._
+import flatspec._
+import matchers._
+
+class UtilsSpec extends AnyFlatSpec {
 
   import Utils._
 

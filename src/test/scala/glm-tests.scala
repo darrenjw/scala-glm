@@ -7,12 +7,14 @@ Test code for GLMs
 
 package scalaglm
 
-import org.scalatest.FlatSpec
 import breeze.linalg._
 import breeze.numerics._
 
+import org.scalatest._
+import flatspec._
+import matchers._
 
-class GlmSpec extends FlatSpec {
+class GlmSpec extends AnyFlatSpec {
 
   "Glm" should "fit a simple logistic regression model (without intercept)" in {
     val y = DenseVector(1.0,1.0,0.0,0.0,1.0)

@@ -7,12 +7,14 @@ Test code for PCA
 
 package scalaglm
 
-import org.scalatest.FlatSpec
 import breeze.linalg._
 import breeze.numerics._
 
+import org.scalatest._
+import flatspec._
+import matchers._
 
-class PcaSpec extends FlatSpec {
+class PcaSpec extends AnyFlatSpec {
 
   "Pca" should "give the same results as Breeze" in {
     val X = DenseMatrix((1.1,1.5),(1.5,2.2),(2.0,1.5),(2.1,3.2))

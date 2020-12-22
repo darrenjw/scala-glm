@@ -7,11 +7,14 @@ Test code for regression modelling
 
 package scalaglm
 
-import org.scalatest.FlatSpec
 import breeze.linalg._
 import breeze.numerics._
 
-class LmSpec extends FlatSpec {
+import org.scalatest._
+import flatspec._
+import matchers._
+
+class LmSpec extends AnyFlatSpec {
 
   import Utils._
 
