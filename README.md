@@ -52,6 +52,6 @@ If building from source, running `sbt console` from this directory should give a
 
 ## Author
 
-This library is Copyright (C) 2017-2020 [Darren J Wilkinson](https://github.com/darrenjw), but released as open source software under an Apache 2.0 license.
+This library is Copyright (C) 2017-2021 [Darren J Wilkinson](https://github.com/darrenjw), but released as open source software under an Apache 2.0 license.
 
 

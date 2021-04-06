@@ -13,14 +13,14 @@ object Basis {
 
   /**
     * Construct a polynomial basis matrix with `degree` columns using
-    * Input vector `x`
+    * input vector `x`.
     * Defaults to orthogonal Legendre polynomials, but `raw` monomials can be requested.
     *
-    * @param x A covariate vector
-    * @param degree The maximum degree of the polynomial basis
-    * @param raw Raw monomial basis (true) or orthogonal polynomials (false, default)
+    * @param x A covariate vector.
+    * @param degree The maximum degree of the polynomial basis.
+    * @param raw Raw monomial basis (true) or orthogonal polynomials (false, default).
     * 
-    * @return A matrix with rows matching the length of `x` and `degree` columns
+    * @return A matrix with rows matching the length of `x` and `degree` columns.
     */
   def poly(x: DenseVector[Double], degree: Int, raw: Boolean = false): DenseMatrix[Double] = {
     if (raw) {
@@ -33,13 +33,13 @@ object Basis {
   }
 
   /**
-    * Legendre orthogonal polynomial function
-    * Evaluated using Bonnet's recursion
+    * Legendre orthogonal polynomial function.
+    * Evaluated using Bonnet's recursion.
     *
-    * @param x The argument of the polynomial, nominally between -1 and 1
-    * @param n The degree of the polynomial
+    * @param x The argument of the polynomial, nominally between -1 and 1.
+    * @param n The degree of the polynomial.
     * 
-    * @return The value of the `n`th polynomial at `x`
+    * @return The value of the `n`th polynomial at `x`.
     */
   def legendre(x: Double, n: Int): Double = n match {
     case 0 => 1.0
