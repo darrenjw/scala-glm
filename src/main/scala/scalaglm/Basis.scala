@@ -47,12 +47,20 @@ object Basis {
     case _ => ((2*n-1)*x*legendre(x, n-1) - (n-1)*legendre(x, n-2)) / n
   }
 
+  // TODO: scaldoc
+  def cosine(x: DenseVector[Double], n: Int): DenseMatrix[Double] = {
+    val mx = max(x)
+    val mn = min(x)
+    DenseMatrix.tabulate(x.length, n)((i, j) => cosine(j+1, (x(i)-mn)/(mx-mn)))
+  }
 
+  private val r2 = math.sqrt(2.0)
 
-  // TODO: cosine series
-
+  // TODO: scaladoc
+  def cosine(j: Int, x: Double): Double = r2*math.cos(j*math.Pi*x)
 
   // TODO: B-spline basis
+  def bs(x: DenseVector[Double], degree: Int, intKnots: DenseVector[Double]): DenseMatrix[Double] = ???
 
 }
 
