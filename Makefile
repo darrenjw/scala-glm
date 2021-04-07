@@ -12,5 +12,10 @@ docs: FORCE
 edit:
 	emacs *.md build.sbt src/main/scala/scalaglm/*.scala src/test/scala/*.scala examples/src/main/scala/*.scala &
 
+todo:
+	grep TODO: src/main/scala/scalaglm/*.scala
 
+commit:
+	git commit -a && git push && git pull && git log | head -20
 
+# eof

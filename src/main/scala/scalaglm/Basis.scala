@@ -47,7 +47,15 @@ object Basis {
     case _ => ((2*n-1)*x*legendre(x, n-1) - (n-1)*legendre(x, n-2)) / n
   }
 
-  // TODO: scaldoc
+  /**
+    * Construct a cosine series basis matrix with `n` columns using
+    * input vector `x`.
+    *
+    * @param x A covariate vector.
+    * @param n The number of cosine series basis functions required.
+    * 
+    * @return A matrix with rows matching the length of `x` and `n` columns.
+    */
   def cosine(x: DenseVector[Double], n: Int): DenseMatrix[Double] = {
     val mx = max(x)
     val mn = min(x)
@@ -56,7 +64,14 @@ object Basis {
 
   private val r2 = math.sqrt(2.0)
 
-  // TODO: scaladoc
+  /**
+    * Cosine orthogonal basis function.
+    * Normalised with sqrt(2).
+    *
+    * @param j The order of the basis function (assumed >= 1).
+    * @param x The argument of the cosine function, nominally between 0 and 1.
+    * @return The value of the cosine basis function at `x`.
+    */
   def cosine(j: Int, x: Double): Double = r2*math.cos(j*math.Pi*x)
 
   // TODO: B-spline basis
