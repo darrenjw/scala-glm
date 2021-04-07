@@ -75,8 +75,22 @@ object Basis {
     */
   def cosine(x: Double, j: Int): Double = r2*math.cos(j*math.Pi*x)
 
+
   // TODO: B-spline basis
-  def bs(x: DenseVector[Double], degree: Int, intKnots: DenseVector[Double]): DenseMatrix[Double] = ???
+  def bs(x: DenseVector[Double], degree: Int = 3, intercept: Boolean = false)(
+    intKnots: DenseVector[Double] = DenseVector(), lb: Double = min(x), ub: Double = max(x)
+  ): DenseMatrix[Double] = ???
+
+
+  // TODO: need some careful tests!
+  def bspline(x: Double, i: Int, deg: Int, knots: DenseVector[Double]): Double = deg match {
+    case 0 => if ((x >= knots(i))&(x < knots(i+1))) 1.0 else 0.0
+    case _ => {
+      val a0 = if (knots(i+deg) == knots(i)) 0.0 else (x-knots(i))/(knots(i+deg)-knots(i))
+      val a1 = if (knots(i+deg+1) == knots(i+1)) 0.0 else (knots(i+deg+1)-x)/(knots(i+deg+1)-knots(i+1))
+      a0*bspline(x, i, deg-1, knots) + a1*bspline(x, i+1, deg-1, knots)
+    }
+  }
 
 }
 
