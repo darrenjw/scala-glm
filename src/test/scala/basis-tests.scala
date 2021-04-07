@@ -49,13 +49,13 @@ class BasisSpec extends AnyFlatSpec {
   }
 
   "cosine" should "evaluate correctly" in {
-    assert(abs(cosine(1, 0.0) - math.sqrt(2)) < 1e-5)
-    assert(abs(cosine(1, 0.5) + 0.0)          < 1e-5)
-    assert(abs(cosine(1, 1.0) + math.sqrt(2)) < 1e-5)
-    assert(abs(cosine(2, 0.0) - math.sqrt(2)) < 1e-5)
-    assert(abs(cosine(2, 0.25) - 0.0)         < 1e-5)
-    assert(abs(cosine(2, 0.5) + math.sqrt(2)) < 1e-5)
-    assert(abs(cosine(2, 1.0) - math.sqrt(2)) < 1e-5)
+    assert(abs(cosine(0.0, 1) - math.sqrt(2)) < 1e-5)
+    assert(abs(cosine(0.5, 1) + 0.0)          < 1e-5)
+    assert(abs(cosine(1.0, 1) + math.sqrt(2)) < 1e-5)
+    assert(abs(cosine(0.0, 2) - math.sqrt(2)) < 1e-5)
+    assert(abs(cosine(0.25, 2) - 0.0)         < 1e-5)
+    assert(abs(cosine(0.5, 2) + math.sqrt(2)) < 1e-5)
+    assert(abs(cosine(1.0, 2) - math.sqrt(2)) < 1e-5)
   }
 
   it should "create correct matrix" in {

@@ -10,7 +10,7 @@ docs: FORCE
 	git add docs/api
 
 edit:
-	emacs *.md build.sbt src/main/scala/scalaglm/*.scala src/test/scala/*.scala examples/src/main/scala/*.scala &
+	emacs *.md Makefile build.sbt src/main/scala/scalaglm/*.scala src/test/scala/*.scala examples/src/main/scala/*.scala &
 
 todo:
 	grep TODO: src/main/scala/scalaglm/*.scala

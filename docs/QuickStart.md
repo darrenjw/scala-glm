@@ -27,7 +27,7 @@ pca.scores
 // 0.0   -0.33333333333333326  
 // 0.5   0.16666666666666674   
 pca.plots
-// res3: breeze.plot.Figure = breeze.plot.Figure@7b263eb3
+// res3: breeze.plot.Figure = breeze.plot.Figure@479f4091
 pca.summary
 // Standard deviations:
 // V1	V2
@@ -46,7 +46,7 @@ Note that there is also a utility function `pairs` for producing a "scatterplot 
 ```scala
 import scalaglm.Utils.pairs
 pairs(X, List("V1", "V2"))
-// res5: breeze.plot.Figure = breeze.plot.Figure@31f2685d
+// res5: breeze.plot.Figure = breeze.plot.Figure@22c55d1c
 ```
 
 ## Linear regression
@@ -123,7 +123,7 @@ predNew.fitted
 predNew.se
 // res15: DenseVector[Double] = DenseVector(0.5792715732327586, 0.793025150224688, 0.7431165603202654)
 lm.plots
-// res16: breeze.plot.Figure = breeze.plot.Figure@797cdf2b
+// res16: breeze.plot.Figure = breeze.plot.Figure@486d7cf3
 lm.summary
 // Estimate	 S.E.	 t-stat	p-value		Variable
 // ---------------------------------------------------------
@@ -179,7 +179,7 @@ glm.summary
 //  -1.9524	 3.085	-0.633	0.5269  	V1
 //  -0.9762	 3.236	-0.302	0.7629  	V2
 glm.plots
-// res23: breeze.plot.Figure = breeze.plot.Figure@78b807e1
+// res23: breeze.plot.Figure = breeze.plot.Figure@4759bd9f
 ```
 
 ### Poisson regression
@@ -215,7 +215,7 @@ glm.summary
 //   1.4099	 1.162	 1.213	0.2250  	V1
 //   1.0833	 1.055	 1.027	0.3044  	V2
 glm.plots
-// res27: breeze.plot.Figure = breeze.plot.Figure@3cc3e12b
+// res27: breeze.plot.Figure = breeze.plot.Figure@6151906f
 ```
 
 

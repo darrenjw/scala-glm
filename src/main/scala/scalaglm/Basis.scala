@@ -59,7 +59,7 @@ object Basis {
   def cosine(x: DenseVector[Double], n: Int): DenseMatrix[Double] = {
     val mx = max(x)
     val mn = min(x)
-    DenseMatrix.tabulate(x.length, n)((i, j) => cosine(j+1, (x(i)-mn)/(mx-mn)))
+    DenseMatrix.tabulate(x.length, n)((i, j) => cosine((x(i)-mn)/(mx-mn), j+1))
   }
 
   private val r2 = math.sqrt(2.0)
@@ -68,11 +68,12 @@ object Basis {
     * Cosine orthogonal basis function.
     * Normalised with sqrt(2).
     *
-    * @param j The order of the basis function (assumed >= 1).
     * @param x The argument of the cosine function, nominally between 0 and 1.
+    * @param j The order of the basis function (assumed >= 1).
+    * 
     * @return The value of the cosine basis function at `x`.
     */
-  def cosine(j: Int, x: Double): Double = r2*math.cos(j*math.Pi*x)
+  def cosine(x: Double, j: Int): Double = r2*math.cos(j*math.Pi*x)
 
   // TODO: B-spline basis
   def bs(x: DenseVector[Double], degree: Int, intKnots: DenseVector[Double]): DenseMatrix[Double] = ???
