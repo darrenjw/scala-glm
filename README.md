@@ -45,7 +45,7 @@ If building from source, running `sbt console` from this directory should give a
 ## Documentation
 
 * [QuickStart Guide](https://darrenjw.github.io/scala-glm/QuickStart.html) - start with this to get a feeling for what the library can do
-* [Polynomial regression](https://darrenjw.github.io/scala-glm/PolynomialRegression.html) - guide to polynomial regression
+* [Flexible regression](https://darrenjw.github.io/scala-glm/FlexibleRegression.html) - guide to flexible and non-parametric regression, using polynomial and cosine series basis functions
 * The [examples subdirectory](examples/src/main/scala/) of this repo contains more interesting, self-contained runnable examples
 * The [example scripts](example-scripts/scripts/) directory contains scripts which can be pasted into the REPL
 * [API documentation](https://darrenjw.github.io/scala-glm/api/scalaglm/) - ScalaDoc (for the most recent snapshot)

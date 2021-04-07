@@ -1,4 +1,7 @@
-# Polynomial Regression
+# Flexible Regression
+
+
+## (Orthogonal) polynomial regression
 
 The library contains code for generating polynomial regression basis functions in the object `Basis`. Their use for flexible smoothing and interpolation is illustrated below. First some imports
 
@@ -18,7 +21,7 @@ val y = yt + DenseVector(Gaussian(0.0, 1.0).sample(n).toArray)
 
 import breeze.plot._
 val fig = Figure("Synthetic data")
-val p = fig.subplot(0)
+val p = fig.subplot(2,1,0)
 p += plot(x, y, '+', name="Data")
 p += plot(x, yt, name="Truth")
 ```
@@ -36,4 +39,25 @@ p.title = "Polynomial fits"
 
 That's it!
 
+## Cosine series regression
+
+If you prefer a spectral approach to non-parametric regression, you can use cosine series instead.
+Lets re-use the previous data, but start a new plot.
+
+```scala mdoc
+val p2 = fig.subplot(2,1,1)
+p2 += plot(x, y, '+', name="Data")
+p2 += plot(x, yt, name="Truth")
+```
+
+Next add some cosine series fits, using `Basis.cosine` to generate the necessary covariate matrix.
+
+```scala mdoc
+(1 to 9 by 2).foreach(i => {
+	val lm = Lm(y, Basis.cosine(x, i))
+	p2 += plot(x, lm.fitted, name="C"+i)
+})
+p2.legend = true
+p2.title = "Cosine fits"
+```
 
