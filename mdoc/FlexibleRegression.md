@@ -21,7 +21,7 @@ val y = yt + DenseVector(Gaussian(0.0, 1.0).sample(n).toArray)
 
 import breeze.plot._
 val fig = Figure("Synthetic data")
-val p = fig.subplot(2,1,0)
+val p = fig.subplot(3,1,0)
 p += plot(x, y, '+', name="Data")
 p += plot(x, yt, name="Truth")
 ```
@@ -45,7 +45,7 @@ If you prefer a spectral approach to non-parametric regression, you can use cosi
 Lets re-use the previous data, but start a new plot.
 
 ```scala mdoc
-val p2 = fig.subplot(2,1,1)
+val p2 = fig.subplot(3,1,1)
 p2 += plot(x, y, '+', name="Data")
 p2 += plot(x, yt, name="Truth")
 ```
@@ -61,3 +61,17 @@ p2.legend = true
 p2.title = "Cosine fits"
 ```
 
+## B-splines
+
+Here, we instead use B-splines to get a flexible fit. We use 10 interior knots, and consider linear, quadratic and cubic B-spline basis functions.
+```scala mdoc
+val p3 = fig.subplot(3,1,2)
+p3 += plot(x, y, '+', name="Data")
+p3 += plot(x, yt, name="Truth")
+(1 to 3).foreach(i => {
+	val lm = Lm(y, Basis.bs(x, i)(linspace(2.2,4.8,10).data.toIndexedSeq))
+	p3 += plot(x, lm.fitted, name="B"+i)
+})
+p3.legend = true
+p3.title = "B-spline fits"
+```
