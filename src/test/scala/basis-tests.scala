@@ -2,7 +2,7 @@
 
 package scalaglm
 
-import breeze.linalg._
+import breeze.linalg.{Vector => BVec, _}
 import breeze.numerics._
 
 import org.scalatest._
@@ -71,7 +71,53 @@ class BasisSpec extends AnyFlatSpec {
     assert(abs(m(8,1) - math.sqrt(2)) < 1e-5)
   }
 
+  "bspline" should "evaluate correctly (degree 0)" in {
+    assert(abs(bspline(1.5, 0, 0, Vector(1,2,3,4)) - 1.0) < 1e-5)
+    assert(abs(bspline(2.5, 0, 0, Vector(1,2,3,4)) - 0.0) < 1e-5)
+    assert(abs(bspline(0.5, 0, 0, Vector(1,2,3,4)) - 0.0) < 1e-5)
+  }
 
+  it should "evaluate correctly (degree 1)" in {
+    assert(abs(bspline(1.0, 0, 1, Vector(1,2,3,4)) - 0.0) < 1e-5)
+    assert(abs(bspline(1.5, 0, 1, Vector(1,2,3,4)) - 0.5) < 1e-5)
+    assert(abs(bspline(2.0, 0, 1, Vector(1,2,3,4)) - 1.0) < 1e-5)
+    assert(abs(bspline(2.5, 0, 1, Vector(1,2,3,4)) - 0.5) < 1e-5)
+    assert(abs(bspline(3.0, 0, 1, Vector(1,2,3,4)) - 0.0) < 1e-5)
+    assert(abs(bspline(2.0, 1, 1, Vector(1,2,3,4)) - 0.0) < 1e-5)
+    assert(abs(bspline(2.5, 1, 1, Vector(1,2,3,4)) - 0.5) < 1e-5)
+    assert(abs(bspline(3.0, 1, 1, Vector(1,2,3,4)) - 1.0) < 1e-5)
+    assert(abs(bspline(3.5, 1, 1, Vector(1,2,3,4)) - 0.5) < 1e-5)
+    assert(abs(bspline(4.0, 1, 1, Vector(1,2,3,4)) - 0.0) < 1e-5)
+  }
+
+  it should "have correct support (degree 2)" in {
+    assert(abs(bspline(1.0, 0, 2, Vector(1,2,3,4)) - 0.0) < 1e-5)
+    assert(abs(bspline(2.0, 0, 2, Vector(1,2,3,4))) > 1e-5)
+    assert(abs(bspline(3.0, 0, 2, Vector(1,2,3,4))) > 1e-5)
+    assert(abs(bspline(4.0, 0, 2, Vector(1,2,3,4)) - 0.0) < 1e-5)
+  }
+
+  "bs" should "work (degree 1)" in {
+    val m = bs(DenseVector(1,2,3), 1)(List(2.0))
+    assert(m.rows == 3)
+    assert(m.cols == 2)
+    assert(abs(m(0,0) - 0.0) < 1e-5)
+    assert(abs(m(1,0) - 1.0) < 1e-5)
+    assert(abs(m(2,0) - 0.0) < 1e-5)
+    assert(abs(m(1,1) - 0.0) < 1e-5)
+    assert(abs(m(2,1) - 1.0) < 1e-5)
+  }
+
+  it should "work (with intercept)" in {
+    val m = bs(DenseVector(1,2,3), 1, true)(List(2.0))
+    assert(m.rows == 3)
+    assert(m.cols == 3)
+    assert(abs(m(0,0) - 1.0) < 1e-5)
+    assert(abs(m(1,0) - 0.0) < 1e-5)
+    assert(abs(m(0,1) - 0.0) < 1e-5)
+    assert(abs(m(1,1) - 1.0) < 1e-5)
+    assert(abs(m(2,1) - 0.0) < 1e-5)
+  }
 
 
 }

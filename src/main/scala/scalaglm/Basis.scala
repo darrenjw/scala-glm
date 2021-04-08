@@ -7,7 +7,8 @@ Basis.scala
 
 package scalaglm
 
-import breeze.linalg._
+import breeze.linalg.{Vector => BVec, _}
+import breeze.numerics._
 
 object Basis {
 
@@ -75,19 +76,46 @@ object Basis {
     */
   def cosine(x: Double, j: Int): Double = r2*math.cos(j*math.Pi*x)
 
-
-  // TODO: B-spline basis
+  /**
+    * Construct a B-spline covariate matrix using input vector `x`.
+    *
+    * @param x A covariate vector.
+    * @param degree The degree of the required B-spline basis (3 for cubic, default).
+    * @param intercept Include first basis function?
+    * @param intKnots Interior knots.
+    * @param lb Lower boundary knot.
+    * @param ub Upper boundary knot.
+    */
   def bs(x: DenseVector[Double], degree: Int = 3, intercept: Boolean = false)(
-    intKnots: DenseVector[Double] = DenseVector(), lb: Double = min(x), ub: Double = max(x)
-  ): DenseMatrix[Double] = ???
+    intKnots: Seq[Double] = List(), lb: Double = min(x), ub: Double = max(x)
+  ): DenseMatrix[Double] = {
+    val knots = List.fill(degree+1)(lb) ++ intKnots.sorted.toList ++
+      List.fill(degree+1)(ub)
+    val k = intKnots.length + degree + 1
+    val b = DenseMatrix.tabulate(x.length, k)((i, j) =>
+      bspline(x(i),j,degree,knots.toVector))
+    b(x :== ub, k-1) := 1.0
+    if (intercept) b else b(::, 1 until k)
+  }
 
-
-  // TODO: need some careful tests!
-  def bspline(x: Double, i: Int, deg: Int, knots: DenseVector[Double]): Double = deg match {
+  /**
+    * B-spline basis function.
+    * Evaluated using the de Boor recurrence. 
+    *
+    * @param x The argument of the B-spline function.
+    * @param i The index of the B-spline function (starting from 0).
+    * @param deg The degree of the B-spline.
+    * @param knots The knot sequence.
+    * 
+    * @return The value of the B-spline function at `x`.
+    */
+  def bspline(x: Double, i: Int, deg: Int, knots: Vector[Double]): Double = deg match {
     case 0 => if ((x >= knots(i))&(x < knots(i+1))) 1.0 else 0.0
     case _ => {
-      val a0 = if (knots(i+deg) == knots(i)) 0.0 else (x-knots(i))/(knots(i+deg)-knots(i))
-      val a1 = if (knots(i+deg+1) == knots(i+1)) 0.0 else (knots(i+deg+1)-x)/(knots(i+deg+1)-knots(i+1))
+      val a0 = if (knots(i+deg) == knots(i))
+        0.0 else (x - knots(i))/(knots(i+deg) - knots(i))
+      val a1 = if (knots(i+deg+1) == knots(i+1))
+        0.0 else (knots(i+deg+1) - x)/(knots(i+deg+1) - knots(i+1))
       a0*bspline(x, i, deg-1, knots) + a1*bspline(x, i+1, deg-1, knots)
     }
   }
