@@ -2,7 +2,9 @@
 
 ### Release notes
 
+## 0.5
 
+* Code and documentation for flexible regression modelling, including orthogonal polynomials, cosine series, and B-splines.
 
 ## 0.4
 
