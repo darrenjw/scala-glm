@@ -4,7 +4,7 @@
 
 This library contains code for principal components analysis based on a thin SVD of the centred data matrix. This is more numerically stable than a construction from the spectral decomposition of the covariance matrix. It is analogous to the R function `prcomp` rather than the R function `princomp`. First create some synthetic data.
 
-```scala mdoc
+```scala mdoc:silent
 import breeze.linalg._
 import breeze.numerics._
 import breeze.stats.distributions._
@@ -12,9 +12,11 @@ val X = DenseMatrix.tabulate(100, 3)((i, j) =>
 	Gaussian(j, j+1).sample())
 ```
 Now we can do PCA.
-```scala mdoc
+```scala mdoc:silent
 import scalaglm.Pca
 val pca = Pca(X, List("V1", "V2", "V3"))
+```
+```scala mdoc
 pca.sdev
 pca.loadings
 pca.scores
@@ -39,21 +41,23 @@ pairs(X, List("V1", "V2", "V3"))
 val f2 = pairs(X, List("V1", "V2", "V3"))
 f2.saveas("docs/pairs-plots.png")
 ```
-![Pairs plots](paris-plots.png)
+![Pairs plots](pairs-plots.png)
 
 
 ## Linear regression
 
 This code computes regression coefficients and associated diagnostics via the QR decomposition of the covariate matrix. The diagnostics are analogous to those produced by the R function `lm`. We start by creating a synthetic response variable.
 
-```scala mdoc
+```scala mdoc:silent
 val y = DenseVector.tabulate(100)(i => 
 	Gaussian(2.0 + 1.5*X(i,0) + 0.5*X(i,1), 3.0).sample())
 ```
 So we can now do linear regression and generate all of the usual diagnostics.
-```scala mdoc
+```scala mdoc:silent
 import scalaglm.Lm
 val lm = Lm(y,X,List("V1", "V2", "V3"))
+```
+```scala mdoc
 lm.coefficients
 lm.se
 lm.fitted
@@ -84,15 +88,17 @@ The current implementation supports only simple one-parameter exponential family
 ### Logistic regression
 
 Again, we start by creating an appropriate response variable.
-```scala mdoc
+```scala mdoc:silent
 val ylb = (0 until 100) map (i => Bernoulli(sigmoid(1.0 + X(i,0))).sample())
 val yl = DenseVector(ylb.toArray map {b => if (b) 1.0 else 0.0})
 ```
 
 Then we can do logistic regression in a typical way.
-```scala mdoc
+```scala mdoc:silent
 import scalaglm.{Glm, LogisticGlm}
 val glm = Glm(yl, X, List("V1","V2","V3"), LogisticGlm)
+```
+```scala mdoc
 glm.coefficients
 glm.fitted
 glm.predict(response=true).fitted
@@ -110,11 +116,13 @@ f4.saveas("docs/glm-plots.png")
 ### Poisson regression
 
 We first create an appropriate response, and then do Poisson regression.
-```scala mdoc
+```scala mdoc:silent
 val yp = DenseVector.tabulate(100)(i => Poisson(math.exp(-0.5 + X(i,0))).sample().toDouble)
 
 import scalaglm.PoissonGlm
 val pglm = Glm(yp, X, List("V1","V2","V3"), PoissonGlm)
+```
+```scala mdoc
 pglm.coefficients
 pglm.summary
 pglm.plots
