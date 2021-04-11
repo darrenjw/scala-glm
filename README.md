@@ -1,6 +1,8 @@
 # scala-glm
 
-### Scala library for regression modelling (fitting linear and generalised linear statistical models, diagnosing fit, making predictions)
+## Scala library for regression modelling
+
+Regression modelling, including fitting linear and generalised linear statistical models, diagnosing fit and making predictions. Diagnostic plots. Also, flexible regression modelling using orthogonal polynomials, cosine series, B-splines, etc. This library builds on top of [Breeze](https://github.com/scalanlp/breeze), and is aimed primarily at people already using Scala and Breeze who want more statistical functionality.
 
 ## Installation/Getting started
 

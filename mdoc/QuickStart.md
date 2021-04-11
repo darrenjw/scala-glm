@@ -16,6 +16,12 @@ pca.summary
 ```
 The final line prints a readable summary of the PCA to the console. `plots` produces some diagnostic plots, including a "scree plot".
 
+```scala mdoc:invisible
+val f = pca.plots
+f.saveas("docs/pca-plots.png")
+```
+![PCA Plots](pca-plots.png)
+
 Note that there is also a utility function `pairs` for producing a "scatterplot matrix":
 ```scala mdoc
 import scalaglm.Utils.pairs
