@@ -76,8 +76,5 @@ p3.legend = true
 p3.title = "B-spline fits"
 ```
 
-```scala:invisible
-fig.saveas("docs/flex.png")
-```
 ![Flexible modelling](flex.png)
 
