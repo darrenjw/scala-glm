@@ -12,9 +12,9 @@ libraryDependencies  ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.2" % "test",
   "org.scalactic" %% "scalactic" % "3.2.2" % "test",
   "org.scalatestplus" %% "scalacheck-1-14" % "3.2.2.0" % "test",
-  "org.scalanlp" %% "breeze" % "1.2",
-  "org.scalanlp" %% "breeze-viz" % "1.2",
-  "org.scalanlp" %% "breeze-natives" % "1.2",
+  "org.scalanlp" %% "breeze" % "2.0-SNAPSHOT",
+  "org.scalanlp" %% "breeze-viz" % "2.0-SNAPSHOT",
+  "org.scalanlp" %% "breeze-natives" % "2.0-SNAPSHOT",
   "org.ddahl" %% "rscala" % "3.2.19"
 )
 
@@ -36,7 +36,7 @@ scalaVersion := "2.13.5"
 
 crossScalaVersions := Seq("2.12.12", "2.13.5")
 
-
+fork := true
 
 // eof
 

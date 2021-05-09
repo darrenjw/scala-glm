@@ -240,7 +240,7 @@ object Irls {
     val eta = X * bhat0
     val sW = eta map bpp map math.sqrt
     val zs = (y - (eta map bp)) / sW
-    val Xs = X(::, *) * sW
+    val Xs = X(::, *) *:* sW
     val QR = qr.reduced(Xs)
     val bhat = bhat0 + backSolve(QR.r, QR.q.t * zs)
     if (its <= 1) println("WARNING: IRLS did not converge")
