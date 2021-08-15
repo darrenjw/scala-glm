@@ -2,6 +2,10 @@
 
 ### Release notes
 
+## 0.6
+
+* Linking against Breeze 2.0-RC1 and cross-building for Scala 3 in addition to 2.12 and 2.13.
+
 ## 0.5
 
 * Code and documentation for flexible regression modelling, including orthogonal polynomials, cosine series, and B-splines.

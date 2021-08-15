@@ -31,10 +31,11 @@ resolvers ++= Seq(
     "https://oss.sonatype.org/content/repositories/releases/"
 )
 
-//scalaVersion := "2.13.5"
 scalaVersion := "3.0.1"
 
 crossScalaVersions := Seq("2.12.12", "2.13.5", "3.0.1")
+
+ThisBuild / versionScheme := Some("strict")
 
 fork := true
 
