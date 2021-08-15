@@ -86,7 +86,7 @@ object Utils {
     val r = a.length
     val c = a(0).length
     val m = DenseMatrix.zeros[Double](r,c)
-      (0 until r).foreach(i => { m(i,::) := DenseVector(a(i)).t })
+    (0 until r).foreach(i => { m(i,::) := DenseVector(a(i)).t })
     m
   }
 
@@ -132,8 +132,8 @@ object Utils {
     require(mat.cols == names.length)
     val fig = Figure("Scatterplot matrix")
     val p = mat.cols
-      (0 until p).foreach{i =>
-        (0 until p).foreach {j =>
+    (0 until p).foreach{i =>
+       (0 until p).foreach {j =>
           val pij = fig.subplot(p,p,i*p+j)
           if (i == j) {
             pij += hist(mat(::,i))

@@ -14,7 +14,7 @@ import breeze.numerics._
 
 trait Predict {
   val fitted: DenseVector[Double]
-  val se: DenseVector[Double]
+  //val se: DenseVector[Double]
 } // trait Predict
 
 

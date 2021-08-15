@@ -107,7 +107,7 @@ case class Pca(mat: DenseMatrix[Double], colNames: Seq[String]) {
     println(names.mkString("\t"))
     println((cumuvar.toArray map ("%6.3f".format(_))).mkString("\t"))
     println("Loadings:")
-      ((1 to p) map ("PC%02d\t".format(_))).foreach(print)
+    ((1 to p) map ("PC%02d\t".format(_))).foreach(print)
     println("")
     (0 until p) foreach { i =>
       (0 until p) foreach { j =>
