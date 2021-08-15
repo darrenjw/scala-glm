@@ -10,7 +10,7 @@ import breeze.linalg._
 
 object Utils {
 
-  import com.github.fommil.netlib.BLAS.{ getInstance => blas }
+  import dev.ludovic.netlib.BLAS.{ getInstance => blas }
 
   /**
    * Backsolve an upper-triangular linear system

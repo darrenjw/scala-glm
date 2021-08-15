@@ -10,7 +10,7 @@ package scalaglm
 import breeze.linalg._
 import breeze.stats.distributions.{ Gaussian, Binomial, Poisson }
 import breeze.numerics._
-import com.github.fommil.netlib.BLAS.{ getInstance => blas }
+import dev.ludovic.netlib.BLAS.{ getInstance => blas }
 
 /** 
   * Trait for simple one-parameter exponential family observation models.
