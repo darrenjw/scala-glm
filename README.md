@@ -21,7 +21,7 @@ sbt new darrenjw/scala-glm.g8
 
 If you just want to try out the library without setting up any kind of project, you can do so with a session like:
 ```
-$ sbt
+$ sbt "-Dsbt.version=1.5.1"
 > set scalaVersion := "3.0.1"
 > set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.6"
 > console
