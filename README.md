@@ -14,7 +14,7 @@ libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.6"
 ```
 The current [stable release](ReleaseNotes.md) is "0.6". It is cross-built for Scala 3, Scala 2.12 and 2.13 and published to the [central repository](http://central.sonatype.org/). Version 0.3 was the final release for Scala 2.11.
 
-There is a [giter8](http://www.foundweekends.org/giter8/) template for `scala-glm`, so using recent versions of SBT you can create a minimal `scala-glm` project template with:
+There is a [giter8](http://www.foundweekends.org/giter8/) template for `scala-glm`, so using recent versions of `sbt` you can create a minimal `scala-glm` project template with:
 ```bash
 sbt new darrenjw/scala-glm.g8
 ```
