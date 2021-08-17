@@ -12,9 +12,9 @@ libraryDependencies  ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.9" % "test",
   "org.scalactic" %% "scalactic" % "3.2.9" % "test",
   "org.scalatestplus" %% "scalacheck-1-15" % "3.2.9.0" % "test",
-  "org.scalanlp" %% "breeze" % "2.0-RC1",
-  "org.scalanlp" %% "breeze-viz" % "2.0-RC1",
-  "org.scalanlp" %% "breeze-natives" % "2.0-RC1",
+  "org.scalanlp" %% "breeze" % "2.0-RC2",
+  "org.scalanlp" %% "breeze-viz" % "2.0-RC2",
+  "org.scalanlp" %% "breeze-natives" % "2.0-RC2",
   ("org.ddahl" %% "rscala" % "3.2.19").cross(CrossVersion.for3Use2_13)
 )
 
