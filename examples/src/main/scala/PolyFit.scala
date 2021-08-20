@@ -9,6 +9,8 @@ import breeze.numerics._
 import breeze.stats.distributions.Gaussian
 import scalaglm._
 
+import breeze.stats.distributions.Rand.VariableSeed.randBasis
+
 object PolyFit {
 
   def main(args: Array[String]): Unit = {
