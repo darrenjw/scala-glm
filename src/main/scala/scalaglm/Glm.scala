@@ -12,6 +12,8 @@ import breeze.stats.distributions.{ Gaussian, Binomial, Poisson }
 import breeze.numerics._
 import dev.ludovic.netlib.BLAS.{ getInstance => blas }
 
+import breeze.stats.distributions.Rand.VariableSeed.randBasis
+
 /** 
   * Trait for simple one-parameter exponential family observation models.
   */

@@ -9,6 +9,8 @@ package scalaglm
 
 import breeze.linalg._
 
+import breeze.stats.distributions.Rand.VariableSeed.randBasis
+
 trait Model {
   val X: DenseMatrix[Double]
   val names: Seq[String]
