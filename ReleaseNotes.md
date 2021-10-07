@@ -2,6 +2,12 @@
 
 ### Release notes
 
+
+## 0.7
+
+* Linking against the final release of Breeze 2.0.
+* Cross-building for **Scala 3** in addition to Scala 2.12 and 2.13.
+
 ## 0.6
 
 * Linking against Breeze 2.0-RC1 and cross-building for Scala 3 in addition to 2.12 and 2.13.
