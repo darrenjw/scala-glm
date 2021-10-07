@@ -11,7 +11,7 @@ import breeze.numerics.*
 import breeze.stats.distributions.Gaussian
 import breeze.stats.distributions.Rand.VariableSeed.randBasis
 
-import scalaglm._
+import scalaglm.*
 ```
 
 Next simulate some synthetic data, and plot it.
@@ -21,7 +21,7 @@ val x = linspace(2.0, 5.0, n)
 val yt = 0.5*x + sin(x*x)
 val y = yt + DenseVector(Gaussian(0.0, 1.0).sample(n).toArray)
 
-import breeze.plot._
+import breeze.plot.*
 val f1 = Figure("Synthetic data")
 val p1 = f1.subplot(0)
 p1 += plot(x, y, '+', name="Data")
