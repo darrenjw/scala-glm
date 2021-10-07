@@ -6,8 +6,8 @@
 The library contains code for generating polynomial regression basis functions in the object `Basis`. Their use for flexible smoothing and interpolation is illustrated below. First some imports
 
 ```scala mdoc:silent
-import breeze.linalg._
-import breeze.numerics._
+import breeze.linalg.*
+import breeze.numerics.*
 import breeze.stats.distributions.Gaussian
 import breeze.stats.distributions.Rand.VariableSeed.randBasis
 
@@ -31,10 +31,10 @@ p1 += plot(x, yt, name="Truth")
 Next add some polynomial fits, using `Basis.poly` to generate the necessary covariate matrix.
 
 ```scala mdoc:silent
-(1 to 17 by 4).foreach(i => {
+(1 to 17 by 4).foreach(i =>
 	val lm = Lm(y, Basis.poly(x, i))
 	p1 += plot(x, lm.fitted, name="P"+i)
-})
+)
 p1.legend = true
 p1.title = "Polynomial fits"
 ```
@@ -60,10 +60,10 @@ p2 += plot(x, yt, name="Truth")
 Next add some cosine series fits, using `Basis.cosine` to generate the necessary covariate matrix.
 
 ```scala mdoc:silent
-(1 to 9 by 2).foreach(i => {
+(1 to 9 by 2).foreach(i =>
 	val lm = Lm(y, Basis.cosine(x, i))
 	p2 += plot(x, lm.fitted, name="C"+i)
-})
+)
 p2.legend = true
 p2.title = "Cosine fits"
 ```
@@ -81,10 +81,10 @@ val f3 = Figure("B-splines")
 val p3 = f3.subplot(0)
 p3 += plot(x, y, '+', name="Data")
 p3 += plot(x, yt, name="Truth")
-(1 to 3).foreach(i => {
+(1 to 3).foreach(i =>
 	val lm = Lm(y, Basis.bs(x, i)(linspace(2.2,4.8,10).data.toIndexedSeq))
 	p3 += plot(x, lm.fitted, name="B"+i)
-})
+)
 p3.legend = true
 p3.title = "B-spline fits"
 ```

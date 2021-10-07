@@ -5,9 +5,9 @@
 This library contains code for principal components analysis based on a thin SVD of the centred data matrix. This is more numerically stable than a construction from the spectral decomposition of the covariance matrix. It is analogous to the R function `prcomp` rather than the R function `princomp`. First create some synthetic data.
 
 ```scala mdoc:silent
-import breeze.linalg._
-import breeze.numerics._
-import breeze.stats.distributions._
+import breeze.linalg.*
+import breeze.numerics.*
+import breeze.stats.distributions.*
 import breeze.stats.distributions.Rand.VariableSeed.randBasis
 
 val X = DenseMatrix.tabulate(100, 3)((i, j) => 

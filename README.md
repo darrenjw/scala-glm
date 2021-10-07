@@ -25,7 +25,7 @@ $ sbt "-Dsbt.version=1.5.1"
 > set scalaVersion := "3.0.1"
 > set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.7"
 > console
-scala> import scalaglm._
+scala> import scalaglm.*
 ```
 See below for documentation links.
 
