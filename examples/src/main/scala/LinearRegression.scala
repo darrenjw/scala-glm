@@ -8,21 +8,18 @@ Linear regression modelling example
 import scalaglm._
 import breeze.linalg._
 
-object LinearRegression {
-
-  def main(args: Array[String]): Unit = {
+@main def linearRegression() =
 
     val url = "http://archive.ics.uci.edu/ml/machine-learning-databases/00291/airfoil_self_noise.dat"
     val fileName = "self-noise.csv"
 
     // download the file to disk if it hasn't been already
     val file = new java.io.File(fileName)
-    if (!file.exists) {
+    if !file.exists then
       val s = new java.io.PrintWriter(file)
       val data = scala.io.Source.fromURL(url).getLines()
       data.foreach(l => s.write(l.trim.split('\t').filter(_ != "").mkString("", ",", "\n")))
       s.close
-    }
 
     // read the file from disk
     val mat = csvread(new java.io.File(fileName))
@@ -37,12 +34,6 @@ object LinearRegression {
     // test without name list
     Lm(y,X,false).summary
     Lm(y,X).summary
-
-  } // main
-
-
-}
-
 
 
 // eof

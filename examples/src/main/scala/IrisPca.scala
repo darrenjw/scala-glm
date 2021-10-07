@@ -3,14 +3,11 @@ IrisPca.scala
 
  */
 
-
 import breeze.linalg._
 import breeze.stats.covmat
 import scalaglm._
 
-object IrisPca {
-
-  def main(args: Array[String]): Unit = {
+@main def irisPca() =
 
     val url = "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
     val fileName = "iris.csv"
@@ -21,13 +18,12 @@ object IrisPca {
 
     // download the file to disk if it hasn't been already
     val file = new java.io.File(fileName)
-    if (!file.exists) {
+    if !file.exists then
       val s = new java.io.PrintWriter(file)
       val data = scala.io.Source.fromURL(url).getLines()
       data.foreach(l => s.write(l.trim.split(',').
         map(x => imap.getOrElse(x, x)).mkString("", ",", "\n")))
       s.close
-    }
 
     // read the file from disk
     val mat = csvread(new java.io.File(fileName))
@@ -71,10 +67,6 @@ object IrisPca {
     // Test without variable names
     Pca(x).summary
 
-
-  } // main
-
-}
 
 // eof
 
