@@ -3,9 +3,9 @@ IrisPca.scala
 
  */
 
-import breeze.linalg._
+import breeze.linalg.*
 import breeze.stats.covmat
-import scalaglm._
+import scalaglm.*
 
 @main def irisPca() =
 
@@ -50,7 +50,7 @@ import scalaglm._
     myPca.plots.saveas("IrisPcaDiag.png")
 
     // scatter plot first 2 principal components
-    import breeze.plot._
+    import breeze.plot.*
     val fig = Figure("PCA")
     val p = fig.subplot(0)
     val ind0 = (0 until x.rows) filter (i => clas(i) == 0)

@@ -5,8 +5,8 @@ Logistic regression modelling example
 
  */
 
-import scalaglm._
-import breeze.linalg._
+import scalaglm.*
+import breeze.linalg.*
 
 @main def logisticRegression() =
 

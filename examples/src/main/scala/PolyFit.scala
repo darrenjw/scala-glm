@@ -4,12 +4,12 @@ PolyFit.scala
  */
 
 
-import breeze.linalg._
-import breeze.numerics._
+import breeze.linalg.*
+import breeze.numerics.*
 import breeze.stats.distributions.Gaussian
-import scalaglm._
-
 import breeze.stats.distributions.Rand.VariableSeed.randBasis
+import scalaglm.*
+
 
 @main def polyFit() =
 
@@ -20,7 +20,7 @@ import breeze.stats.distributions.Rand.VariableSeed.randBasis
   val y = yt + DenseVector(Gaussian(0.0, 1.0).sample(n).toArray)
 
   // scatter plot
-  import breeze.plot._
+  import breeze.plot.*
   val fig = Figure("Synthetic data")
   val p = fig.subplot(0)
   p += plot(x, y, '+', name="Data")
