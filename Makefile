@@ -6,7 +6,7 @@ FORCE:
 
 docs: FORCE
 	sbt doc mdoc
-	cp -r target/scala-2.13/api/* docs/api/
+	cp -r target/scala-3.0.1/api/* docs/api/
 	git add docs/*
 
 edit:
