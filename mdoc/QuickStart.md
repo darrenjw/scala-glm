@@ -8,6 +8,8 @@ This library contains code for principal components analysis based on a thin SVD
 import breeze.linalg._
 import breeze.numerics._
 import breeze.stats.distributions._
+import breeze.stats.distributions.Rand.VariableSeed.randBasis
+
 val X = DenseMatrix.tabulate(100, 3)((i, j) => 
 	Gaussian(j, j+1).sample())
 ```

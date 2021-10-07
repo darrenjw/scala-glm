@@ -9,6 +9,8 @@ The library contains code for generating polynomial regression basis functions i
 import breeze.linalg._
 import breeze.numerics._
 import breeze.stats.distributions.Gaussian
+import breeze.stats.distributions.Rand.VariableSeed.randBasis
+
 import scalaglm._
 ```
 
