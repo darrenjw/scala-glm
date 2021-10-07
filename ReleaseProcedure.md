@@ -2,6 +2,8 @@
 
 ## Snapshot release
 
+* `sbt +test`
+* `sbt +package`
 * `sbt +publishSigned`
 * Check it seems OK: https://oss.sonatype.org/content/repositories/snapshots/com/github/darrenjw/
 
