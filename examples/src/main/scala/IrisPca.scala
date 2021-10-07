@@ -26,7 +26,7 @@ import scalaglm.*
       s.close
 
     // read the file from disk
-    val mat = csvread(new java.io.File(fileName))
+    val mat = csvread(file)
     println("Mat Dim: " + mat.rows + " " + mat.cols)
     val x = mat(::, 0 to 3)
     println("X Dim: " + x.rows + " " + x.cols)

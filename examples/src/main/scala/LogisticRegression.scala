@@ -22,7 +22,7 @@ import breeze.linalg.*
     s.close
 
   // read the file from disk
-  val mat = csvread(new java.io.File(fileName))
+  val mat = csvread(file)
   println("Dim: " + mat.rows + " " + mat.cols)
   val y = mat(::, 4) // response is the final column
   val X = mat(::, 0 to 3)
