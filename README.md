@@ -49,7 +49,6 @@ If building from source, running `sbt console` from this directory should give a
 * [QuickStart Guide](https://darrenjw.github.io/scala-glm/QuickStart.html) - start with this to get a feeling for what the library can do
 * [Flexible regression](https://darrenjw.github.io/scala-glm/FlexibleRegression.html) - guide to flexible and non-parametric regression, using orthogonal polynomial, cosine series, and B-spline basis functions
 * The [examples subdirectory](examples/src/main/scala/) of this repo contains more interesting, self-contained runnable examples
-* The [example scripts](example-scripts/scripts/) directory contains scripts which can be pasted into the REPL
 * [API documentation](https://darrenjw.github.io/scala-glm/api/scalaglm/) - ScalaDoc (for the most recent snapshot)
 * For anyone not very familiar with Scala or Breeze, it may be worth working through my [Scala for Statistical Computing short course](https://github.com/darrenjw/scala-course). This library originated from example code prepared for that course.
 
