@@ -33,7 +33,7 @@ resolvers ++= Seq(
 
 scalaVersion := "3.0.1"
 
-crossScalaVersions := Seq("2.12.12", "2.13.5", "3.0.1")
+crossScalaVersions := Seq("2.12.12", "2.13.7", "3.0.1")
 
 ThisBuild / versionScheme := Some("strict")
 
