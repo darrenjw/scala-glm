@@ -94,6 +94,15 @@ object Utils {
     m
   }
 
+  /**
+    *  Discrete cosine transform (DCT) of a DenseVector
+    * 
+    *  Normalised by a factor of 2/N
+    * 
+    * @param x An input vector
+    * 
+    * @return The normalised DCT-II of the input
+    */
   def dct(x: DenseVector[Double]): DenseVector[Double] = {
     val N = x.length
     val y = DenseVector.vertcat(x, x(N-1 to 0 by -1))
@@ -103,6 +112,15 @@ object Utils {
     sY(0 to N-1).map(_.real) / N.toDouble
   }
 
+  /**
+    * Inverse discrete cosine transform (DCT) of a DenseVector
+    * 
+    * Exactly inverts `dct`
+    * 
+    * @param x An input vector containing a transform
+    * 
+    * @return The (unnormalised) DCT-III of the input
+    */
   def idct(x: DenseVector[Double]): DenseVector[Double] = {
     val N = x.length
     val y = DenseVector.vertcat(x, DenseVector(0.0), -x(N-1 to 1 by -1))
@@ -112,6 +130,16 @@ object Utils {
     Y(0 to N-1).map(_.real) * N.toDouble
   }
 
+  /**
+    * Discrete cosine transform (DCT) of a DenseMatrix
+    * 
+    * DCT applied to rows and columns
+    * 
+    * @param X An input matrix
+    * @param inverse Inverse or forward transform. Defaults to `false`
+    * 
+    * @return The normalised DCT-II of the input
+    */
   def dct2(X: DenseMatrix[Double], inverse: Boolean = false): DenseMatrix[Double] = {
     val x = X.copy
     (0 until x.rows).foreach{j =>
@@ -123,6 +151,9 @@ object Utils {
     x
   }
 
+  /**
+    * dct2(x, true)
+    */
   def idct2(x: DenseMatrix[Double]): DenseMatrix[Double] = dct2(x, true)
 
   import org.apache.commons.math3.special.Beta
