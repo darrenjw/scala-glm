@@ -7,6 +7,10 @@ utils.scala
 package scalaglm
 
 import breeze.linalg._
+import breeze.numerics._
+import breeze.signal._
+import breeze.math._
+import math.Pi
 
 object Utils {
 
@@ -89,6 +93,37 @@ object Utils {
     (0 until r).foreach(i => { m(i,::) := DenseVector(a(i)).t })
     m
   }
+
+  def dct(x: DenseVector[Double]): DenseVector[Double] = {
+    val N = x.length
+    val y = DenseVector.vertcat(x, x(N-1 to 0 by -1))
+    val Y = fourierTr(y)
+    val ff = DenseVector.tabulate(2*N){k => -Pi*i*k/(2*N)}
+    val sY = Y *:* exp(ff)
+    sY(0 to N-1).map(_.real) / N.toDouble
+  }
+
+  def idct(x: DenseVector[Double]): DenseVector[Double] = {
+    val N = x.length
+    val y = DenseVector.vertcat(x, DenseVector(0.0), -x(N-1 to 1 by -1))
+    val ff = DenseVector.tabulate(2*N){k => Pi*i*k/(2*N)}
+    val sy = y.map(Complex(_,0.0)) *:* exp(ff)
+    val Y = iFourierTr(sy)
+    Y(0 to N-1).map(_.real) * N.toDouble
+  }
+
+  def dct2(X: DenseMatrix[Double], inverse: Boolean = false): DenseMatrix[Double] = {
+    val x = X.copy
+    (0 until x.rows).foreach{j =>
+      x(j, ::) := (if (inverse) idct(x(j, ::).t)
+        else dct(x(j, ::).t)).t}
+    (0 until x.cols).foreach{k =>
+      x(::, k) := (if (inverse) idct(x(::, k))
+        else dct(x(::, k)))}
+    x
+  }
+
+  def idct2(x: DenseMatrix[Double]): DenseMatrix[Double] = dct2(x, true)
 
   import org.apache.commons.math3.special.Beta
 
