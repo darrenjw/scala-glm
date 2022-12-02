@@ -14,7 +14,7 @@ import math.Pi
 
 object Utils {
 
-  import dev.ludovic.netlib.BLAS.{ getInstance => blas }
+  import dev.ludovic.netlib.blas.BLAS.{ getInstance => blas }
 
   /**
    * Backsolve an upper-triangular linear system
