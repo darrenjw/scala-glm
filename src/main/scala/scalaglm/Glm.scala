@@ -10,7 +10,7 @@ package scalaglm
 import breeze.linalg._
 import breeze.stats.distributions.{ Gaussian, Binomial, Poisson }
 import breeze.numerics._
-import dev.ludovic.netlib.BLAS.{ getInstance => blas }
+import dev.ludovic.netlib.blas.BLAS.{ getInstance => blas }
 
 import breeze.stats.distributions.Rand.VariableSeed.randBasis
 
