@@ -2,7 +2,7 @@
 
 name := "scala-glm"
 organization := "com.github.darrenjw"
-version := "0.8"
+version := "0.9-SNAPSHOT"
 
 scalacOptions ++= Seq(
   "-unchecked", "-deprecation", "-feature"
