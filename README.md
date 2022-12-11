@@ -10,9 +10,9 @@ This library is simplest to use with [`sbt`](http://www.scala-sbt.org/). You sho
 
 To use the pre-built binary, add the following lines to your `build.sbt`:
 ```scala
-libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.7"
+libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.8"
 ```
-The current [stable release](ReleaseNotes.md) is "0.7". It is cross-built for Scala 3, Scala 2.12 and 2.13 and published to the [central repository](http://central.sonatype.org/). Version 0.3 was the final release for Scala 2.11.
+The current [stable release](ReleaseNotes.md) is "0.8". It is cross-built for Scala 3, Scala 2.12 and 2.13 and published to the [central repository](http://central.sonatype.org/). Version 0.3 was the final release for Scala 2.11.
 
 There is a [giter8](http://www.foundweekends.org/giter8/) template for `scala-glm`, so using recent versions of `sbt` you can create a minimal `scala-glm` project template with:
 ```bash
@@ -21,9 +21,9 @@ sbt new darrenjw/scala-glm.g8
 
 If you just want to try out the library without setting up any kind of project, you can do so with a session like:
 ```
-$ sbt "-Dsbt.version=1.5.1"
-> set scalaVersion := "3.0.1"
-> set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.7"
+$ sbt "-Dsbt.version=1.8.0"
+> set scalaVersion := "3.2.1"
+> set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.8"
 > console
 scala> import scalaglm.*
 ```
@@ -36,7 +36,7 @@ This library has a dependence on [Breeze](https://github.com/scalanlp/breeze), s
 If you want to use the latest snapshot, add the following to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.8-SNAPSHOT"
+libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.9-SNAPSHOT"
 resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 ```
 

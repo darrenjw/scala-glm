@@ -8,7 +8,7 @@ scalacOptions ++= Seq(
 
 libraryDependencies  ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.14" % "test",
-  "com.github.darrenjw" %% "scala-glm" % "0.8-SNAPSHOT",
+  "com.github.darrenjw" %% "scala-glm" % "0.8",
   ("org.ddahl" %% "rscala" % "3.2.19").cross(CrossVersion.for3Use2_13)
 )
 
