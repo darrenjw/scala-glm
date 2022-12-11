@@ -2,6 +2,10 @@
 
 ### Release notes
 
+## 0.8
+
+* Linking against Breeze 2.1.0 (better for Scala 3 projects)
+* Other minor library updates
 
 ## 0.7
 
