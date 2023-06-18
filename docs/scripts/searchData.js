@@ -1,5 +1,6 @@
 pages = [{"l":"index.html#","e":false,"i":"","n":"scala-glm","t":"scala-glm","d":"","k":"static","x":""},
 {"l":"scalaglm.html#","e":false,"i":"","n":"scalaglm","t":"scalaglm","d":"","k":"package","x":""},
+{"l":"scalaglm.html#DMD-0","e":false,"i":"","n":"DMD","t":"DMD = DenseMatrix[Double]","d":"scalaglm","k":"type","x":""},
 {"l":"scalaglm/Basis$.html#","e":false,"i":"","n":"Basis","t":"Basis","d":"scalaglm","k":"object","x":""},
 {"l":"scalaglm/Basis$.html#bs-8c8","e":false,"i":"","n":"bs","t":"bs(x: DenseVector[Double], degree: Int, intercept: Boolean)(intKnots: Seq[Double], lb: Double, ub: Double): DenseMatrix[Double]","d":"scalaglm.Basis","k":"def","x":""},
 {"l":"scalaglm/Basis$.html#bspline-677","e":false,"i":"","n":"bspline","t":"bspline(x: Double, i: Int, deg: Int, knots: Vector[Double]): Double","d":"scalaglm.Basis","k":"def","x":""},

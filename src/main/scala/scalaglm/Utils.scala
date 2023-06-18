@@ -12,6 +12,8 @@ import breeze.signal._
 import breeze.math._
 import math.Pi
 
+type DMD = DenseMatrix[Double]
+
 object Utils {
 
   import dev.ludovic.netlib.blas.BLAS.{ getInstance => blas }
