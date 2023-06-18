@@ -58,9 +58,26 @@ object Utils {
     * @return The solution, x, of the linear system A x = y 
     */
   def forwardSolve(A: DenseMatrix[Double],
-    y: DenseVector[Double]): DenseVector[Double] = {
+      y: DenseVector[Double]): DenseVector[Double] = {
     val yc = y.copy
     blas.dtrsv("L", "N", "N", A.cols, A.toArray, A.rows, yc.data, 1)
+    yc
+  }
+
+  /** 
+    * Forward solve a lower-triangular linear system
+    * with multiple RHSs
+    * 
+    * @param A A lower-triangular matrix
+    * @param Y A matrix with colums corresponding to RHSs
+    *
+    * @return Matrix of solutions, X, to the linear system A X = Y
+    */
+  def forwardSolve(A: DenseMatrix[Double],
+      Y: DenseMatrix[Double]): DenseMatrix[Double] = {
+    val yc = Y.copy
+    blas.dtrsm("L", "L", "N", "N", yc.rows, yc.cols, 1.0, A.toArray,
+      A.rows, yc.data, yc.rows)
     yc
   }
 

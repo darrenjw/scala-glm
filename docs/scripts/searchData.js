@@ -122,6 +122,7 @@ pages = [{"l":"index.html#","e":false,"i":"","n":"scala-glm","t":"scala-glm","d"
 {"l":"scalaglm/Utils$.html#dct2-940","e":false,"i":"","n":"dct2","t":"dct2(X: DenseMatrix[Double], inverse: Boolean): DenseMatrix[Double]","d":"scalaglm.Utils","k":"def","x":""},
 {"l":"scalaglm/Utils$.html#fCDF-fffff564","e":false,"i":"","n":"fCDF","t":"fCDF(x: Double, d1: Double, d2: Double): Double","d":"scalaglm.Utils","k":"def","x":""},
 {"l":"scalaglm/Utils$.html#forwardSolve-fffffc90","e":false,"i":"","n":"forwardSolve","t":"forwardSolve(A: DenseMatrix[Double], y: DenseVector[Double]): DenseVector[Double]","d":"scalaglm.Utils","k":"def","x":""},
+{"l":"scalaglm/Utils$.html#forwardSolve-650","e":false,"i":"","n":"forwardSolve","t":"forwardSolve(A: DenseMatrix[Double], Y: DenseMatrix[Double]): DenseMatrix[Double]","d":"scalaglm.Utils","k":"def","x":""},
 {"l":"scalaglm/Utils$.html#idct-40","e":false,"i":"","n":"idct","t":"idct(x: DenseVector[Double]): DenseVector[Double]","d":"scalaglm.Utils","k":"def","x":""},
 {"l":"scalaglm/Utils$.html#idct2-a00","e":false,"i":"","n":"idct2","t":"idct2(x: DenseMatrix[Double]): DenseMatrix[Double]","d":"scalaglm.Utils","k":"def","x":""},
 {"l":"scalaglm/Utils$.html#pairs-fffff519","e":false,"i":"","n":"pairs","t":"pairs(mat: DenseMatrix[Double], names: Seq[String]): Figure","d":"scalaglm.Utils","k":"def","x":""},
