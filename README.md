@@ -21,12 +21,20 @@ sbt new darrenjw/scala-glm.g8
 
 If you just want to try out the library without setting up any kind of project, you can do so with a session like:
 ```
-$ sbt "-Dsbt.version=1.8.0"
-> set scalaVersion := "3.2.1"
+$ sbt "-Dsbt.version=1.9.0"
+> set scalaVersion := "3.3.0"
 > set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.8"
 > console
 scala> import scalaglm.*
 ```
+
+Alternatively, if you use [scala-cli](https://scala-cli.virtuslab.org/), just add
+```scala
+//> using scala 3.3.0
+//> using dep org.scalanlp::breeze:2.1.0
+```
+to the top of your script.
+
 See below for documentation links.
 
 This library has a dependence on [Breeze](https://github.com/scalanlp/breeze), so if you have a dependence on `scala-glm` you don't need to add an additional dependence on Breeze. Some familiarity with Breeze is assumed for effective use of this library.
