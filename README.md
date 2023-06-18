@@ -31,7 +31,7 @@ scala> import scalaglm.*
 Alternatively, if you use [scala-cli](https://scala-cli.virtuslab.org/), just add
 ```scala
 //> using scala 3.3.0
-//> using dep org.scalanlp::breeze:2.1.0
+//> using dep com.github.darrenjw::scala-glm:0.8
 ```
 to the top of your script.
 
