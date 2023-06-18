@@ -63,8 +63,8 @@ case object PoissonGlm extends GlmFamily {
  * providing information about the regression fit,
  * including .coefficients, .p and .summary
  */
-case class Glm(y: DenseVector[Double],
-  Xmat: DenseMatrix[Double], colNames: Seq[String], fam: GlmFamily,
+case class Glm(y: DVD,
+  Xmat: DMD, colNames: Seq[String], fam: GlmFamily,
   addIntercept: Boolean = true, its: Int = 50) extends Model {
   require(y.size == Xmat.rows)
   require(colNames.length == Xmat.cols)
@@ -163,7 +163,7 @@ case class Glm(y: DenseVector[Double],
     * 
     * @return Prediction object
     */
-  def predict(newX: DenseMatrix[Double] = Xmat,
+  def predict(newX: DMD = Xmat,
     response: Boolean = false): PredictGlm =
     PredictGlm(this, newX, response)
 
@@ -189,8 +189,8 @@ object Glm {
   /** 
     * Constructor without a name list
     */
-    def apply(y: DenseVector[Double],
-      Xmat: DenseMatrix[Double], fam: GlmFamily,
+    def apply(y: DVD,
+      Xmat: DMD, fam: GlmFamily,
       addIntercept: Boolean, its: Int): Glm = {
       val p = Xmat.cols
       val names = (1 to p) map ("V%02d".format(_))
@@ -200,23 +200,23 @@ object Glm {
   /** 
     * Constructor without a name list or addIntercept option
     */
-    def apply(y: DenseVector[Double],
-      Xmat: DenseMatrix[Double], fam: GlmFamily,its: Int): Glm =
+    def apply(y: DVD,
+      Xmat: DMD, fam: GlmFamily,its: Int): Glm =
       Glm(y,Xmat,fam,true,its)
 
   /** 
     * Constructor without a name list or its option
     */
-    def apply(y: DenseVector[Double],
-      Xmat: DenseMatrix[Double], fam: GlmFamily,
+    def apply(y: DVD,
+      Xmat: DMD, fam: GlmFamily,
     addIntercept: Boolean): Glm =
       Glm(y,Xmat,fam,addIntercept,50)
 
   /** 
     * Constructor without a name list, addIntercept or its option
     */
-    def apply(y: DenseVector[Double],
-      Xmat: DenseMatrix[Double], fam: GlmFamily): Glm =
+    def apply(y: DVD,
+      Xmat: DMD, fam: GlmFamily): Glm =
       Glm(y,Xmat,fam,true,50)
 
   } // object Glm
@@ -233,12 +233,12 @@ object Irls {
   def IRLS(
     bp: Double => Double,
     bpp: Double => Double,
-    y: DenseVector[Double],
-    X: DenseMatrix[Double],
-    bhat0: DenseVector[Double],
+    y: DVD,
+    X: DMD,
+    bhat0: DVD,
     its: Int,
     tol: Double = 0.0000001
-  ): (DenseVector[Double],DenseMatrix[Double],DenseMatrix[Double]) = {
+  ): (DVD,DMD,DMD) = {
     val eta = X * bhat0
     val sW = eta map bpp map math.sqrt
     val zs = (y - (eta map bp)) / sW

@@ -10,7 +10,7 @@
 </div>
 <div class="main-signature mono-small-block">
  <div class="signature">
-  <span class="signature-short"><span class="modifiers"><span t="k">case </span></span><span class="kind"><span t="k">class </span></span><a href="Glm.html" t="n" class="documentableName ">Glm</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">y</span>: <span data-unresolved-link="" t="t">DenseVector</span>[<span data-unresolved-link="" t="t">Double</span>], <span t="k"></span><span data-unresolved-link="" t="n">Xmat</span>: <span data-unresolved-link="" t="t">DenseMatrix</span>[<span data-unresolved-link="" t="t">Double</span>], <span t="k"></span><span data-unresolved-link="" t="n">colNames</span>: <span data-unresolved-link="" t="t">Seq</span>[<span data-unresolved-link="" t="t">String</span>], <span t="k"></span><span data-unresolved-link="" t="n">fam</span>: <a href="GlmFamily.html" t="t">GlmFamily</a>, <span t="k"></span><span data-unresolved-link="" t="n">addIntercept</span>: <span data-unresolved-link="" t="t">Boolean</span>, <span t="k"></span><span data-unresolved-link="" t="n">its</span>: <span data-unresolved-link="" t="t">Int</span>)<span t="k"> extends </span><a href="Model.html" t="t">Model</a></span><span class="signature-long"></span>
+  <span class="signature-short"><span class="modifiers"><span t="k">case </span></span><span class="kind"><span t="k">class </span></span><a href="Glm.html" t="n" class="documentableName ">Glm</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">y</span>: <a href="../scalaglm.html#DVD-0" t="t">DVD</a>, <span t="k"></span><span data-unresolved-link="" t="n">Xmat</span>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>, <span t="k"></span><span data-unresolved-link="" t="n">colNames</span>: <span data-unresolved-link="" t="t">Seq</span>[<span data-unresolved-link="" t="t">String</span>], <span t="k"></span><span data-unresolved-link="" t="n">fam</span>: <a href="GlmFamily.html" t="t">GlmFamily</a>, <span t="k"></span><span data-unresolved-link="" t="n">addIntercept</span>: <span data-unresolved-link="" t="t">Boolean</span>, <span t="k"></span><span data-unresolved-link="" t="n">its</span>: <span data-unresolved-link="" t="t">Int</span>)<span t="k"> extends </span><a href="Model.html" t="t">Model</a></span><span class="signature-long"></span>
  </div>
 </div>
 <div class="cover">
@@ -171,7 +171,7 @@ node7 -> node2;
           <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
-            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Glm.html#predict-deb" t="n" class="documentableName ">predict</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">newX</span>: <span data-unresolved-link="" t="t">DenseMatrix</span>[<span data-unresolved-link="" t="t">Double</span>], <span t="k"></span><span data-unresolved-link="" t="n">response</span>: <span data-unresolved-link="" t="t">Boolean</span>): <a href="PredictGlm.html" t="t">PredictGlm</a>
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="Glm.html#predict-deb" t="n" class="documentableName ">predict</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">newX</span>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>, <span t="k"></span><span data-unresolved-link="" t="n">response</span>: <span data-unresolved-link="" t="t">Boolean</span>): <a href="PredictGlm.html" t="t">PredictGlm</a>
            </div>
           </div>
          </div>
@@ -418,7 +418,7 @@ node7 -> node2;
           <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
-            <span class="modifiers"></span><span class="kind"><span t="k">val </span></span><a href="Glm.html#irls-0" t="n" class="documentableName ">irls</a>: (<span data-unresolved-link="" t="t">DenseVector</span>[<span data-unresolved-link="" t="t">Double</span>], <span data-unresolved-link="" t="t">DenseMatrix</span>[<span data-unresolved-link="" t="t">Double</span>], <span data-unresolved-link="" t="t">DenseMatrix</span>[<span data-unresolved-link="" t="t">Double</span>])
+            <span class="modifiers"></span><span class="kind"><span t="k">val </span></span><a href="Glm.html#irls-0" t="n" class="documentableName ">irls</a>: (<a href="../scalaglm.html#DVD-0" t="t">DVD</a>, <a href="../scalaglm.html#DMD-0" t="t">DMD</a>, <a href="../scalaglm.html#DMD-0" t="t">DMD</a>)
            </div>
           </div>
          </div>
@@ -558,7 +558,7 @@ node7 -> node2;
           <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
-            <span class="modifiers"></span><span class="kind"><span t="k">val </span></span><a href="Glm.html#q-0" t="n" class="documentableName ">q</a>: <span data-unresolved-link="" t="t">DenseMatrix</span>[<span data-unresolved-link="" t="t">Double</span>]
+            <span class="modifiers"></span><span class="kind"><span t="k">val </span></span><a href="Glm.html#q-0" t="n" class="documentableName ">q</a>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>
            </div>
           </div>
          </div>
@@ -586,7 +586,7 @@ node7 -> node2;
           <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
-            <span class="modifiers"></span><span class="kind"><span t="k">val </span></span><a href="Glm.html#r-0" t="n" class="documentableName ">r</a>: <span data-unresolved-link="" t="t">DenseMatrix</span>[<span data-unresolved-link="" t="t">Double</span>]
+            <span class="modifiers"></span><span class="kind"><span t="k">val </span></span><a href="Glm.html#r-0" t="n" class="documentableName ">r</a>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>
            </div>
           </div>
          </div>

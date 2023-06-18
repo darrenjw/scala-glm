@@ -13,8 +13,8 @@ import breeze.numerics._
 
 
 trait Predict {
-  val fitted: DenseVector[Double]
-  //val se: DenseVector[Double]
+  val fitted: DVD
+  //val se: DVD
 } // trait Predict
 
 
@@ -27,7 +27,7 @@ trait Predict {
   * @return An object of type PredictLm with several useful attributes,
   * including .fitted and .se
   */
-case class PredictLm(mod: Lm, newX: DenseMatrix[Double]) extends Predict {
+case class PredictLm(mod: Lm, newX: DMD) extends Predict {
   require(newX.cols == mod.Xmat.cols)
 
   /**
@@ -64,7 +64,7 @@ case class PredictLm(mod: Lm, newX: DenseMatrix[Double]) extends Predict {
   * @return An object of type PredictGlm with several useful attributes,
   * including .fitted and .se
   */
-case class PredictGlm(mod: Glm, newX: DenseMatrix[Double], response: Boolean) extends Predict {
+case class PredictGlm(mod: Glm, newX: DMD, response: Boolean) extends Predict {
   require(newX.cols == mod.Xmat.cols)
 
   /** 

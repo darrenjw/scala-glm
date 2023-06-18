@@ -24,7 +24,7 @@ import breeze.stats._
   * @return An object of type Pca with methods such as .loadings, .scores, .sdev
   * and .summary
   */
-case class Pca(mat: DenseMatrix[Double], colNames: Seq[String]) {
+case class Pca(mat: DMD, colNames: Seq[String]) {
 
   require(mat.cols == colNames.length)
 
@@ -155,7 +155,7 @@ object Pca {
   /**
     * Constructor without a list of variable names
     */
-  def apply(mat: DenseMatrix[Double]): Pca = {
+  def apply(mat: DMD): Pca = {
     val p = mat.cols
     val names = (1 to p) map ("V%02d".format(_))
     Pca(mat,names)

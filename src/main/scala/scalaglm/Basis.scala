@@ -23,7 +23,7 @@ object Basis {
     * 
     * @return A matrix with rows matching the length of `x` and `degree` columns.
     */
-  def poly(x: DenseVector[Double], degree: Int, raw: Boolean = false): DenseMatrix[Double] = {
+  def poly(x: DVD, degree: Int, raw: Boolean = false): DMD = {
     if (raw) {
       DenseMatrix.tabulate(x.length, degree)((i, j) => math.pow(x(i), j+1))
     } else {
@@ -57,7 +57,7 @@ object Basis {
     * 
     * @return A matrix with rows matching the length of `x` and `n` columns.
     */
-  def cosine(x: DenseVector[Double], n: Int): DenseMatrix[Double] = {
+  def cosine(x: DVD, n: Int): DMD = {
     val mx = max(x)
     val mn = min(x)
     DenseMatrix.tabulate(x.length, n)((i, j) => cosine((x(i)-mn)/(mx-mn), j+1))
@@ -86,9 +86,9 @@ object Basis {
     * @param lb Lower boundary knot.
     * @param ub Upper boundary knot.
     */
-  def bs(x: DenseVector[Double], degree: Int = 3, intercept: Boolean = false)(
+  def bs(x: DVD, degree: Int = 3, intercept: Boolean = false)(
     intKnots: Seq[Double] = List(), lb: Double = min(x), ub: Double = max(x)
-  ): DenseMatrix[Double] = {
+  ): DMD = {
     val knots = List.fill(degree+1)(lb) ++ intKnots.sorted.toList ++
       List.fill(degree+1)(ub)
     val k = intKnots.length + degree + 1

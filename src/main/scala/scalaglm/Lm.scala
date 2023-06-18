@@ -12,9 +12,9 @@ import breeze.linalg._
 import breeze.stats.distributions.Rand.VariableSeed.randBasis
 
 trait Model {
-  val X: DenseMatrix[Double]
+  val X: DMD
   val names: Seq[String]
-  val coefficients: DenseVector[Double]
+  val coefficients: DVD
 }
 
 
@@ -29,8 +29,8 @@ trait Model {
  * @return An object of type Lm with many useful attributes
  * providing information about the regression fit
  */
-case class Lm(y: DenseVector[Double],
-  Xmat: DenseMatrix[Double], colNames: Seq[String], addIntercept: Boolean = true) extends Model {
+case class Lm(y: DVD,
+  Xmat: DMD, colNames: Seq[String], addIntercept: Boolean = true) extends Model {
   require(y.size == Xmat.rows)
   require(colNames.length == Xmat.cols)
   require(Xmat.rows >= Xmat.cols)
@@ -203,7 +203,7 @@ case class Lm(y: DenseVector[Double],
     * 
     * @return Prediction object
     */
-  def predict(newX: DenseMatrix[Double] = Xmat): PredictLm =
+  def predict(newX: DMD = Xmat): PredictLm =
     PredictLm(this, newX)
 
   import breeze.plot._
@@ -259,8 +259,8 @@ case class Lm(y: DenseVector[Double],
     /** 
       * Constructor without a name list
       */
-    def apply(y: DenseVector[Double],
-  Xmat: DenseMatrix[Double], addIntercept: Boolean): Lm = {
+    def apply(y: DVD,
+  Xmat: DMD, addIntercept: Boolean): Lm = {
       val p = Xmat.cols
       val names = (1 to p) map ("V%02d".format(_))
       Lm(y,Xmat,names,addIntercept)
@@ -269,8 +269,8 @@ case class Lm(y: DenseVector[Double],
     /** 
       * Constructor without a name list or addIntercept option
       */
-    def apply(y: DenseVector[Double],
-      Xmat: DenseMatrix[Double]): Lm =
+    def apply(y: DVD,
+      Xmat: DMD): Lm =
       Lm(y,Xmat,true)
 
   } // object Lm

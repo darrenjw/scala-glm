@@ -12,8 +12,6 @@ import breeze.signal._
 import breeze.math._
 import math.Pi
 
-type DMD = DenseMatrix[Double]
-
 object Utils {
 
   import dev.ludovic.netlib.blas.BLAS.{ getInstance => blas }
@@ -27,8 +25,8 @@ object Utils {
    *
    * @return The solution, x, of the linear system A x = y
    */
-  def backSolve(A: DenseMatrix[Double],
-    y: DenseVector[Double]): DenseVector[Double] = {
+  def backSolve(A: DMD,
+    y: DVD): DVD = {
     val yc = y.copy
     blas.dtrsv("U", "N", "N", A.cols, A.toArray,
       A.rows, yc.data, 1)
@@ -44,7 +42,7 @@ object Utils {
     * 
     * @return Matrix of solutions, X, to the linear system A X = Y
     */
-  def backSolve(A: DenseMatrix[Double], Y: DenseMatrix[Double]): DenseMatrix[Double] = {
+  def backSolve(A: DMD, Y: DMD): DMD = {
     val yc = Y.copy
     blas.dtrsm("L", "U", "N", "N", yc.rows, yc.cols, 1.0, A.toArray, A.rows, yc.data, yc.rows)
     yc
@@ -59,8 +57,8 @@ object Utils {
     *
     * @return The solution, x, of the linear system A x = y 
     */
-  def forwardSolve(A: DenseMatrix[Double],
-      y: DenseVector[Double]): DenseVector[Double] = {
+  def forwardSolve(A: DMD,
+      y: DVD): DVD = {
     val yc = y.copy
     blas.dtrsv("L", "N", "N", A.cols, A.toArray, A.rows, yc.data, 1)
     yc
@@ -75,8 +73,8 @@ object Utils {
     *
     * @return Matrix of solutions, X, to the linear system A X = Y
     */
-  def forwardSolve(A: DenseMatrix[Double],
-      Y: DenseMatrix[Double]): DenseMatrix[Double] = {
+  def forwardSolve(A: DMD,
+      Y: DMD): DMD = {
     val yc = Y.copy
     blas.dtrsm("L", "L", "N", "N", yc.rows, yc.cols, 1.0, A.toArray,
       A.rows, yc.data, yc.rows)
@@ -92,7 +90,7 @@ object Utils {
     * 
     * @return The matrix as an array of arrays (row-major)
     */
-  def bdm2aa(m: DenseMatrix[Double]): Array[Array[Double]] =
+  def bdm2aa(m: DMD): Array[Array[Double]] =
     (0 until m.rows).toArray map (i => m(i,::).t.toArray)
 
   /** 
@@ -105,7 +103,7 @@ object Utils {
     * 
     * @return A Breeze DenseMatrix representation of the matrix
     */
-  def aa2bdm(a: Array[Array[Double]]): DenseMatrix[Double] = {
+  def aa2bdm(a: Array[Array[Double]]): DMD = {
     val r = a.length
     val c = a(0).length
     val m = DenseMatrix.zeros[Double](r,c)
@@ -122,7 +120,7 @@ object Utils {
     * 
     * @return The normalised DCT-II of the input
     */
-  def dct(x: DenseVector[Double]): DenseVector[Double] = {
+  def dct(x: DVD): DVD = {
     val N = x.length
     val y = DenseVector.vertcat(x, x(N-1 to 0 by -1))
     val Y = fourierTr(y)
@@ -140,7 +138,7 @@ object Utils {
     * 
     * @return The (unnormalised) DCT-III of the input
     */
-  def idct(x: DenseVector[Double]): DenseVector[Double] = {
+  def idct(x: DVD): DVD = {
     val N = x.length
     val y = DenseVector.vertcat(x, DenseVector(0.0), -x(N-1 to 1 by -1))
     val ff = DenseVector.tabulate(2*N){k => Pi*i*k/(2*N)}
@@ -159,7 +157,7 @@ object Utils {
     * 
     * @return The normalised DCT-II of the input
     */
-  def dct2(X: DenseMatrix[Double], inverse: Boolean = false): DenseMatrix[Double] = {
+  def dct2(X: DMD, inverse: Boolean = false): DMD = {
     val x = X.copy
     (0 until x.rows).foreach{j =>
       x(j, ::) := (if (inverse) idct(x(j, ::).t)
@@ -173,7 +171,7 @@ object Utils {
   /**
     * dct2(x, true)
     */
-  def idct2(x: DenseMatrix[Double]): DenseMatrix[Double] = dct2(x, true)
+  def idct2(x: DMD): DMD = dct2(x, true)
 
   import org.apache.commons.math3.special.Beta
 
@@ -213,7 +211,7 @@ object Utils {
     * 
     * @return The breeze-viz Figure object
     */
-  def pairs(mat: DenseMatrix[Double], names: Seq[String]): Figure = {
+  def pairs(mat: DMD, names: Seq[String]): Figure = {
     require(mat.cols == names.length)
     val fig = Figure("Scatterplot matrix")
     val p = mat.cols
@@ -241,7 +239,7 @@ object Utils {
     * 
     * @return The breeze-viz Figure object
     */
-  def pairs(mat: DenseMatrix[Double]): Figure = {
+  def pairs(mat: DMD): Figure = {
     val names = (1 to mat.cols) map ("V%02d".format(_))
     pairs(mat, names)
   }
