@@ -16,6 +16,14 @@ object TimeSeries {
 
   // some basic data summaries
 
+  // TODO: time series example
+
+  // TODO: time series mdoc
+
+  // TODO: time series scaladoc
+
+  // TODO: time series tests
+
   def meanCentre(x: DMD): DMD = {
     val xBar = mean(x(::, *)).t
     x(*, ::) - xBar

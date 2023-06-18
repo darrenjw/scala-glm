@@ -33,5 +33,7 @@ class UtilsPbts extends AnyFlatSpec
     }
   }
 
+  // TODO: add forward solve and multiple RHSs
+
 
 }
