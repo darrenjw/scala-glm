@@ -120,7 +120,7 @@ pages = [{"l":"index.html#","e":false,"i":"","n":"scala-glm","t":"scala-glm","d"
 {"l":"scalaglm/TimeSeries$.html#autocovariances-b49","e":false,"i":"","n":"autocovariances","t":"autocovariances(x: DMD, lagMax: Int, centre: Boolean): List[DMD]","d":"scalaglm.TimeSeries","k":"def","x":""},
 {"l":"scalaglm/TimeSeries$.html#correlationMat-940","e":false,"i":"","n":"correlationMat","t":"correlationMat(x: DMD, centre: Boolean): DMD","d":"scalaglm.TimeSeries","k":"def","x":""},
 {"l":"scalaglm/TimeSeries$.html#covariance-ef0","e":false,"i":"","n":"covariance","t":"covariance(x: DMD, y: DMD, centre: Boolean): DMD","d":"scalaglm.TimeSeries","k":"def","x":""},
-{"l":"scalaglm/TimeSeries$.html#fitVar-d89","e":false,"i":"","n":"fitVar","t":"fitVar(x: DMD, p: Int): (List[DMD], DMD)","d":"scalaglm.TimeSeries","k":"def","x":""},
+{"l":"scalaglm/TimeSeries$.html#fitVar-fffffd9b","e":false,"i":"","n":"fitVar","t":"fitVar(x: DMD, p: Int, centre: Boolean): (List[DMD], DMD)","d":"scalaglm.TimeSeries","k":"def","x":""},
 {"l":"scalaglm/TimeSeries$.html#isStat-fffff04e","e":false,"i":"","n":"isStat","t":"isStat(phi: List[DMD]): Boolean","d":"scalaglm.TimeSeries","k":"def","x":""},
 {"l":"scalaglm/TimeSeries$.html#meanCentre-a00","e":false,"i":"","n":"meanCentre","t":"meanCentre(x: DMD): DMD","d":"scalaglm.TimeSeries","k":"def","x":""},
 {"l":"scalaglm/TimeSeries$.html#varianceMat-940","e":false,"i":"","n":"varianceMat","t":"varianceMat(x: DMD, centre: Boolean): DMD","d":"scalaglm.TimeSeries","k":"def","x":""},

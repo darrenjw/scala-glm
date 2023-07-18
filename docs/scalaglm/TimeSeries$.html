@@ -11,7 +11,10 @@
  </div>
 </div>
 <div class="cover">
- <div class="doc"></div>
+ <div class="doc">
+  <p>Utilities for multivariate time series</p> 
+  <p>These utilities assume that the time series is sorted in a Breeze <code>DMD</code> with variables/component series in columns, and observations in rows with the first row corresponding to the first observation and the last row to the last.</p> 
+ </div>
  <section id="attributes">
   <h2 class="h500">Attributes</h2>
   <dl class="attributes">
@@ -90,72 +93,412 @@ node3 -> node2;
         </div>
         <div class="documentableElement" id="autocovariance-487">
          <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="TimeSeries$.html#autocovariance-487" t="n" class="documentableName ">autocovariance</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">x</span>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>, <span t="k"></span><span data-unresolved-link="" t="n">lag</span>: <span data-unresolved-link="" t="t">Int</span>, <span t="k"></span><span data-unresolved-link="" t="n">centre</span>: <span data-unresolved-link="" t="t">Boolean</span>): <a href="../scalaglm.html#DMD-0" t="t">DMD</a>
            </div>
           </div>
          </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Compute the auto-covariance of the time series at a given lag</p> 
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Compute the auto-covariance of the time series at a given lag</p> 
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               centre
+              </dt>
+              <dd class="body-medium">
+               <p>Does the time series need to be centred?</p> 
+              </dd>
+              <dt class="body-small">
+               lag
+              </dt>
+              <dd class="body-medium">
+               <p>The lag at which the auto-covariance is to be computed (can be negative)</p> 
+              </dd>
+              <dt class="body-small">
+               x
+              </dt>
+              <dd class="body-medium">
+               <p>Time series</p> 
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               Returns
+              </dt>
+              <dd class="body-medium">
+               <p>Auto-covariance matrix</p> 
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
         </div>
         <div class="documentableElement" id="autocovariances-b49">
          <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="TimeSeries$.html#autocovariances-b49" t="n" class="documentableName ">autocovariances</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">x</span>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>, <span t="k"></span><span data-unresolved-link="" t="n">lagMax</span>: <span data-unresolved-link="" t="t">Int</span>, <span t="k"></span><span data-unresolved-link="" t="n">centre</span>: <span data-unresolved-link="" t="t">Boolean</span>): <span data-unresolved-link="" t="t">List</span>[<a href="../scalaglm.html#DMD-0" t="t">DMD</a>]
            </div>
           </div>
          </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Compute a set of auto-covariance matrices</p> 
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Compute a set of auto-covariance matrices</p> 
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               centre
+              </dt>
+              <dd class="body-medium">
+               <p>Does the time series need to be centred?</p> 
+              </dd>
+              <dt class="body-small">
+               lagMax
+              </dt>
+              <dd class="body-medium">
+               <p>The maximum lag required</p> 
+              </dd>
+              <dt class="body-small">
+               x
+              </dt>
+              <dd class="body-medium">
+               <p>Time series</p> 
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               Returns
+              </dt>
+              <dd class="body-medium">
+               <p>List of <code>lagMax+1</code> auto-covariance matrices (from lag 0 to <code>lagMax</code>)</p> 
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
         </div>
         <div class="documentableElement" id="correlationMat-940">
          <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="TimeSeries$.html#correlationMat-940" t="n" class="documentableName ">correlationMat</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">x</span>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>, <span t="k"></span><span data-unresolved-link="" t="n">centre</span>: <span data-unresolved-link="" t="t">Boolean</span>): <a href="../scalaglm.html#DMD-0" t="t">DMD</a>
            </div>
           </div>
          </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>The correlation matrix of a time series</p> 
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>The correlation matrix of a time series</p> 
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               centre
+              </dt>
+              <dd class="body-medium">
+               <p>Does the time series need to be centred?</p> 
+              </dd>
+              <dt class="body-small">
+               x
+              </dt>
+              <dd class="body-medium">
+               <p>A time series</p> 
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               Returns
+              </dt>
+              <dd class="body-medium">
+               <p>Correlation matrix</p> 
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
         </div>
         <div class="documentableElement" id="covariance-ef0">
          <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="TimeSeries$.html#covariance-ef0" t="n" class="documentableName ">covariance</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">x</span>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>, <span t="k"></span><span data-unresolved-link="" t="n">y</span>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>, <span t="k"></span><span data-unresolved-link="" t="n">centre</span>: <span data-unresolved-link="" t="t">Boolean</span>): <a href="../scalaglm.html#DMD-0" t="t">DMD</a>
            </div>
           </div>
          </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Compute the covariance between two time series of the same length</p> 
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Compute the covariance between two time series of the same length</p> 
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               centre
+              </dt>
+              <dd class="body-medium">
+               <p>Do the series need to be centred, first?</p> 
+              </dd>
+              <dt class="body-small">
+               x
+              </dt>
+              <dd class="body-medium">
+               <p>A time series</p> 
+              </dd>
+              <dt class="body-small">
+               y
+              </dt>
+              <dd class="body-medium">
+               <p>Another time series</p> 
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               Returns
+              </dt>
+              <dd class="body-medium">
+               <p>Covariance matrix</p> 
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
         </div>
-        <div class="documentableElement" id="fitVar-d89">
+        <div class="documentableElement" id="fitVar-fffffd9b">
          <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
-            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="TimeSeries$.html#fitVar-d89" t="n" class="documentableName ">fitVar</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">x</span>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>, <span t="k"></span><span data-unresolved-link="" t="n">p</span>: <span data-unresolved-link="" t="t">Int</span>): (<span data-unresolved-link="" t="t">List</span>[<a href="../scalaglm.html#DMD-0" t="t">DMD</a>], <a href="../scalaglm.html#DMD-0" t="t">DMD</a>)
+            <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="TimeSeries$.html#fitVar-fffffd9b" t="n" class="documentableName ">fitVar</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">x</span>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>, <span t="k"></span><span data-unresolved-link="" t="n">p</span>: <span data-unresolved-link="" t="t">Int</span>, <span t="k"></span><span data-unresolved-link="" t="n">centre</span>: <span data-unresolved-link="" t="t">Boolean</span>): (<span data-unresolved-link="" t="t">List</span>[<a href="../scalaglm.html#DMD-0" t="t">DMD</a>], <a href="../scalaglm.html#DMD-0" t="t">DMD</a>)
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Fit a mean-zero VAR(p) model to a time series via least squares Since the model being fit is mean zero, you may want to mean-centre your data</p> 
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Fit a mean-zero VAR(p) model to a time series via least squares Since the model being fit is mean zero, you may want to mean-centre your data</p> 
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               centre
+              </dt>
+              <dd class="body-medium">
+               <p>Mean-centre the time series before fitting?</p> 
+              </dd>
+              <dt class="body-small">
+               p
+              </dt>
+              <dd class="body-medium">
+               <p>The order of the VAR(p) model to be fits</p> 
+              </dd>
+              <dt class="body-small">
+               x
+              </dt>
+              <dd class="body-medium">
+               <p>Time series</p> 
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               Returns
+              </dt>
+              <dd class="body-medium">
+               <p>The list of <code>p</code> fitted VAR matrices, together with the lower Cholesky triangle of the estimated innovation variance matrix</p> 
+              </dd>
+             </dl>
+            </div>
            </div>
           </div>
          </div>
         </div>
         <div class="documentableElement" id="isStat-fffff04e">
          <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="TimeSeries$.html#isStat-fffff04e" t="n" class="documentableName ">isStat</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">phi</span>: <span data-unresolved-link="" t="t">List</span>[<a href="../scalaglm.html#DMD-0" t="t">DMD</a>]): <span data-unresolved-link="" t="t">Boolean</span>
            </div>
           </div>
          </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Check whether a given set of VAR matrices (such as returned by <code>fitVar</code>) correspond to a VAR(p) that is stationary</p> 
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Check whether a given set of VAR matrices (such as returned by <code>fitVar</code>) correspond to a VAR(p) that is stationary</p> 
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               phi
+              </dt>
+              <dd class="body-medium">
+               <p>List of VAR matrices</p> 
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               Returns
+              </dt>
+              <dd class="body-medium">
+               <p>Is this model stationary?</p> 
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
         </div>
         <div class="documentableElement" id="meanCentre-a00">
          <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="TimeSeries$.html#meanCentre-a00" t="n" class="documentableName ">meanCentre</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">x</span>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>): <a href="../scalaglm.html#DMD-0" t="t">DMD</a>
            </div>
           </div>
          </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>Sweep out the mean of each component series</p> 
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>Sweep out the mean of each component series</p> 
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               x
+              </dt>
+              <dd class="body-medium">
+               <p>A multivariate time series</p> 
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               Returns
+              </dt>
+              <dd class="body-medium">
+               <p>A mean zero time series</p> 
+              </dd>
+             </dl>
+            </div>
+           </div>
+          </div>
+         </div>
         </div>
         <div class="documentableElement" id="varianceMat-940">
          <div class="documentableElement-expander">
+          <button class="icon-button ar show-content"></button>
           <div class="header monospace mono-medium">
            <div class="signature">
             <span class="modifiers"></span><span class="kind"><span t="k">def </span></span><a href="TimeSeries$.html#varianceMat-940" t="n" class="documentableName ">varianceMat</a>(<span t="k"></span><span t="k"></span><span data-unresolved-link="" t="n">x</span>: <a href="../scalaglm.html#DMD-0" t="t">DMD</a>, <span t="k"></span><span data-unresolved-link="" t="n">centre</span>: <span data-unresolved-link="" t="t">Boolean</span>): <a href="../scalaglm.html#DMD-0" t="t">DMD</a>
+           </div>
+          </div>
+         </div>
+         <div class="docs">
+          <span class="modifiers"></span>
+          <div>
+           <div class="originInfo"></div>
+           <div class="memberDocumentation">
+            <div class="documentableBrief doc">
+             <p>The variance matrix of a time series</p> 
+            </div>
+            <div class="cover">
+             <div class="doc">
+              <p>The variance matrix of a time series</p> 
+             </div>
+             <h2 class="h200">Value parameters</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               centre
+              </dt>
+              <dd class="body-medium">
+               <p>Does the time series need to be centred?</p> 
+              </dd>
+              <dt class="body-small">
+               x
+              </dt>
+              <dd class="body-medium">
+               <p>A time series</p> 
+              </dd>
+             </dl>
+             <h2 class="h200">Attributes</h2>
+             <dl class="attributes attributes-small">
+              <dt class="body-small">
+               Returns
+              </dt>
+              <dd class="body-medium">
+               <p>Variance matrix</p> 
+              </dd>
+             </dl>
+            </div>
            </div>
           </div>
          </div>
