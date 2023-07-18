@@ -15,7 +15,7 @@ import breeze.stats._
 /** 
   *  Utilities for multivariate time series
   * 
-  * These utilities assume that the time series is sorted in a Breeze `DMD`
+  * These utilities assume that the time series is stored in a Breeze `DMD`
   * with variables/component series in columns, and observations in rows
   * with the first row corresponding to the first observation and the last
   * row to the last.
@@ -23,13 +23,9 @@ import breeze.stats._
   */
 object TimeSeries {
 
-  // some basic data summaries
-
   // TODO: time series example
 
   // TODO: time series mdoc
-
-  // TODO: time series scaladoc
 
   // TODO: time series tests
 
@@ -125,8 +121,8 @@ object TimeSeries {
   import Utils._
 
   /**
-    * Fit a mean-zero VAR(p) model to a time series via least squares
-    * Since the model being fit is mean zero, you may want to mean-centre your data
+    * Fit a mean-zero VAR(p) model to a time series via least squares.
+    * Since the model being fit is mean zero, you may want to mean-centre your data.
     *
     * @param x Time series
     * @param p The order of the VAR(p) model to be fits
@@ -155,7 +151,7 @@ object TimeSeries {
 
 
   /**
-    * Check whether a given set of VAR matrices (such as returned by `fitVar`) correspond to a VAR(p) that is stationary
+    * Check whether a given set of VAR matrices (such as returned by `fitVar`) correspond to a VAR(p) model that is stationary
     * 
     * @param phi List of VAR matrices
     * 
