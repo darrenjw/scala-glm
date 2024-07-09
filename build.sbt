@@ -9,13 +9,13 @@ scalacOptions ++= Seq(
 )
 
 libraryDependencies  ++= Seq(
-  "org.scalatest" %% "scalatest" % "3.2.14" % "test",
-  "org.scalactic" %% "scalactic" % "3.2.14" % "test",
-  "org.scalatestplus" %% "scalacheck-1-15" % "3.2.11.0" % "test",
+  "org.scalatest" %% "scalatest" % "3.2.19" % "test",
+  "org.scalactic" %% "scalactic" % "3.2.19" % "test",
+  "org.scalatestplus" %% "scalacheck-1-18" % "3.2.19.0" % "test",
   "org.scalanlp" %% "breeze" % "2.1.0",
   "org.scalanlp" %% "breeze-viz" % "2.1.0",
-  "org.scalanlp" %% "breeze-natives" % "2.1.0",
-  "dev.ludovic.netlib" % "blas" % "3.0.3" withSources(),
+ // "org.scalanlp" %% "breeze-natives" % "2.1.0",
+ // "dev.ludovic.netlib" % "blas" % "3.0.3" withSources(),
   ("org.ddahl" %% "rscala" % "3.2.19").cross(CrossVersion.for3Use2_13)
 )
 
@@ -32,7 +32,7 @@ resolvers ++= Seq(
     "https://oss.sonatype.org/content/repositories/releases/"
 )
 
-scalaVersion := "3.3.0"
+scalaVersion := "3.3.3"
 
 crossScalaVersions := Seq("2.12.19", "2.13.13", "3.3.3")
 
