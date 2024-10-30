@@ -41,6 +41,7 @@ case class Lm(y: DVD,
   val X = if (addIntercept) DenseMatrix.horzcat(
     DenseVector.ones[Double](Xmat.rows).toDenseMatrix.t, Xmat)
   else Xmat
+  require(X.rows >= X.cols)
 
   /** 
     * Column names (including intercept)
