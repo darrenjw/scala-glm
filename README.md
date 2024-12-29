@@ -1,6 +1,7 @@
 # scala-glm
 
 [![](https://github.com/darrenjw/scala-glm/actions/workflows/ci.yml/badge.svg)](https://github.com/darrenjw/scala-glm/actions)
+[![pages-build-deployment](https://github.com/darrenjw/scala-glm/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/darrenjw/scala-glm/actions/workflows/pages/pages-build-deployment)
 
 ## Scala library for regression modelling
 
