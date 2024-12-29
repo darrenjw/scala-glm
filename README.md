@@ -13,9 +13,9 @@ This library is simplest to use with [`sbt`](http://www.scala-sbt.org/). You sho
 
 To use the pre-built binary, add the following lines to your `build.sbt`:
 ```scala
-libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.8"
+libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.9"
 ```
-The current [stable release](ReleaseNotes.md) is "0.8". It is cross-built for Scala 3, Scala 2.12 and 2.13 and published to the [central repository](http://central.sonatype.org/). Version 0.3 was the final release for Scala 2.11.
+The current [stable release](ReleaseNotes.md) is "0.9". It is cross-built for Scala 3, Scala 2.12 and 2.13 and published to the [central repository](http://central.sonatype.org/). Version 0.3 was the final release for Scala 2.11.
 
 There is a [giter8](http://www.foundweekends.org/giter8/) template for `scala-glm`, so using recent versions of `sbt` you can create a minimal `scala-glm` project template with:
 ```bash
@@ -26,7 +26,7 @@ If you just want to try out the library without setting up any kind of project, 
 ```
 $ sbt "-Dsbt.version=1.10.1"
 > set scalaVersion := "3.3.4"
-> set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.8"
+> set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.9"
 > console
 scala> import scalaglm.*
 ```
@@ -34,12 +34,12 @@ scala> import scalaglm.*
 Alternatively, if you use [scala-cli](https://scala-cli.virtuslab.org/), just add
 ```scala
 //> using scala 3.3.4
-//> using dep com.github.darrenjw::scala-glm:0.8
+//> using dep com.github.darrenjw::scala-glm:0.9
 ```
 to the top of your script. A minimal but complete runnable example script for `scala-cli` is given below:
 ```scala
 //> using scala 3.3.4
-//> using dep com.github.darrenjw::scala-glm:0.8
+//> using dep com.github.darrenjw::scala-glm:0.9
 
 import scalaglm.Pca
 import breeze.linalg.*
@@ -60,7 +60,7 @@ This library has a dependence on [Breeze](https://github.com/scalanlp/breeze), s
 If you want to use the latest snapshot, add the following to your `build.sbt`:
 
 ```scala
-libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.9-SNAPSHOT"
+libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "1.0-SNAPSHOT"
 resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 ```
 
