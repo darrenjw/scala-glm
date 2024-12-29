@@ -3,10 +3,12 @@ name := "scala-glm-examples"
 version := "0.2"
 
 scalacOptions ++= Seq(
-  "-unchecked", "-deprecation", "-feature"
+  "-unchecked",
+  "-deprecation",
+  "-feature"
 )
 
-libraryDependencies  ++= Seq(
+libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.14" % "test",
   "com.github.darrenjw" %% "scala-glm" % "0.9-SNAPSHOT",
   ("org.ddahl" %% "rscala" % "3.2.19").cross(CrossVersion.for3Use2_13)
@@ -20,5 +22,3 @@ resolvers ++= Seq(
 )
 
 scalaVersion := "3.3.0"
-
-

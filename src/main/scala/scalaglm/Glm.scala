@@ -8,30 +8,28 @@ One-parameter exponential GLMs, including logistic and Poisson regression
 package scalaglm
 
 import breeze.linalg._
-import breeze.stats.distributions.{ Gaussian, Binomial, Poisson }
+import breeze.stats.distributions.{Gaussian, Binomial, Poisson}
 import breeze.numerics._
-import dev.ludovic.netlib.blas.BLAS.{ getInstance => blas }
+import dev.ludovic.netlib.blas.BLAS.{getInstance => blas}
 
 import breeze.stats.distributions.Rand.VariableSeed.randBasis
 
-/** 
-  * Trait for simple one-parameter exponential family observation models.
+/** Trait for simple one-parameter exponential family observation models.
   */
 sealed trait GlmFamily {
-  /** 
-    * First derivative of the b(.) function
+
+  /** First derivative of the b(.) function
     */
   val bp: Double => Double
-  /** 
-    * Second derivative of the b(.) function
+
+  /** Second derivative of the b(.) function
     */
   val bpp: Double => Double
 }
 
 // List of supported observation models
 
-/**
-  * GlmFamily object for logistic regression
+/** GlmFamily object for logistic regression
   */
 case object LogisticGlm extends GlmFamily {
   val bp = (x: Double) => sigmoid(x)
@@ -41,130 +39,136 @@ case object LogisticGlm extends GlmFamily {
   }
 }
 
-/** 
-  * GlmFamily object for Poisson regression
+/** GlmFamily object for Poisson regression
   */
 case object PoissonGlm extends GlmFamily {
   val bp = math.exp _
   val bpp = math.exp _
 }
 
-/**
- * Generalised linear regression modelling
- *
- * @param y Vector of responses
- * @param Xmat Covariate matrix
- * @param colNames List of covariate names
- * @param fam Observation model. eg. LogisticGlm or PoissonGlm
- * @param addIntercept Add an intercept term to the covariate matrix?
- * @param its Max iterations for the IRLS algorithm (default 50)
- *
- * @return An object of type Glm with many useful methods
- * providing information about the regression fit,
- * including .coefficients, .p and .summary
- */
-case class Glm(y: DVD,
-  Xmat: DMD, colNames: Seq[String], fam: GlmFamily,
-  addIntercept: Boolean = true, its: Int = 50) extends Model {
+/** Generalised linear regression modelling
+  *
+  * @param y
+  *   Vector of responses
+  * @param Xmat
+  *   Covariate matrix
+  * @param colNames
+  *   List of covariate names
+  * @param fam
+  *   Observation model. eg. LogisticGlm or PoissonGlm
+  * @param addIntercept
+  *   Add an intercept term to the covariate matrix?
+  * @param its
+  *   Max iterations for the IRLS algorithm (default 50)
+  *
+  * @return
+  *   An object of type Glm with many useful methods providing information about
+  *   the regression fit, including .coefficients, .p and .summary
+  */
+case class Glm(
+    y: DVD,
+    Xmat: DMD,
+    colNames: Seq[String],
+    fam: GlmFamily,
+    addIntercept: Boolean = true,
+    its: Int = 50
+) extends Model {
   require(y.size == Xmat.rows)
   require(colNames.length == Xmat.cols)
   require(Xmat.rows >= Xmat.cols)
 
-  /** 
-    * Design matrix (including the intercept column, if required)
+  /** Design matrix (including the intercept column, if required)
     */
-  val X = if (addIntercept) DenseMatrix.horzcat(
-    DenseVector.ones[Double](Xmat.rows).toDenseMatrix.t, Xmat)
-  else Xmat
+  val X =
+    if (addIntercept)
+      DenseMatrix.horzcat(
+        DenseVector.ones[Double](Xmat.rows).toDenseMatrix.t,
+        Xmat
+      )
+    else Xmat
 
-  /** 
-    * Sequence of variable names (including the intercept)
+  /** Sequence of variable names (including the intercept)
     */
-  val names = if (addIntercept) "(Intercept)" :: colNames.toList
-  else colNames.toList
+  val names =
+    if (addIntercept) "(Intercept)" :: colNames.toList
+    else colNames.toList
 
-  /** 
-    * Tuple containing results of running the IRLS algorithm - not for general use
+  /** Tuple containing results of running the IRLS algorithm - not for general
+    * use
     */
-  val irls = Irls.IRLS(fam.bp, fam.bpp, y, X, DenseVector.zeros[Double](X.cols), its)
+  val irls =
+    Irls.IRLS(fam.bp, fam.bpp, y, X, DenseVector.zeros[Double](X.cols), its)
 
-  /** 
-    * Fitted regression coefficients
+  /** Fitted regression coefficients
     */
   val coefficients = irls._1
 
-  /** 
-    * Final Q-matrix from the IRLS algorithm
+  /** Final Q-matrix from the IRLS algorithm
     */
   val q = irls._2
 
-  /** 
-    * Final R-matrix from the IRLS algorithm
+  /** Final R-matrix from the IRLS algorithm
     */
   val r = irls._3
 
-  /** 
-    * Number of observations
+  /** Number of observations
     */
   lazy val n = X.rows
 
-  /** 
-    * Number of variables (including the intercept)
+  /** Number of variables (including the intercept)
     */
   lazy val pp = X.cols
 
-  /** 
-    * Degrees of freedom
+  /** Degrees of freedom
     */
   lazy val df = n - pp
 
-  /** 
-    * Inverse of the final R-matrix
+  /** Inverse of the final R-matrix
     */
   lazy val ri = inv(r)
 
-  /** 
-    * Standard errors for the regression coefficients
+  /** Standard errors for the regression coefficients
     */
   lazy val se = norm(ri(*, ::))
 
-  /** 
-    * z-statistics for the regression coefficients
+  /** z-statistics for the regression coefficients
     */
   lazy val z = coefficients / se
 
-  /** 
-    * p-values for the regression coefficients
+  /** p-values for the regression coefficients
     */
-  lazy val p = z.map (zi =>
-    1.0 - Gaussian(0.0,1.0).cdf(math.abs(zi)) ).
-    map (_ * 2)
+  lazy val p =
+    z.map(zi => 1.0 - Gaussian(0.0, 1.0).cdf(math.abs(zi))).map(_ * 2)
 
-  /** 
-    * Prints a human-readable regression summary to the console
+  /** Prints a human-readable regression summary to the console
     */
   def summary: Unit = {
-    println(
-      "Estimate\t S.E.\t z-stat\tp-value\t\tVariable")
-    println(
-      "---------------------------------------------------------")
-    (0 until pp).foreach(i => printf(
-      "%8.4f\t%6.3f\t%6.3f\t%6.4f %s\t%s\n",
-      coefficients(i), se(i), z(i), p(i),
-      if (p(i) < 0.05) "*" else " ",
-      names(i)))
+    println("Estimate\t S.E.\t z-stat\tp-value\t\tVariable")
+    println("---------------------------------------------------------")
+    (0 until pp).foreach(i =>
+      printf(
+        "%8.4f\t%6.3f\t%6.3f\t%6.4f %s\t%s\n",
+        coefficients(i),
+        se(i),
+        z(i),
+        p(i),
+        if (p(i) < 0.05) "*" else " ",
+        names(i)
+      )
+    )
   }
 
-  /** 
-    * Predictions for a new matrix of covariates
-    * 
-    * @param newX New matrix of covariates
-    * @param response Fitted values on the scale of the response?
-    * 
-    * @return Prediction object
+  /** Predictions for a new matrix of covariates
+    *
+    * @param newX
+    *   New matrix of covariates
+    * @param response
+    *   Fitted values on the scale of the response?
+    *
+    * @return
+    *   Prediction object
     */
-  def predict(newX: DMD = Xmat,
-    response: Boolean = false): PredictGlm =
+  def predict(newX: DMD = Xmat, response: Boolean = false): PredictGlm =
     PredictGlm(this, newX, response)
 
   lazy val fitted = predict(response = true).fitted
@@ -172,73 +176,66 @@ case class Glm(y: DVD,
   import breeze.plot._
   def plots: Figure = {
     val fig = Figure("GLM regression diagnostics")
-    val p0 = fig.subplot(1,1,0)
-    p0 += plot(fitted,y,'+')
-    p0 += plot(fitted,fitted)
+    val p0 = fig.subplot(1, 1, 0)
+    p0 += plot(fitted, y, '+')
+    p0 += plot(fitted, fitted)
     p0.title = "Observations against fitted values"
     p0.xlabel = "Fitted value"
     p0.ylabel = "Observation"
     fig
   }
 
-
 } // case class Glm
 
 object Glm {
 
-  /** 
-    * Constructor without a name list
+  /** Constructor without a name list
     */
-    def apply(y: DVD,
-      Xmat: DMD, fam: GlmFamily,
-      addIntercept: Boolean, its: Int): Glm = {
-      val p = Xmat.cols
-      val names = (1 to p) map ("V%02d".format(_))
-      Glm(y,Xmat,names,fam,addIntercept,its)
-    }
+  def apply(
+      y: DVD,
+      Xmat: DMD,
+      fam: GlmFamily,
+      addIntercept: Boolean,
+      its: Int
+  ): Glm = {
+    val p = Xmat.cols
+    val names = (1 to p) map ("V%02d".format(_))
+    Glm(y, Xmat, names, fam, addIntercept, its)
+  }
 
-  /** 
-    * Constructor without a name list or addIntercept option
+  /** Constructor without a name list or addIntercept option
     */
-    def apply(y: DVD,
-      Xmat: DMD, fam: GlmFamily,its: Int): Glm =
-      Glm(y,Xmat,fam,true,its)
+  def apply(y: DVD, Xmat: DMD, fam: GlmFamily, its: Int): Glm =
+    Glm(y, Xmat, fam, true, its)
 
-  /** 
-    * Constructor without a name list or its option
+  /** Constructor without a name list or its option
     */
-    def apply(y: DVD,
-      Xmat: DMD, fam: GlmFamily,
-    addIntercept: Boolean): Glm =
-      Glm(y,Xmat,fam,addIntercept,50)
+  def apply(y: DVD, Xmat: DMD, fam: GlmFamily, addIntercept: Boolean): Glm =
+    Glm(y, Xmat, fam, addIntercept, 50)
 
-  /** 
-    * Constructor without a name list, addIntercept or its option
+  /** Constructor without a name list, addIntercept or its option
     */
-    def apply(y: DVD,
-      Xmat: DMD, fam: GlmFamily): Glm =
-      Glm(y,Xmat,fam,true,50)
+  def apply(y: DVD, Xmat: DMD, fam: GlmFamily): Glm =
+    Glm(y, Xmat, fam, true, 50)
 
-  } // object Glm
-
+} // object Glm
 
 object Irls {
 
   import Utils._
 
-  /** 
-    * IRLS algorithm, called by Glm
+  /** IRLS algorithm, called by Glm
     */
   @annotation.tailrec
   def IRLS(
-    bp: Double => Double,
-    bpp: Double => Double,
-    y: DVD,
-    X: DMD,
-    bhat0: DVD,
-    its: Int,
-    tol: Double = 0.0000001
-  ): (DVD,DMD,DMD) = {
+      bp: Double => Double,
+      bpp: Double => Double,
+      y: DVD,
+      X: DMD,
+      bhat0: DVD,
+      its: Int,
+      tol: Double = 0.0000001
+  ): (DVD, DMD, DMD) = {
     val eta = X * bhat0
     val sW = eta map bpp map math.sqrt
     val zs = (y - (eta map bp)) / sW
@@ -246,7 +243,7 @@ object Irls {
     val QR = qr.reduced(Xs)
     val bhat = bhat0 + backSolve(QR.r, QR.q.t * zs)
     if (its <= 1) println("WARNING: IRLS did not converge")
-    if ((norm(bhat - bhat0) < tol)|(its <= 1))
+    if ((norm(bhat - bhat0) < tol) | (its <= 1))
       (bhat, QR.q, QR.r)
     else
       IRLS(bp, bpp, y, X, bhat, its - 1, tol)
@@ -254,8 +251,4 @@ object Irls {
 
 } // object Irls
 
-
-
-
 // eof
-

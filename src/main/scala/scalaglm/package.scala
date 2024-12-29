@@ -3,8 +3,7 @@ package.scala
 
 Package object for scalaglm
 
-*/
-
+ */
 
 import breeze.linalg._
 import breeze.numerics._

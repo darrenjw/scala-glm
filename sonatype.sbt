@@ -5,14 +5,16 @@ publishTo := {
   if (isSnapshot.value)
     Some("snapshots" at nexus + "content/repositories/snapshots")
   else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+    Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
 
 pomIncludeRepository := { _ => false }
 
 licenses := Seq("APL2" -> url("https://opensource.org/licenses/Apache-2.0"))
 
-homepage := Some(url("https://github.com/darrenjw/scala-glm/blob/master/README.md"))
+homepage := Some(
+  url("https://github.com/darrenjw/scala-glm/blob/master/README.md")
+)
 
 scmInfo := Some(
   ScmInfo(
@@ -23,10 +25,10 @@ scmInfo := Some(
 
 developers := List(
   Developer(
-    id    = "darrenjw",
-    name  = "Darren J Wilkinson",
+    id = "darrenjw",
+    name = "Darren J Wilkinson",
     email = "darrenjwilkinson@btinternet.com",
-    url   = url("https://github.com/darrenjw")
+    url = url("https://github.com/darrenjw")
   )
 )
 
@@ -34,8 +36,4 @@ publishMavenStyle := true
 
 Test / publishArtifact := false
 
-
-
 // eof
-
-
