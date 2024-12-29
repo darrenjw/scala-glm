@@ -13,8 +13,9 @@ jobs:
       with:
         distribution: temurin
         java-version: 8
-    - name: Install cs
+    - name: Install coursier
       uses: coursier/cache-action@v6
+    - name: Install scala-cli
       uses: VirtusLab/scala-cli-setup@main
     - name: Install scalafmt
       run: cs setup
