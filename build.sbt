@@ -21,6 +21,7 @@ libraryDependencies ++= Seq(
   ("org.ddahl" %% "rscala" % "3.2.19").cross(CrossVersion.for3Use2_13)
 )
 
+
 mdocIn := file("mdoc/")
 
 mdocOut := file("docs/")

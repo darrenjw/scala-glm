@@ -23,7 +23,7 @@ class UtilsPbts
 
   import Utils._
 
-  forAll { (x0: Double, x1: Double, x2: Double) =>
+  forAll(minSuccessful(500)) { (x0: Double, x1: Double, x2: Double) =>
     whenever(abs(x0) < 1e80 && abs(x1) < 1e80 && abs(x2) < 1e80) {
 
       val A = DenseMatrix((1, 2, 3), (0, 4, 5), (0, 0, 6)) map (_.toDouble)
