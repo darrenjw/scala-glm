@@ -34,9 +34,9 @@ resolvers ++= Seq(
     "https://oss.sonatype.org/content/repositories/releases/"
 )
 
-scalaVersion := "3.3.3"
+scalaVersion := "3.3.4"
 
-crossScalaVersions := Seq("2.12.19", "2.13.14", "3.3.3")
+crossScalaVersions := Seq("2.12.19", "2.13.15", "3.3.4")
 
 ThisBuild / versionScheme := Some("strict")
 

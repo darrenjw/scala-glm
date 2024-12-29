@@ -1,6 +1,6 @@
 # Makefile
 
-SCALA_VERSION=3.3.0
+SCALA_VERSION=3.3.4
 
 
 FORCE:
