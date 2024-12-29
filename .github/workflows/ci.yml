@@ -15,7 +15,6 @@ jobs:
         java-version: 8
     - name: Install cs
       uses: coursier/cache-action@v6
-      uses: VirtusLab/scala-cli-setup@main
     - name: Install scalafmt
       run: cs setup
     - name: Check formatting
