@@ -23,8 +23,8 @@ sbt new darrenjw/scala-glm.g8
 
 If you just want to try out the library without setting up any kind of project, you can do so with a session like:
 ```
-$ sbt "-Dsbt.version=1.9.0"
-> set scalaVersion := "3.3.0"
+$ sbt "-Dsbt.version=1.10.1"
+> set scalaVersion := "3.3.4"
 > set libraryDependencies += "com.github.darrenjw" %% "scala-glm" % "0.8"
 > console
 scala> import scalaglm.*
@@ -32,10 +32,23 @@ scala> import scalaglm.*
 
 Alternatively, if you use [scala-cli](https://scala-cli.virtuslab.org/), just add
 ```scala
-//> using scala 3.3.0
+//> using scala 3.3.4
 //> using dep com.github.darrenjw::scala-glm:0.8
 ```
-to the top of your script.
+to the top of your script. A minimal but complete runnable example script for `scala-cli` is given below:
+```scala
+//> using scala 3.3.4
+//> using dep com.github.darrenjw::scala-glm:0.8
+
+import scalaglm.Pca
+import breeze.linalg.*
+
+@main def sglm() =
+  val X = DenseMatrix((1.0,1.5),(1.5,2.0),(2.0,1.5))
+  val pca = Pca(X, List("V1","V2"))
+  pca.summary
+
+```
 
 See below for documentation links.
 
