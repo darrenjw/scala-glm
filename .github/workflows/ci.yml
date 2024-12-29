@@ -13,6 +13,8 @@ jobs:
       with:
         distribution: temurin
         java-version: 8
+    - name: Check formatting
+      run: scalafmt --check
     - name: Build and Test
       run: sbt -v +test
 
